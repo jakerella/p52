@@ -1,0 +1,9 @@
+Leaving a Room
+
+
+The party may leave any room/space that has an unlocked and unblocked exit (see Determining the Exit) any time they choose with the exception of rooms with Bosses or when on the Survival quest (see Choose a Quest for information on those two). In order to leave a room/space all players must be on the exit spot - on the next full turn round the entire party will leave the space. In other words, if there are three players and two of them are at the exit, the turn in which the third player gets to the exit is not the turn your party leaves - the enemies will get one more turn, then you may leave.
+Delaying Your Exit
+If there are no visible enemies in a room/space (in other words, you may not have revealed all of the room yet, but there are no enemies present) and the exit spot is visible you must flip a card from the Action deck after each round of player turns to see if a new enemy will appear from the exit. If that Flip is 4 or lower then a new enemy appears on the exit spot and takes their turn immediately. Reveal this enemy just as you would normally (see Revealing the Room); the enemy will behave just as usual.
+Any time there is an enemy in the room you do not need to Flip for delay (including enemies that show up by delaying), but as soon as there are no more enemies in a room you must resume this process.
+For example, let’s say there are three players, Player 2 defeats the last enemy in the room, then Player 3 takes their turn, then each player takes another turn. After Player 3 takes their second turn, flip for delay. If you did not get an enemy this time, each player takes another turn. Once again, after Player 3's turn, flip for an enemy. Repeat this process until the party leaves the room or an enemy appears.
+Note that you do NOT need to flip for delay until the exit spot is revealed. Thus, upon entering a dark room, you do not need to immediately begin flipping for delay.

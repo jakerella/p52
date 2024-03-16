@@ -1,0 +1,31 @@
+On Enemies Turn
+Determining Enemy Action
+Enemies mostly move and attack predictably, use the following rules to determine what an enemy will do on their turn. Note that these rules should be followed in order - that is, if rule 1 applies, do not continue to rule 2 or further; if rule 1 does not apply, then move to rule 2 and so on.
+If an enemy has less than ¼ of their maximum HP - and they have the ability to move - they will move away from the nearest player - but they will only do this if it does not move them closer to another player. (The player(s) may choose the direction if there is a choice.)
+An enemy under ¼ of their max HP will not proceed to the other actions in this list. If they cannot run away any further, they will heal 1 HP.
+If an enemy is in range of any player they will attack following the normal rules for doing so (see Enemy Attacking below). If there are multiple players in range, they will attack the weakest (lowest current HP). If a second enemy is in range of this weakest player and another player, then the second enemy will attack the next player in range distance, and if there is another tie, they will attack the next weakest player. This continues for all enemies in range of players.
+If an enemy has the ability to move they will move toward the nearest player. If there are multiple equidistant players, the enemy will move toward the weakest player (lowest current HP).
+If none of the above rules apply – or the enemy cannot take any action – then the enemy will skip their turn. When an enemy skips their turn in this manner they recover 1 HP.
+Enemy Attacking
+Note that these rules apply for all enemies - including bosses for the Boss quest - although the bosses do have some special rules that supersede these (see the Choose a Quest section).
+An enemy will attack any player in its range (unless it has less than ¼ of its maximum HP, see Determining Enemy Action above). If there are multiple players in range of its attack, an enemy will target the weakest player (by current HP, not maximum). Note that who is weakest may change, and the enemy will change who they attack as a result! If all players in range have the same HP remaining, the enemy will attack the player with the greatest maximum HP. (If this still does not identify the enemy's target, select a target at random.)
+If a second enemy is in range of the weakest player described above and another player, then the second enemy will attack the next player in range distance, and if there is another tie, they will attack the next weakest player. This continues for all enemies in range of players. The goal here is that enemies will distribute their attacks, not all focus on a single player.
+Each enemy attack will require the players to know the Average Level (AvgLv) of all players. To determine this, add all player levels, divide by the number of players and round down. For example, if there are three players with Levels of 3, 5, and 6 then the average player Level will be:
+(3 + 5 + 6) / 3 = 4.7 → 4
+Each enemy will attack using its primary attack method (see the Enemies table for your scenario) which will happen very similarly to player attacks (see Player Attacking above). Any player may do the enemy's attack flip, if the value is greater than the enemy's target, then the attack succeeds, but the player may be able to defend. Similar to player attacks, an Ace will allow for a counter attack by the player, and a King will mean extra damage from the enemy to the player.
+An enemy attack flip of a King indicates that the player will take extra damage if the attack hits. The bonus damage for enemies should be specified in the Enemies table of your scenario!
+An enemy will receive a +1 bonus to their attack flips for every 5 average Levels of the players. In other words, if the average player Level is 7 all enemies (including bosses) will receive a +1 to their attack flips; if the average player Level is 19 all enemies will receive a +3 to their attack flips.
+
+Player Defending
+If a player is hit by an enemy attack they may choose to defend using one of the defensive abilities (see the Abilities table). In general these flips will need to be successful by reaching (or exceeding) the target for that ability.
+For example, let's say a ranged enemy attacks you with a bow and a target of 8. Their attack flip is a 10, and thus is successful at targeting you. You may then attempt to defend using one of the defensive abilities that you are trained in (and which can defend this type of attack). You will flip for this defensive attempt, and if you meet or exceed the target for the ability, then you take reduced damage - read the ability’s description for how much damage is reduced. Keep in mind that you can take a defensive posture on previous turns to increase your defensive flip value (see Defensive Stance above).
+You may also use Stamina on these defensive abilities, but you must do so before you flip for the success (or failure) or the defensive ability!
+Note that some defensive abilities may only be used against certain types of attacks!
+
+Additional Defensive Abilities
+Players may use defensive abilities they are not trained in. When using them, all defensive targets are at a +3 and the ability level is assumed to be a 1 (but you may use the defensive stance to increase this flip value, see Defensive Stance above).
+
+Player Deaths
+When an enemy deals damage to a player it is taken off of their current Hit Points (HP). If that number reaches exactly zero, then the player will be stunned indefinitely: they can do nothing but defend, move, use items on themselves (and only themselves), or cast healing spells on themselves (and only themselves) until their HP is raised above zero.
+Should their HP drop below zero for any reason the player will die. They may be resurrected by certain items (and at the end of the playing session if the players allow it), but they may take no other actions. All of their items are on the spot where they died and any other player may come by to pick them up.
+Dead players will still receive experience for the current room/space based on their actions, and they will gain experience from completing the quest should the party be able to do so without them. Note that this is only true if the group decides to resurrect them at the end.
