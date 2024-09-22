@@ -29,4 +29,4 @@ Any time you are required to calculate something and you come up with a fraction
 
 ---
 
-Next > [2. Setting up a Session](03_setting_up_a_session.md)
+Next > [2. Setting up a Session](02_setting_up_a_session.md)

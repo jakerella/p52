@@ -10,7 +10,7 @@ We use the word "scenario" here because quests exist on a timeline, and those ti
 
 While a quest is meant to take place within a single play session, scenarios tend to be larger. While you can do them in one session, it might be best to break things up.
 
-You can read and choose from [the official scenarios](scenarios/) here, or [make one of your own](rules/13_creating_your_own_scenario.md)!
+You can read and choose from [the official scenarios](../scenarios/) here, or [make one of your own](13_creating_your_own_scenario.md)!
 
 
 ### Choose a Quest
