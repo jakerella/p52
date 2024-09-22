@@ -8,6 +8,7 @@
 These are the basic rules and instructions for a new version of an old game. The idea was to create a Role Playing Game (RPG) with as few necessary supplies/pieces (fewer things to buy and carry with you). The game is much more simple than most RPGs, requiring no Dungeon Master (DM), and only 2 decks of standard playing cards, these instructions, pencil and paper, and a placeholder for each character. While these instructions may seem long for players new to RPG systems, they are significantly shorter than the instructions for most RPGs - some of which are printed in numerous 100+ page volumes.
 
 Many of the ideas in this game are intentionally generic to allow for expansion and alteration. In fact, this manual is published under a Creative Commons license (see License below) so that anyone can copy and modify the rules to fit their needs. All I ask is that you share it with others (and give credit to those that came before you).
+
 If you have an idea for an alternate rule or a completely different theme: try it out, write it down, and share it! New abilities, items, quirks, and more are always welcome.
 
 * **Players**: 1-6
