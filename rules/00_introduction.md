@@ -18,8 +18,8 @@ If you have an idea for an alternate rule or a completely different theme: try i
 ### Table of Contents
 
 1. [General Mechanics](01_general_mechanics.md)
-2. [Creating a Character](02_creating_a_character.md)
-3. [Setting Up a Session](03_setting_up_a_session.md)
+2. [Setting Up a Session](02_setting_up_a_session.md)
+3. [Creating a Character](03_creating_a_character.md)
 4. [Basic Play](04_basic_play.md)
 5. [Space Layout](05_space_layout.md)
 6. [Player Turns](06_player_turns.md)
@@ -39,15 +39,15 @@ Because this is a role playing game with persistent player characters, there isn
 #### First Time Playing
 
 1. Learn the [general mechanics](01_general_mechanics.md) of the RPG system and [player](06_player_turns.md) and [enemy](08_enemy_turns.md) turns (~30 min)
-2. [Create your character(s)](02_creating_a_character.md) using the guide (~10 min)
-3. Pick a quest from your chosen scenario and [set up your first game session](03_setting_up_a_session.md) (~10 min)
+2. [Create your character(s)](03_creating_a_character.md) using the guide (~10 min)
+3. Pick a quest from your chosen scenario and [set up your first game session](02_setting_up_a_session.md) (~10 min)
 4. Lay out your [first space](05_space_layout.md) and start moving through the quest! (~1.5 hours)
 5. Complete your quest and [collect experience (and maybe level up)](10_experience_and_leveling.md) (~5 min)
 
 #### Subsequent Plays
 
 1. Refresh yourself of your characters' abilities (~ 5 min)
-2. Pick a quest from your chosen scenario and [set up your game session](03_setting_up_a_session.md) (~10 min)
+2. Pick a quest from your chosen scenario and [set up your game session](02_setting_up_a_session.md) (~10 min)
 4. Lay out your [first space](05_space_layout.md) and start moving through the quest! (~1-2 hours)
 5. Complete your quest and [collect experience (and maybe level up)](10_experience_and_leveling.md) (~5 min)
 

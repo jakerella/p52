@@ -47,4 +47,6 @@ Should your character be so amazing that they have mastered all of the abilities
 2. Start a new character and build them up with new abilities and attributes.
 3. Create a new ability! And while you're at it, maybe tinker with the rules to make the game more challenging!
 
+---
+
 Next > [11. Finishing Your Quest](11_finishing_your_quest.md)

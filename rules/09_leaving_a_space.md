@@ -12,4 +12,6 @@ For example, let's say there are three players, Player 2 defeats the last enemy 
 
 Note that you do not need to flip for delay until the exit spot is revealed. Thus, upon entering a dark room, you do not need to immediately begin flipping for delay.
 
+---
+
 Next > [10. Experience and Leveling](10_experience_and_leveling.md)

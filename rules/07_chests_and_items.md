@@ -45,4 +45,6 @@ Note that **only equipped items** grant the player their bonus! In other words, 
 
 You may choose to unequip an item you have previously equipped using this same process (note that you would do this in the same free action, you still can't equip or unequip twice in one turn). Any removed item goes back into your inventory.
 
+---
+
 Next > [8. Enemy Turns](08_enemy_turns.md)

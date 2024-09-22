@@ -1,12 +1,20 @@
 ## Space Layout
 
-To begin a new space (or "room" or whatever for interior quests) start by shuffling the Room deck, then flipping over the top two cards (3 cards for 4+ players). Add the card values together - this determines the number of "spots" in the room (each spot is a card and represents a small area of the space). If this is an interior quest, flip another card to determine if the room is lit or not: red means it is lit, black means the room is pitch black. If this is an exterior quest the space is lit during the day and dark at night. Refer to the [Setting up a Session](03_setting_up_a_session.md) section for guidance on interior versus exterior quests (and be sure to keep track of your day/night cycle).
+Your quest may specify the precise layout of certain rooms in certain quests. If it does, you should lay it out as specified there. However, often times quests will allow the players to create the spaces themselves, making the game more dynamic.
+
+> Even when a quest allows players to dynamically generate spaces, it may specify the size, so be sure to read your quest thoroughly!
+
+### Generating a Space
+
+To generate a new space (or "room" or whatever for interior quests) start by shuffling the Room deck, then flipping over the top two cards (3 cards for 4+ players, or perhaps specified in your quest). Add the card values together - this determines the number of "spots" in the room (each spot is a card and represents a small area of the space). If this is an interior quest, flip another card to determine if the room is lit or not: red means it is lit, black means the room is pitch black. If this is an exterior quest the space is lit during the day and dark at night. Refer to the [Setting up a Session](02_setting_up_a_session.md) section for guidance on interior versus exterior quests (and be sure to keep track of your day/night cycle).
 
 Now lay the determined number of cards face down on the table from the Room, beginning in front of your player pieces. The first card you lay down will be where your characters will enter the space. You can configure the spots in any pattern you like, but they must all be connected (no diagonal connections, and no "islands"). All of the cards should be oriented in the same manner (portrait or landscape), and should be laid out so the edges all match. In other words, you cannot put a card half way between two other cards. Look at the example layouts below to see what this looks like.
 
 You should rotate which player lays out each room. While this can be a discussion and group activity, that person gets the final say!
 
-### Determining the Exit
+#### Determining the Exit
+
+> Remember: your quest may specify the details of your room, in which case you need to follow that!
 
 The exit for any room is determined by first flipping another card from your Room deck: a 2-4 indicates the exit is to the left of the starting side, a 5-7 indicates it is across from the starting side, and an 8-10 indicates it is to the right of the starting side. The actual exit spot (think: where the door is) will be the furthest card away from the starting spot – or furthest to the left of the start if the exit is across from the entrance.
 
@@ -14,9 +22,9 @@ If you flip an Ace the exit is barricaded and you must defeat all enemies in the
 
 > Note that you may want to mark the entrance and exit in each room with some marker.
 
-### Example Layouts
+#### Example Generated Layouts
 
-Here are two possible layouts for reference:
+Here are two possible generated layouts for reference:
 
 | Example 1 | Example 2 |
 | --------- | --------- |
@@ -25,7 +33,7 @@ Here are two possible layouts for reference:
 
 > Note that the layout does not need to be symmetrical, but all cards must be connected!
 
-### Revealing the Room
+### Revealing a Space
 
 If the space is lit, characters can see farther into the area. If the space is not lit, then it is pitch black, and characters can only see the spots directly around them.
 
@@ -63,9 +71,9 @@ Lastly, note that any spot not taken up by a card (that is, anywhere that you ha
 
 ### Space Layout Default Values
 
-When revealing any spot in the space, use the table below to determine what lies on that spot. These are default values - check your scenario for any deviations!
+When revealing any spot in the space, use the table below to determine what lies on that spot. These are default values - check your scenario or quest for any deviations!
 
-All **Aces, twos, and threes** are always specific to your particular scenario and quest!
+All **Aces, twos, and threes** are always specific to your particular quest!
 
 | Card # | Suit | Effect |
 | ------ | ---- | ------ |
@@ -89,5 +97,7 @@ All **Aces, twos, and threes** are always specific to your particular scenario a
 > Note that triggering a trap does not disable it. Thus any other players must also perform this check. Enemies are immune to the traps.
 >   
 > ^ A **Secret Passage** can transport a player from this spot to any spot of the **same suit** using **2 movement actions**. The passage is one way, and enemies may not use these passages.
+
+---
 
 Next > [6. Player Turns](06_player_turns.md)

@@ -8,7 +8,7 @@ After entering the space, be sure to reveal any spots you can all see based on w
 
 ### Initiative
 
-Each player should already know their initiative level from [creating their character](02_creating_a_character.md) and it should be recorded on their [character sheet](guides/P52-character-sheet.pdf). (Note that your initiative level can change over time as your abilities increase.)
+Each player should already know their initiative level from [creating their character](03_creating_a_character.md) and it should be recorded on their [character sheet](guides/P52-character-sheet.pdf). (Note that your initiative level can change over time as your abilities increase.)
 
 If there are any immediately visible enemies when you enter the space, **flip a card from your Action deck** to see if either party gets the drop on the other. On an **Ace**, all enemies will go first – in initiative order – before any player. After that play continues in initiative order from the highest value down. On a **King** all players will go first in initiative order before any enemy, and then play continues as usual in initiative order from the highest value down. On a **seven**, the initiative order for this space will be reversed: the lowest initiative will go first and then up from there.
 
@@ -109,5 +109,7 @@ Note that trading items among players is a **free action** and does not take up 
 Below is an example of what an in progress game might look like.
 
 ![](images/p52-example-table.png)
+
+---
 
 Next > [7. Chests and Items](07_chests_and_items.md)

@@ -1,12 +1,12 @@
 ## Basic Play
 
-This section is intended to give you an overview of the flow of a game session. We assume you've already familiarized yourself with the [general mechanics](01_general_mechanics.md) of the game, [created your character(s)](02_creating_a_character.md), and [set up a game session](03_setting_up_a_session.md).
+This section is intended to give you an overview of the flow of a game session. We assume you've already familiarized yourself with the [general mechanics](01_general_mechanics.md) of the game, [created your character(s)](03_creating_a_character.md), and [set up a game session](02_setting_up_a_session.md).
 
-Each game session is a quest, and each quest is broken up into various "spaces", which may be rooms in castle, dungeon tunnels, or forest paths, depending on your quest and the scenario. Within each space you will likely need to defeat enemies, collect items from chests, and possibly find a special thing, person, or enemy. The quest should lay these things out for you.
+Each game session is a quest, and each quest is broken up into various "spaces", which may be rooms in castle, dungeon tunnels, forest paths, or any number of other things, depending on your quest and the scenario. Within each space you will likely need to defeat enemies, collect items from chests, and possibly find a special thing, person, or enemy. The quest should lay these things out for you.
 
 In general, a game session will go like this:
 
-0. [Session setup](03_setting_up_a_session.md) (1 time)
+0. [Session setup](02_setting_up_a_session.md) (1 time)
     - Choose a scenario and a quest within it
     - Determine the environment (inside vs outside)
     - Deal stamina
@@ -34,5 +34,7 @@ The playing session ends either when your quest has been completed or all party 
 ### Using a Session Log
 
 When you start a new game session you may want to consider using a [session log](guides/P52-session-log.pdf) to track what happens - especially things like enemies defeated and chests opened. There is a blank [Session Log](guides/P52-session-log.pdf) that you can use, or create your own with all of the information you need. The idea is to track the quest being undertaken, the location, the players, and what happens. Most often this means what enemies you encounter and how they are dealt with. Doing this will help when assessing experience points after each room (and at the end of the session).
+
+---
 
 Next > [5. Space Layout](05_space_layout.md)

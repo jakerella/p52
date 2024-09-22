@@ -80,4 +80,6 @@ Dead players may also be resurrected at the end of the game session, regardless 
 
 Dead players will still receive experience for the current space based on their actions, and they will gain experience from completing the quest should the rest of the party be able to do so without them. Note that **this is only true if the group decides to resurrect them** at the end.
 
+---
+
 Next > [9. Leaving a Space](09_leaving_a_space.md)

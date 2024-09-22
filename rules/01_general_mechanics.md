@@ -27,4 +27,6 @@ Any time you are required to calculate something and you come up with a fraction
 
 ...which would be rounded down to 2.
 
-Next > [2. Creating a Character](02_creating_a_character.md)
+---
+
+Next > [2. Setting up a Session](03_setting_up_a_session.md)
