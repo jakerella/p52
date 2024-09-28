@@ -15,7 +15,11 @@ After exiting a space players will receive experience (exp) points which are use
 
 ### Leveling Up
 
+> A player is **not required** to level up. However, before spending experience points anywhere else, they must do so. In other words, the rules further down for leveling up other abilities using experience points may only occur immediately after leveling up.
+
 Leveling up occurs after experience is awarded, but before any other actions (such as setting up and entering the next space). Gaining levels will add to the difficulty of the enemies, but also means the player is stronger. A player should increase their Level any time their experience reaches the next Level's threshold. The player's current threshold is `(Current Level x 10) + 10` (so for a Level 2 player, they will move up to Level 3 when their experience reaches 30).
+
+> Regardless of how many experience points a player has, they may only level up 1 level between quests or between spaces. In other words, you must always do _some_ sort of game play between levels.
 
 When a player gains a Level they should do the following, in order:
 
@@ -37,7 +41,9 @@ Any time that you increase your core attributes you should double check that you
 
 ### Increasing Other Abilities
 
-When leveling up, a player may choose to **spend experience points** to increase a specific ability's level. The amount of experience required to increase an ability is listed in the Abilities table in your scenario. Remove this experience from your [character sheet](guides/P52-character-sheet.pdf) and increase the level of that ability. You cannot gain a new ability this way! You cannot use the same experience points to level up your character and increase an ability.
+When leveling up (and only immediately after leveling up), a player may choose to **spend experience points** to increase a specific ability's level. The amount of experience required to increase an ability is listed in the Abilities table in your scenario. Remove this experience from your [character sheet](guides/P52-character-sheet.pdf) and increase the level of that ability. You cannot gain a new ability this way! You cannot use the same experience points to level up your character and increase an ability.
+
+> This action is **not required**, and players may want to save their experience points to level up again soon.
 
 ### Running Out of Abilities
 

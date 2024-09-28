@@ -17,7 +17,7 @@ You can read and choose from [the official scenarios](../scenarios/) here, or [m
 
 Once you have chosen a scenario (or when continuing a scenario), the next step is to choose a quest for your character(s). Often within a scenario the quests will be ordered to form a storyline. While you do not necessarily have to do these in order, that is how the story was written. Other scenarios may simply be a loose collection of quests in the same universe, in which case you should choose whichever quest sounds good that day!
 
-Every quest will have a description of the setting and goal, certain starting items, and a bonus for completing it. Note that for any quest bonuses, the "Level" used is the final character level after all experience outside of the bonus has been applied.
+Every quest will have a description of the setting and goal, certain starting items (maybe), and a bonus for completing it. Note that for any quest bonuses, the "Level" used is the final character level after all experience outside of the bonus has been applied.
 
 ### Determine the Environment
 
@@ -49,14 +49,14 @@ In all cases, when drawing a Stamina card, the player should draw it from the Ac
 
 #### Starting Items
 
-In addition to any items left over in your inventory from previous game sessions, when a party starts out on a quest each player will be given some items to help them out. Quests may specify the items players start with, but often it will be left up to chance. In that case, Each player should **flip two cards** from the Action deck to determine their first starting item. 
+In addition to any items left over in your inventory from previous game sessions, when a party starts out on a quest each player may be given some items to help them out. Quests may specify the items players start with, but often it will be left up to chance. In that case, Each player should **flip two cards** from the Action deck to determine their first starting item. 
 
 Unless the quest says otherwise, players should also receive a healing item. This should be whatever the lowest level healing item is for your scenario. (In other words, not a full HP restore or revive-from-death type of item.)
 
-Each scenario will have its own starting item table, this is just a generic guide:
+Each scenario will have its own item table, this is just a generic guide:
 
 | Card Sum | Item Type | Example & Notes |
-| -------- | --------- | ------- |
+| -------- | --------- | --------------- |
 | 2-5      | Mildly useful item | torch or other throw away item |
 | 6-10     | Reasonably useful item | lock pick maybe |
 | 11-15    | Good item | armor or weapon, but not too strong |

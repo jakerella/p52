@@ -108,6 +108,8 @@ Captain:		Hand-to-hand, Threaten, Block
 
 ### Abilities
 
+@TODO: add in "Scholar" ability for reading ancient texts or understanding certain characters
+
 Name
 Pre-req
 Target
@@ -242,7 +244,7 @@ Ice Storm
 Think 6
 Balance 5
 10 - aLv + R
-Freezes all enemies on the target spot and 1 spot adjacent for 3 rounds.
+Freezes all enemies on the target spot and 1 spot adjacent for 3 rounds. @TODO: add damage as well
 12
 Meteor Strike
 Think 8
@@ -344,7 +346,7 @@ If on your first flip (to determine if the effect happens) you flip a King, you 
 
 ### Starting Items
 
-All players starting out on a quest receive 1 Healing Potion in addition to one of the starting items in the table below (based on a 2-card flip).
+Unless the quest says otherwise, all players starting out on a quest receive 1 Healing Potion in addition to one of the starting items in the table below (based on a 2-card flip).
 
 Card Sum
 Item
@@ -364,6 +366,7 @@ Dagger, Bow, or Sword (player's choice)
 Stamina or Adrenaline Boost (player's choice)
 23-26
 Player chooses any of the items above, then draws again for a second item.
+
 Note that this only works once, stop at two items total.
 
 
@@ -422,7 +425,7 @@ Enchanted Shoes *
 16
 Good Armor *
 Decrease damage by the value of your Level x 2
-Decrease Move by: (number of total armor pieces equipped / 2)
+Decrease Move by: (number of total armor pieces equipped / 2) @TODO: modified by Lift
 17
 Fire Elixir
 When thrown, deals damage to every enemy on a spot:

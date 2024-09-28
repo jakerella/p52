@@ -10,6 +10,24 @@ When creating your character you should know that the actions your character tak
 
 These instructions are the basic rules and mechanics. The actual races, classes, abilities, etc. you can choose from will be in the specific scenario/reality that you choose!
 
+### Character Basics
+
+Each character has basic qualities like a name, race, and class. They will typically also have a quirk that makes them unique and special. There are 5 "core abilities" that every character has:
+
+* Lift: your ability to lift things, and generally a measure of how strong you are
+* Think: your ability to logically reason through problems, and generally a measure of how smart you are
+* Balance: your ability to maintain your balance, even in tough situations
+* Move: your ability to move yourself, and generally a measure of your speed
+* Lead: your ability to convince others to do what you want, and partially a measure of your charisma
+
+These core abilities also determine certain other attributes of your character:
+
+* Movement: how many spots you can move on a normal turn
+* Max HP: your maximum health (hit points)
+* Initiative: how willing you are to go first into the breach
+
+These abilities and attributes are the same for every character (except for the quirks), but the levels of them allow characters to attain and build up additional abilities: things like knife or bow skills, magic or spiritualism, or even things like incredible feats of acrobatics. These additional abilities may be obtained over time, and are generally **specific to each scenario** as they relate to the reality your characters live in.
+
 ### Step 1: Choose a Race
 
 Each race will have certain abilities that they are better at, and some that they are not so good at. There may also be special abilities available only to certain races. You will want to choose your race keeping in mind what type of character you want to be (for example, a strong warrior versus a powerful wizard). Check out the "Race Core Ability Levels" table in your scenario document to see all of the options.
