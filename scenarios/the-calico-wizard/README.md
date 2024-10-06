@@ -1,7 +1,7 @@
 
 # The Calico Wizard
 
-> This is a role playing game scenario based in the P52 RPG system. Use it along with the [rules of P52](../rules)!
+> This is a role playing game scenario based in the P52 RPG system (v1.4). Use it along with the [rules of P52](../rules)!
 > 
 > Copyright [Jordan Kasper](https://jordankasper.com) 2024
 
