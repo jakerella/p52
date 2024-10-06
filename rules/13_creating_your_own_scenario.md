@@ -4,6 +4,15 @@
 @TODO Provide templates
 
 
+
+| Category      | Description   | Notes |
+| ------------- | ------------- | ----- |
+| Treasure Hunt | Ooooh, shiny! Remember that special thing the High Leader always asked for? Well, we know it's in a chest around here somewhere. Find it for them! | This is essentially a hunt for a specific treasure chest. Generally an Ace represents a chest. The scenario will tell you **which chest is the right one**. That may be based on a sequence, a number of dungeon rooms, etc. Regardless a strong enemy should always be protecting that chest! There should also be some escape shenanigans, like flipping an Action card to see how many rooms you have to escape through. |
+| Trapped       | We're trapped down here! We need to find the hidden keys and escape. | You need to collect some number of keys in order to complete the quest. Keys may be on certain enemies, or in chests, depending on the scenario. There may also be escape conditions, like using a pair of keys in a certain way to unlock the exit. |
+| Survival      | There's too many of 'em! We just need to hold out a little longer. | The idea is just to crawl the dungeon and survive. The scenario states how many enemies or rooms there are in some novel fashion. Often players will need to defeat all enemies in a room before progressing. |
+| Big Boss      | Uh oh, they look tough. | Generally a scenario will dictate that you need to defeat a minor _and_ a big boss. Often an Ace will represent a Boss in a room layout, with the first to appear being the Minor Boss, the second the Big Boss. The bosses are generally stronger than other enemies and can often heal or move in some unique way. |
+
+
 (Original Table from "Setting Up a Session")
 
 Treasure Hunt

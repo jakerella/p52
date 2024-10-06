@@ -10,9 +10,9 @@ After entering the space, be sure to reveal any spots you can all see based on w
 
 Each player should already know their initiative level from [creating their character](03_creating_a_character.md) and it should be recorded on their [character sheet](guides/P52-character-sheet.pdf). (Note that your initiative level can change over time as your abilities increase.)
 
-If there are any immediately visible enemies when you enter the space, **flip a card from your Action deck** to see if either party gets the drop on the other. On an **Ace**, all enemies will go first – in initiative order – before any player. After that play continues in initiative order from the highest value down. On a **King** all players will go first in initiative order before any enemy, and then play continues as usual in initiative order from the highest value down. On a **seven**, the initiative order for this space will be reversed: the lowest initiative will go first and then up from there.
+If there are any immediately visible enemies when you enter the space, **flip a card from your Action deck** to see if either party gets the drop on the other. On an **Ace**, all enemies will go first – in initiative order – before any player. After that play continues in initiative order from the highest value down. On a **King** all players will go first in initiative order before any enemy, and then play continues as usual in initiative order from the highest value down.
 
-On any other card, play begins with the highest initiative character (player or enemy) and on down in initiative order.
+On any other card, play begins with the highest initiative character (player or enemy) and on down in initiative order. In the case of any ties, the tied character (player or enemy) with the highest HP goes first. If still tied, players go first.
 
 For dark spaces, if there are no visible enemies, the players take turns in initiative order, highest to lowest. When a player moves onto a spot which reveals an enemy, the player should flip an Action card; on a **3 or less** the enemy will take their turn next, then play will continue in initiative order (which may mean that enemy gets another turn very soon). Otherwise, the new enemy should be slotted into the initiative order and will take their turn when the order comes around to them.
 
@@ -25,6 +25,8 @@ You may also choose to wait one spot in the initiative order before taking your 
 ### Player Movement
 
 Possibly the simplest thing you can do is move your character within the space. Check your "Movement" skill on your [character sheet](guides/P52-character-sheet.pdf) to see how many spots you can move. You **cannot move diagonally**, but otherwise you are free to move in any direction. An individual character may not leave the space by themselves. Players do not have to go their entire Movement amount on any turn (so if you have a movement of 3, you can choose to go 1 or 2 spots).
+
+> Your movement may be impacted by the items you are wearing! Be sure to check your items' descriptions. You can read about the impact of equipped item weight in the [Chests and Items section](07_chests_and_items.md#item-weight).
 
 #### Revealing Dark Spaces
 
@@ -42,19 +44,29 @@ Choose the ability you wish to use and an enemy to target, then flip a card from
 
 > In general, for a melee attack you must be on the same spot as an enemy. Ranged attack abilities should indicate how their range is calculated.
 
-For example, if you choose to use the "Knife" ability and have a level of 2 in that ability. The Knife ability has a **target** of `9 - aLv` (the ability level) and deals `(Bal / 2) + (Over x 2)` **damage**. In this case, you would first choose an enemy on your spot (it is not a ranged attack) and flip a card - lets say you flipped a 10. Since 10 is over the target for the Knife ability (`9 - 2 = 7`) you will succeed in hitting the enemy. Now the enemy may have a chance to defend. Let's say you flip a 6 for the enemy defense, this is lower than your total of 10, thus the enemy will take damage.
+For example, you might use the "Sword" ability and have a level of 2 in that ability. Perhaps that ability has a **target** of `9 - aLv` (the ability level) and deals `(aLv x 2) + (Over / 2)` **damage**. In this case, you would first choose an enemy on your spot (it is not a ranged attack) and flip a card - lets say you flipped a 10. Since 10 is over the target for the ability (`9 - 2 = 7`) you will succeed in hitting the enemy. Now the enemy may have a chance to defend. Let's say you flip a 6 for the enemy defense, this is lower than your total of 10, thus the enemy will take damage.
 
-The damage would be: `(your level in Balance / 2) + (amount Over target x 2)` which becomes: `(7 / 2) + (3 x 2)` (assuming your level in Balance was 7). Thus, rounding down, the damage would be 9 hit points.
+The damage would be: `(your level in Sword x 2) + (amount Over target / 2)` which becomes: `(2 x 2) + (3 / 2)`. Thus, rounding down, the damage would be `(4 + 1)` or 5 hit points.
 
-> Remember: all division is rounded down, so `(7 / 2)` is 3!
+> Remember: all division is rounded down, so `(3 / 2)` is 1!
 
 #### Using Stamina
 
 If this particular attack is very important to get right, you can play a Stamina card from your pile in order to increase your total (thus increasing your chance to hit and your Over value). However, **you must choose to play a Stamina card before flipping for your attack**! Remember, your Stamina pile is secret, even to you. You do not get to "pick" your Stamina card, just flip over the top card.
 
+#### Untrained Weapon Attacks
+
+If you are **not trained** in an ability that requires a weapon (like Sword Play, Bow Skills, etc.) then you may still use that ability if you have a properly equipped weapon. The player will assume a level of 1 in the ability and they will have a **+2 to hit the target**. The **damage** will always be `((Over / 2) + I)`
+
 #### Attack or Item Range
 
 Any time that an ability, weapon, or item indicates it is a Ranged attack (or for anything else with a "Range" attribute) there will be a number (or calculation) associated with it. A Range of 0 indicates that the ability (or item) can only be used on the same spot the player (or enemy) is located. A Range of 1 indicates that the ability (or item) can be used on the player's spot and one adjacent - note that a **diagonal spot is not adjacent** for attacking and item usage purposes. A Range of 2 goes one spot further and so forth.
+
+Some items may be thrown to use their effect (this should be specified in your scenario's item table). When throwing an item, your character may thrown it within the limits of their strength using this formula where "W" is the weight of the item (minimum of 1):
+
+`Throw Range = (Lt / 3) + 2 - W`
+
+> You can throw any item, but it will only have an effect if stated in your scenario's items table. In other words, you can't throw a sword at an enemy and expect to deal any damage.
 
 #### Line of Sight
 
@@ -104,7 +116,15 @@ You may use any item from your inventory on your turn - whether on yourself or a
 
 Note that trading items among players is a **free action** and does not take up your turn, but it can only be done on your turn, before any other action, and only while the two players are on the same spot. In other words, if player 1 and player 2 are on the same spot, player 1 could give or take as many items as they like to/from player 2, then move on the same turn. However, player 1 could not move onto the same spot as player 2 and _then_ trade items that same turn (trading must happen first).
 
-### Example
+#### Throwing
+
+You may throw _any_ item you wish; however, only certain items will have an effect by doing so (this should be specified in your scenario's item table). **Throwing an item uses your turn**, regardless of whether there is an effect (it is not a free action like trading). When throwing an item, your character may thrown it within the limits of their strength using this formula where "W" is the weight of the item (minimum of 1):
+
+`Throw Range = (Lt / 3) + 2 - W`
+
+Throwing an item onto a spot has no effect on the enemies or characters on that spot unless specified in the items table. However, another character may choose to pick up this item and put it in their own inventory!
+
+### Example In Progress Game
 
 Below is an example of what an in progress game might look like.
 

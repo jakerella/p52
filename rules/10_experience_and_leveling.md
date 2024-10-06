@@ -41,7 +41,9 @@ Any time that you increase your core attributes you should double check that you
 
 ### Increasing Other Abilities
 
-When leveling up (and only immediately after leveling up), a player may choose to **spend experience points** to increase a specific ability's level. The amount of experience required to increase an ability is listed in the Abilities table in your scenario. Remove this experience from your [character sheet](guides/P52-character-sheet.pdf) and increase the level of that ability. You cannot gain a new ability this way! You cannot use the same experience points to level up your character and increase an ability.
+When leveling up (and only immediately after leveling up), a player may choose to **spend experience points** to increase a specific ability's level. The amount of experience required to increase an ability is listed in the Abilities table in your scenario. The amount of experience required to attain the next level in any non-core ability is multiplied by the character's current level in that ability. In other words, going from level 3 to level 4 in Bow Skills might require `3 (level) x 6 (exp required) = 18` experience points.
+
+Remove this experience from your [character sheet](guides/P52-character-sheet.pdf) and increase the level of that ability. You cannot gain a new ability this way! You cannot use the same experience points to level up your character and increase an ability.
 
 > This action is **not required**, and players may want to save their experience points to level up again soon.
 

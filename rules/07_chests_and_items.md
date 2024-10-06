@@ -29,7 +29,7 @@ If a player is not trained in the Lock Picking ability, they can still use this 
 
 Once a chest is open, you flip two cards from the Action deck and use the card total to determine what item you get. Each scenario will have its own "Chest Items" table. Place any item received in your character's inventory. Note that you do not have to take the item, and if you do not it remains on that spot. There is no limit to the number of items you can hold, unless your scenario or quest says otherwise.
 
-> If both of the cards are the **same suit** in your flips to reveal the item, then you also gain 1 Lock Pick item.
+> If both of the cards are the **same suit** in your flips to reveal the item, then you also gain 1 Lock Pick item. (Note that if you used a lock pick to open this chest, that one was consumed, so you stay at the same number in your inventory.)
 
 ### Attacking a Chest
 
@@ -41,9 +41,22 @@ If the lock on a chest has been broken - or if you simply choose not to use the 
 
 On your turn you can choose to equip (or remove) an item that is not consumable, like a piece of armor or a weapon (but not a potion). This is a free action, and you can equip as many items as you want, but you may only do it once. In other words, you may _not_ equip, move, then equip again in the same turn (but you could move and then equip an item).
 
-Note that **only equipped items** grant the player their bonus! In other words, the defensive bonus of a helmet is only applied if it is equipped. You cannot have more than one item equipped on the same body part, and you should be sensible about other items. For example, you may be able to have a sword and a knife equipped, but certainly not a sword and a mace. Consider equipping what you would be holding in your hands or easily accessible (like a knife), not what is in your satchel.
+Note that **only equipped items** grant the player their bonus! In other words, the defensive bonus of a helmet is only applied if it is equipped. You cannot have more than one item equipped on the same body part, and you should be sensible about other items. For example, you may be able to have a light sword and a knife equipped, but certainly not a battle ax and long staff. Consider equipping what you would be holding in your hands or easily accessible (like a knife), not what is in your satchel.
 
 You may choose to unequip an item you have previously equipped using this same process (note that you would do this in the same free action, you still can't equip or unequip twice in one turn). Any removed item goes back into your inventory.
+
+#### Item Weight
+
+Only **equipped item** weights affect your character. Otherwise, for simplicity sake, you can carry as many items as you like. For equipped items, take the total weight as specified in the scenario's items table and divide by your `(Lift x Balance)` core attributes. Round down as usual (possibly down to zero), this is the **negative impact to your movement**. In other words, if you carry a lot of stuff, your movement will be limited!
+
+This means if you carry enough stuff you may have zero or negative movement. You can still take any non-movement actions, but until you unequip one or more items (and thus lose their bonus or effect), you will not be able to move.
+
+For example, let's say you have Lift 4, Balance 2, and Move 5, and you have two pieces of armor (weights 2 and 3) and a heavy sword (weight 4) equipped. Your base Movement is `((5 / 4) + 1) = 2`,  and your total equipped weight is `(2 + 3 + 4) = 9`. The impact of your equipped items is `Weight / (Lift x Balance)` which is `(9 / (4 x 2)) = 1`. This impact means your actual Movement will be `(2 - 1) = 1`
+
+> ##### Advanced Rule
+> 
+> Remember, at its core this is a role playing game! So if you and your fellow players want, you can enact a carry-limit rule. For example, you might say that a character may only carry a maximum of `(Lift x Balance) x 2` items. If you do this, be sure to include non-equipped items in your calculation!
+
 
 ---
 
