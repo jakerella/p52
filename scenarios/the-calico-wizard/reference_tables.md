@@ -27,22 +27,19 @@ Of all the peoples of this world, the **Otorani** are the most trusted and most 
 
 #### Race Modifiers
 
-| Race | Lift | Think | Balance | Move | Lead |
-| ---- |:----:|:-----:|:-------:|:----:|:----:|
-| Miowethian | 0 | +1 | +2 | 0 | -1 |
-| Wufanthian | +1 | 0 | -1 | 0 | +2 |
-| Avanti | -1 | +2 | 0 | +3 | -2 |
-| Urson | +3 | -1 | -1 | +1 | 0 |
-| Escurielle | -1 | -1 | +3 | +2 | -1 |
-| Racuu | 0 | +3 | +1 | -1 | -1 |
-| Otorani | -1 | +1 | 0 | -1 | +3 |
+|    Race     | Lift | Think | Balance | Move | Lead |
+| ----------- |:----:|:-----:|:-------:|:----:|:----:|
+| Miowethian  | 0    | +1    | +2      | 0    | -1   |
+| Wufanthian  | +1   | 0     | -1      | 0    | +2   |
+| Avanti      | -1   | +2    | 0       | +3   | -2   |
+| Urson       | +3   | -1    | -1      | +1   | 0    |
+| Escurielle  | -1   | -1    | +3      | +2   | -1   |
+| Racuu       | 0    | +3    | +1      | -1   | -1   |
+| Otorani     | -1   | +1    | 0       | -1   | +3   |
 
 #### Race Abilities
 
-In addition to the ability modifiers above, Miowethian and Wufanthian characters will start with these abilities at level 1, ignoring any pre-requisites:
-
-* Miowethian: ???
-* Wufanthian: ???
+This scenario does not impart any default abilities for specific races.
 
 ### Character Classes
 
@@ -50,17 +47,17 @@ Your character has been training their whole life for adventures like this. Choo
 
 #### Class Modifiers
 
-| Race | Lift | Think | Balance | Move | Lead |
-| ---- |:----:|:-----:|:-------:|:----:|:----:|
-| Fighter | +2 | 0 | -1 | 0 | +1 |
-| Rogue | -1 | +1 | +2 | +2 | -2 |
-| Wizard | -1 | +3 | 0 | -1 | +1 |
-| Cleric | -1 | +2 | 0 | +2 | -1 |
-| Captain | +1 | -1 | -1 | +1 | +2 |
+|  Race   | Lift | Think | Balance | Move | Lead |
+| ------- |:----:|:-----:|:-------:|:----:|:----:|
+| Fighter | +2   | 0     | -1      | 0    | +1   |
+| Rogue   | -1   | +1    | +2      | +2   | -2   |
+| Wizard  | -1   | +3    | 0       | -1   | +1   |
+| Cleric  | -1   | +2    | 0       | +2   | -1   |
+| Captain | +1   | -1    | -1      | +1   | +2   |
 
 #### Race Abilities
 
-In addition to the ability modifiers above, characters will start with these abilities at level 1, ignoring any pre-requisites:
+In addition to the core ability modifiers above, characters will start with these abilities at level 1, ignoring any pre-requisites:
 
 * Fighter: Sword, Body Block
 * Rogue: Bow, Lock Picking, Dodge
@@ -97,21 +94,21 @@ There are various shorthands used in the table below:
 | Heal             | Th 6, Ld 2  | 5 + R        | aLv + Over             |  9  | Magically heal target character (can be self)
 | Body Block       | Lt 4, Mv 2  | 8 - aLv      | -(aLv + (Lt / 2))      |  7  | Reduce damage from a non-magical attack. |
 | Shield Block *   | Lt 5, Bc 2  | 7 - aLv      | -(aLv + I)             |  9  | Reduce damage from a non-magical attack. Must have shield equipped, equipped shield quality partially determines reduction (see items table). On a King, character may initiate a counter attack per normal attack rules. |
-| Parry *          | Lt 4, Th 3  | 8 - aLv      | -(aLv + I)             |  10 | Reduce damage from a non-magical attack. Must have suitable weapon equipped, equipped weapon damage bonus partially determines damage reduction (see items table). On a King, character may initiate a counter attack per normal attack rules. |
+| Parry *          | Lt 4, Th 3  | 10 - aLv      | -(aLv + I)             |  10 | Reduce damage from a non-magical attack. Must have suitable weapon equipped (see items table), equipped weapon damage bonus modifies damage reduction. If over the target by 4 or more (or on a King), character may initiate a counter attack per normal attack rules. |
 | Counter Spell    | Th 4, Bc 2  | 8 - aLv      | -(aLv + Over + Th)     |  8  | Reduce damage from magical attack |
-| Dodge            | Mv 3, Bc 3  | 10 - aLv     | (see usage)            |  10 | Over >= 4: no damage taken, move 1 spot; Over < 4: half damage, no movement |
+| Dodge            | Mv 3, Bc 3  | 10 - aLv     | (see usage)            |  10 | Over > 5: no damage taken, move 1 spot; Over 3-5: no damage; Over 0-2: half damage |
 | Poison tip †     | Th 3, Ld 3  | 11 - aLv     | aLv x 2                |  11 | Bow, knife, or sword must be equipped; if successful, next 3 attacks will deal extra damage per ability effect; missed hits DO count against 3 attacks; can be used on another character's weapon if on the same spot |
 | Lock Picking †   | Th 3, Bc 2  | 10 - aLv     | (see usage)            |  10 | On success, lock picked; **add Over to item selection value**; on Ace, lock broken |
 | Snatch †         | Th 2, Mv 4  | 10 - aLv     | (see usage)            |  10 | If successful, you steal one item from an enemy on your spot. Flip 2 cards to determine the item. |
-| Light speed      | Bc 3, Mv 4  | 10 - aLv     | (see usage)            |  10 | If successful, add the Over amount to your move and then take a Move action this turn. If unsuccessful, you may not Move on your next turn. |
-| Power Thrust *†  | Lt 6, Bc 3  | 8 + # - aLv  | (aLv x 3) + Over + I   |  10 | Melee attack (sword (or equivalent) must be equipped); all enemies on a spot are hit; each enemy does get a defense |
-| Ninja Attack     | Bc 6, Mv 6  | 9 - aLv + R  | (see usage)            |  10 | If successful, you fly through the air, bouncing off walls and such, and attempt a devastating attack on the target enemy. Immediately perform your attack (that is, take another action), if the attack is successful, the enemy may not defend it. **If you fail the ninja move**, you fall on your face, take damage equal to the amount you missed the target by |
-| Arrow Crafter    | Bc 4, Mv 4  | 8 - aLv      | Over + 1               |  11  | If successful, you craft the number of arrows determined by the effect. These arrows will have a damage bonus of `(aLv / 2) + 1`. |
-| Double Tap       | Lt 5, Mv 5  | 10 - aLv     | Over x 3               |  12 | May only use if enemy is below 1/4 of their HP **directly after your attack this turn** |
+| Light speed      | Bc 3, Mv 4  | 10 - aLv     | (see usage)            |  10 | If successful, add the Over amount to your movement and then take a Move action this turn. If unsuccessful, you may not Move on your next turn. |
+| Power Thrust *†  | Lt 6, Bc 3  | 8 + # - aLv  | (aLv x 3) + Over + I   |  10 | Melee weapon must be equipped; all enemies on a spot are hit; each enemy does get a defense |
+| Ninja Attack     | Bc 6, Mv 6  | 10 - aLv + R  | (see usage)            |  10 | Choose a target enemy 1-2 spots away. If this action is successful, you fly through the air, bouncing off walls, and attempt a devastating attack on the target enemy. Immediately perform your attack (that is, take another action, must be an ability with damage), if the attack is successful, the enemy may **not** defend it. **If you fail the ninja move**, you fall on your face, take damage equal to the amount you missed the target by. If the attack fails, nothing happens, but you are now on the enemy's spot. |
+| Arrow Crafter    | Bc 4, Mv 4  | 8 - aLv      | (see usage)            |  11  | If successful, you craft a number of arrows equal to `Over + 1`. Each arrow will have a damage bonus of `(aLv / 2) + 1`. Add them to your inventory. |
+| Double Tap       | Lt 5, Mv 5  | 10 - aLv     | Over x 3               |  12 | Deal additional damage to a target enemy. May only use if the enemy is below 1/4 of their HP **directly after your first attack this turn**. In other words, you are able to take 2 actions this turn. |
 | Sneaky           | Bc 8, Mv 5  | 8 - aLv + R  | (see usage)            |  12 | If successful, you sneak away to the target revealed spot. **At level 3**, you can sneak to an unrevealed spot (and then reveal it per usual) |
-| Motivate         | Ld 8, Th 3  | 10 - aLv - # | (see usage)            |  12 | **Once per space**, deliver a rousing speech (player must actually do it) that reduces all attack and defense targets by the Over amount to the target players for 2 turns each. The "#" in the target here represents the number of other party members you are motivating. **Does NOT work yourself**. |
+| Motivate         | Ld 8, Th 3  | 10 - aLv - # | (see usage)            |  12 | **Once per space**, deliver a rousing speech (player must actually do it) that reduces all attack and defense targets by the Over amount to all other players until this player completes their next turn. The \"#\" in the target here represents the number of other party members you are motivating. **Does NOT work yourself**. |
 | Scholar          | Th 7, Ld 3  | 11 - aLv     | (see usage)            |  12 | **Once per session**, when a chest is opened by anyone, anywhere, flip to see if you find a Magic Scroll or Training Manual (if you fail, may try again on future chests); if successful, Flip a card: an Ace means you are tricked, lose `(Lv * 3)` experience points, red means you find a Magic Scroll, black means you find a Training Manual, any King means you find one of each. |
-| Threaten         | Th 3, Ld 7  | 10 - aLv + #  | (see usage)           |  12 | Player must verbally state the threat. If successful, all enemies on target spot flee (remove them from the space, no item drops) |
+| Threaten         | Th 3, Ld 7  | 10 - aLv + #  | (see usage)           |  12 | Player must verbally state the threat and a taret spot. If successful, all enemies on target spot flee (remove them from the space, no item drops). |
 | Healing Glow     | Th 7, Ld 4  | 10 - aLv      | aLv + Over            |  13 | Magically heal all live party members |
 | Charge           | Lt 7, Mv 4  | 9 - aLv + #   | aLv + Over            |  13 | You charge into a spot 1-2 away from your current location, smashing into the crowd with great force. Deal damage to all enemies on that spot. The `#` is the number of enemies on that spot. On an Ace, you smash into the ground and deal yourself -F HP. |
 | Transport        | Th 7, Mv 4  | 10 - aLv + R  |                       |  13 | Magically transport yourself or any other willing player (no enemies) to any revealed spot in the space. The `R` is the number of spots from the starting location. |
@@ -136,7 +133,7 @@ You absolutely do _not_ have to use these, but they are good representative exam
 | Scared of the dark | +1 target to hit in room with dark areas | +1 Movement in room with dark areas | You just really want to get this over with and get back to the light. |
 | Controlling personality | +2 to target on any enemy YOU don't attack first | +4 Initiative and +AvgLv damage to targets you DO attack first | It's not that you have to do everything, it's that everything has to be done the way you want. |
 | Blood thirsty | -1 x AvgLv exp points per enemy YOU don't kill | +2 exp per enemy defeated | I just like to kill things, so what? |
-| Sorcerer's apprentice | -AvgLv to effect of any magic ability | -5 exp points to Level up magic abilities |
+| Sorcerer's apprentice | -AvgLv to effect of any magic ability | -5 exp points to Level up magic abilities | One day you'll learn all their tricks... then you'll show 'em. |
 | Can't sit still | Must move every 3 turns or they lose the next turn | Once per space, may take 3 turns at once | Look, I don't know how you can all just _sit_ there and talk away when there's so much cool stuff to do and did you see that chest over there I bet it has some awesome loot let's check it hey where are you going was I talking too fast? |
 | Magical Tourette's Syndrome | Cast magic uncontrollably | Cast magic uncontrollably | Any turn that you don't attack (when enemies are present), flip a card: on 4 or less you cast a magic attack uncontrollably. If the card is red, it's Fire Ball, if black, then it's Ice Storm. The attack always targets the nearest enemy, even if that's the same spot you are on. Flip another card for the attack on the target as normal. If you are not trained in the spell, assume a level of 1 in that ability. If on your first flip (to determine if the effect happens) you flip a King, you get a free attack of the same type (red or black deciding which type) on a target of your choice. |
 
@@ -145,11 +142,11 @@ You absolutely do _not_ have to use these, but they are good representative exam
 
 At the **start of this scenario**, before beginning any quests, players will receive one item per their class:
 
-* Fighter: Light Sword
-* Rogue: Long Bow (+10 basic arrows)
-* Wizard: Nice shoes and Fire, Ice or Water Elixir
-* Cleric: Healing Potion and Reviving Potion
-* Captain: Hunting Knife, Leather Armor (Player chooses what body location)
+* Fighter: Light Sword or Staff
+* Rogue: Long Bow (+10 basic arrows) or Hunting Knife
+* Wizard: Fire, Ice or Water Elixir
+* Cleric: Healing Potion or Leather Shield
+* Captain: Hunting Knife or Leather Jacket
 
 At the **start of each quest**, unless the quest says otherwise, all players starting out on a quest receive 1 Healing Potion in addition to one of the starting items in the table below (based on a 2-card flip).
 
@@ -296,7 +293,7 @@ These are the enemies that may appear in this scenario. Refer to the [Enemy Turn
     - "O" is the amount Over the Target for the enemy attack
     - "R" is the range from the enemy to the player being attacked
     - "Init" is the enemy's initiative
-    - "Move" is the enemy's movement
+    - "M" is the enemy's movement
 * If any enemy's Movement is `0`, then they cannot move at all, even to retreat.
 * Each enemy may have a Melee and a Ranged attack (or blank if they cannot attack in that way). The format is always `| type; target; damage |` in the table, for example, `| Knife; 10-L; (Lx2)+O |`
 * An enemy with a ranged attack will _always_ use that if in range of a player character!
@@ -330,8 +327,8 @@ These people look like normal Miowethians, but with a glazed over look in their 
 | Suit |   HP   |  Melee                   | Ranged                         | Init | M | D-Me | D-Mg | D-Rg |
 |:----:|:------:| ------------------------ |:------------------------------:|:----:|:-:|:----:|:----:|:----:|
 |  ♡   | L x 10 |                          | Ice Magic *; 9-L+R; (Lx2)+O    | L+8  | 1 |  -1  |  -1  |  +1  |
-|  ♢   | L x 8  | Staff; 12-L; L+O+2       | Water Magic †; 8-L+R | (Lx2)+O | L+10 | 1 |  0   |  -1  |  +1  |
-|  ♤   | L x 7  | Staff; 12-L; L+O+2       | Fire Magic; 9-L+R | (Lx3)+O    | L+10 | 1 |  +1  |  -1  |  0   |
+|  ♢   | L x 8  | Staff; 12-L; L+O+2       | Water Magic †; 8-L+R; (Lx2)+O  | L+10 | 1 |  0   |  -1  |  +1  |
+|  ♤   | L x 7  | Staff; 12-L; L+O+2       | Fire Magic; 9-L+R; (Lx3)+O     | L+10 | 1 |  +1  |  -1  |  0   |
 |  ♧   | L x 6  | Pike; 10-L; (Lx2)+O      |                                | L+9  | 2 |  -1  |  -2  |  +1  |
 
 > \* If the **Heart Miowethian's** ice magic is not successfully defended, the player is frozen and loses their next turn.  
