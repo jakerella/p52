@@ -1,0 +1,40 @@
+{
+  "name": "p52",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Companion app for the P52 Role Playing Game system.",
+  "main": "build/index.html",
+  "scripts": {
+    "clean": "rm -rf app/build/",
+    "build": "node app/build.js",
+    "debug": "DEBUG_LEVEL=DEBUG node app/build.js",
+    "serve": "http-server -p 3030 app/build/",
+    "watch": "npm-watch debug"
+  },
+  "watch": {
+    "debug": {
+      "patterns": [
+        "app/assets/**/*.*",
+        "app/content/**/*.*",
+        "app/layouts/**/*.*"
+      ],
+      "delay": 1000
+    }
+  },
+  "devDependencies": {
+    "fs-extra": "^11.2.0",
+    "handlebars": "^4.7.8",
+    "http-server": "^14.1.1",
+    "npm-watch": "^0.13.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakerella/p52.git"
+  },
+  "author": "Jordan Kasper (@jakerella)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jakerella/p52/issues"
+  },
+  "homepage": "https://github.com/jakerella/p52#readme"
+}

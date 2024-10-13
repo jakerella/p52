@@ -1,0 +1,11 @@
+{
+    "name": "",
+    "race": "",
+    "class": "",
+    "quirk": { "description": "", "bonus": "", "penalty": "" },
+    "hp": 0,
+    "experience": 0,
+    "core": { "lift": 0, "think": 0, "balance": 0, "move": 0, "lead": 0 },
+    "abilities": [],
+    "items": []
+}

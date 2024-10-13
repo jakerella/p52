@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <meta name='content-type' content='text/html; charset=utf-8'>
+        <title>{{#if title}}{{title}}{{else}}P52{{/if}}</title>
+        <meta name='description' content='Companion app for the P52 Role Playing Game system.'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link href='/css/vendor/barekit.min.css' rel='stylesheet'>
+        <link href='/css/main.css' rel='stylesheet'>
+    </head>
+
+    <body>
+        {{> header}}
+
+        <section class='main-body row'>
+            <article class='main-content sm-12 md-12 lg-12'>
+
+                {{{contents}}}
+
+            </article>
+        </section>
+
+        {{> footer}}
+
+        <script src='/scripts/app.js'></script>
+    </body>
+</html>
