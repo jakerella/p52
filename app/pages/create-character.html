@@ -1,6 +1,279 @@
 ---
 layout: basic
 title: P52 Create Character
+page: create-character
 ---
 
-<p>Let's create a new character.</p>
+<section class='current-character'>
+    
+    <p>You are a <strong class='selected-race'>?</strong> <strong class='selected-class'>?</strong> with:</p>
+
+    <table class='in-progress-core-abilities'>
+        <thead><tr>
+            <th>Lift</th>
+            <th>Think</th>
+            <th>Balance</th>
+            <th>Move</th>
+            <th>Lead</th>
+        </tr></thead>
+        <tbody><tr>
+            <td class='core-lift'>1</td>
+            <td class='core-think'>1</td>
+            <td class='core-balance'>1</td>
+            <td class='core-move'>1</td>
+            <td class='core-lead'>1</td>
+        </tr></tbody>
+    </table>
+
+    <p>
+        Your Max HP would be <strong class='max-hp'>0</strong>, 
+        Movement would be <strong class='movement'>1</strong>, and 
+        Initiative would be <strong class='initiative'>1</strong>.
+    </p>
+
+    <aside>
+        <p><strong>Abilities:</strong> <span class='in-progress-abilities'>(none)</span></p>
+        <p><strong>Items:</strong> <span class='in-progress-items'>(none)</span></p>
+        <p><strong>Quirk:</strong> <span class='in-progress-quirk'>(none)</span></p>
+    </aside>
+</section>
+
+<form class='create-character' action='' method='get'>
+
+    <section class='page-section character-race-class'>
+        <h2>Race & Class</h2>
+
+        <p>
+            Select a <strong>Race</strong> and <strong>Class</strong> from the options below to get started. 
+            Choosing one of the options will allow you see a description and the modifiers!
+        </p>
+
+        <fieldset class='choose-race'>
+            <label for='choose-race'>Race</label>
+            <select name='race' id='choose-race'>
+                <option value=''>Choose a Race</option>
+            </select>
+
+            <p class='description'></p>
+
+            <table class='modifiers'>
+                <thead><tr>
+                    <th>Lift</th>
+                    <th>Think</th>
+                    <th>Balance</th>
+                    <th>Move</th>
+                    <th>Lead</th>
+                </tr></thead>
+                <tbody><tr>
+                    <td class='core-lift'>0</td>
+                    <td class='core-think'>0</td>
+                    <td class='core-balance'>0</td>
+                    <td class='core-move'>0</td>
+                    <td class='core-lead'>0</td>
+                </tr></tbody>
+            </table>
+        </fieldset>
+
+        <fieldset class='choose-class'>
+            <label for='choose-class'>Class</label>
+            <select name='class' id='choose-class'>
+                <option value=''>Choose a Class</option>
+            </select>
+
+            <p class='description'></p>
+
+            <table class='modifiers'>
+                <thead><tr>
+                    <th>Lift</th>
+                    <th>Think</th>
+                    <th>Balance</th>
+                    <th>Move</th>
+                    <th>Lead</th>
+                </tr></thead>
+                <tbody><tr>
+                    <td class='core-lift'>0</td>
+                    <td class='core-think'>0</td>
+                    <td class='core-balance'>0</td>
+                    <td class='core-move'>0</td>
+                    <td class='core-lead'>0</td>
+                </tr></tbody>
+            </table>
+        </fieldset>
+
+        <aside class='actions'>
+            <input type='button' class='primary pager' data-check='raceAndClass' data-show='.character-core-bonuses' value='Next'>
+            <input type='button' class='negative reset' value='Reset All'>
+        </aside>
+    </section>
+
+    <section class='page-section character-core-bonuses'>
+        <h2>Core Ability Bonuses</h2>
+
+        <p>
+            Let's pump up that character of yours with some core ability bonuses! Note that once you 
+            receive this bonus, <strong>you cannot change your race or class</strong>, you will need 
+            to start over!
+        </p>
+
+        <p><strong>Flip over the top 3 Action cards:</strong></p>
+        <p><em>Ace=1, Jack=11, Queen=12, King=13</em></p>
+        <p>
+            <label for='core-bonus-1'>Card 1:</label> <input type='number' class='core-bonus card-flip' name='core-bonus-1' id='core-bonus-1' list='card-values' step='1' min='1' max='13'>
+            <label for='core-bonus-2'>Card 2:</label> <input type='number' class='core-bonus card-flip' name='core-bonus-2' id='core-bonus-2' list='card-values' step='1' min='1' max='13'>
+            <label for='core-bonus-3'>Card 3:</label> <input type='number' class='core-bonus card-flip' name='core-bonus-3' id='core-bonus-3' list='card-values' step='1' min='1' max='13'>
+
+            <datalist id='card-values'>
+                <option value='1'>A</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                <option value='5'>5</option>
+                <option value='6'>6</option>
+                <option value='7'>7</option>
+                <option value='8'>8</option>
+                <option value='9'>9</option>
+                <option value='10'>10</option>
+                <option value='11'>J</option>
+                <option value='12'>Q</option>
+                <option value='13'>K</option>
+            </datalist>
+        </p>
+
+        <p>Avaialble core bonus points: <strong class='core-bonus-value'>0</strong></p>
+
+        <p>You can split these bonus points in any way you like across your <strong>core abilities</strong>:</p>
+
+        <table class='modifiers'>
+            <thead><tr>
+                <th>Lift</th>
+                <th>Think</th>
+                <th>Balance</th>
+                <th>Move</th>
+                <th>Lead</th>
+            </tr></thead>
+            <tbody><tr>
+                <td class='core-lift'><input type='number' class='core-bonus' name='core-bonus-lift' step='1' min='0' max='15' value='0'></td>
+                <td class='core-think'><input type='number' class='core-bonus' name='core-bonus-think' step='1' min='0' max='15' value='0'></td>
+                <td class='core-balance'><input type='number' class='core-bonus' name='core-bonus-balance' step='1' min='0' max='15' value='0'></td>
+                <td class='core-move'><input type='number' class='core-bonus' name='core-bonus-move' step='1' min='0' max='15' value='0'></td>
+                <td class='core-lead'><input type='number' class='core-bonus' name='core-bonus-lead' step='1' min='0' max='15' value='0'></td>
+            </tr></tbody>
+        </table>
+
+        <aside>
+            <input type='button' class='primary assign-bonus' value='Assign Bonuses'>
+        </aside>
+
+        <aside class='actions'>
+            <input type='button' class='secondary pager' data-show='.character-race-class' value='Previous'>
+            <input type='button' class='primary pager' data-check='coreBonus' data-show='.character-abilities' value='Next'>
+            <input type='button' class='negative reset' value='Reset All'>
+        </aside>
+    </section>
+
+    <section class='page-section character-abilities' data-onshow='checkAbilities'>
+        <h2>Character Abilities</h2>
+
+        <p class='race-class-abilities'>
+            You already have some extra abilities granted to you by your race or class: <br>
+            <strong class='ability-list'></strong>
+        </p>
+
+        <!-- TODO: selectable abilities from race/class -->
+
+        <p>
+            In addition to abilities gained by your race or class selection (if any), 
+            <strong>you may pick one additional ability</strong>. Your options are below, 
+            but note that <strong>you must meet the prerequisites</strong>, so we're only 
+            showing you abilities you are able to select.
+        </p>
+
+        <select name='ability' class='availableAbilities'>
+            <option value=''>Select an ability</option>
+        </select>
+
+        <h3>Ability Description</h3>
+        <aside class='description'></aside>
+
+        <aside class='actions'>
+            <input type='button' class='secondary pager' data-show='.character-core-bonuses' value='Previous'>
+            <input type='button' class='primary pager' data-show='.character-items' value='Next'>
+            <input type='button' class='negative reset' value='Reset All'>
+        </aside>
+    </section>
+
+    <section class='page-section character-items' data-onshow='checkItems'>
+        <h2>Character Items</h2>
+
+        <p class='race-class-items'>
+            You already have get some items granted to you by your race or class: <br>
+            <strong class='item-list'></strong>
+        </p>
+
+        <aside class='optional-items'>
+            <p>
+                In addition to items already given by your race or class selection (if any), 
+                <strong>you may pick one additional item</strong>. Your options are below.
+            </p>
+
+            <select name='item' class='availableItems'>
+                <option value=''>Select an item</option>
+            </select>
+
+            <h3>Item Description</h3>
+            <aside class='description'></aside>
+        </aside>
+
+        <aside class='actions'>
+            <input type='button' class='secondary pager' data-show='.character-abilities' value='Previous'>
+            <input type='button' class='primary pager' data-show='.character-quirk' value='Next'>
+            <input type='button' class='negative reset' value='Reset All'>
+        </aside>
+    </section>
+
+    <section class='page-section character-quirk'>
+        <h2>Character Quirk</h2>
+
+        <p>
+            Quirks allow you a lot of freedom: develop a short backstory for your character - 
+            where did they come from? Why are they here? Then think of some quirk that they have, 
+            maybe they are terrified of the dark, or have a peg leg. Perhaps they were raised by 
+            wolves. You can go completely wild here.
+        </p>
+        
+        <p>
+            There are some example quirks and effects below, but you should feel free to create 
+            your own. Be creative and think about how your character would really behave! Some quirks 
+            may be ongoing (like a defensive bonus in certain scnearios), or they may be once-per-quest 
+            use. For example, having a magic bag that you can pull an item out of just in time.
+        </p>
+        <p>
+            Note that any quirk must have both <strong>a bonus AND a penalty</strong> wihtin the game mechanics!
+        </p>
+
+        <select name='example-quirks'>
+            <option value=''>Start from example Quirk...</option>
+        </select>
+
+        <fieldset>
+            <aside>
+                <label for='quirk-title'>Title:</label><input type='text' name='quirk-title' id='quirk-title'>
+            </aside>
+            <aside>
+                <label for='quirk-bonus'>Bonus:</label><input type='text' name='quirk-bonus' id='quirk-bonus'>
+            </aside>
+            <aside>
+                <label for='quirk-penalty'>Penalty:</label><input type='text' name='quirk-penalty' id='quirk-penalty'>
+            </aside>
+            <aside>
+                <label for='quirk-description'>Description:</label><textarea name='quirk-description' id='quirk-description'></textarea>
+            </aside>
+        </fieldset>
+
+        <aside class='actions'>
+            <input type='button' class='secondary pager' data-show='.character-items' value='Previous'>
+            <input type='button' class='primary complete' value='Complete Character'>
+            <input type='button' class='negative reset' value='Reset All'>
+        </aside>
+    </section>
+</form>

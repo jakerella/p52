@@ -1,9 +1,9 @@
+
 const start = Date.now()
 
 const fs = require('fs-extra')
 const path = require('path')
 const Handlebars = require('handlebars')
-const logger = require('./logger.js')()
 
 // You should change these options! //
 const BUILD_DEST = 'app/build/'
@@ -12,9 +12,15 @@ const LAYOUTS_LOC = 'app/layouts/'
 const PARTIALS_LOC = 'app/layouts/partials/'
 const PAGES_LOC = 'app/pages/'
 const STATIC_COPIES = [
-  { source: 'app/assets/', dest: '' }
+  { source: 'app/assets/', dest: '' },
+  { source: 'scenarios/the-calico-wizard/calico-wizard.json', dest: 'scenarios/calico-wizard.json' }
 ]
+
+// TODO: custom step to copy in scenarios?
+
 // ------------------------------- //
+
+const logger = createLogger()
 
 ;(() => {
   logger.info('Starting build...')
@@ -40,7 +46,7 @@ const STATIC_COPIES = [
   STATIC_COPIES.forEach(loc => {
     const dest = path.join(BUILD_DEST, loc.dest)
     logger.debug(`copying ${loc.source} to ${dest}`)
-    const out = fs.copySync(loc.source, dest)
+    fs.copySync(loc.source, dest)
   })
   logger.info(`Copied static assets to ${BUILD_DEST}`)
 
@@ -119,4 +125,70 @@ function reportCompletion() {
   }
 
   logger.info(`Finished build in ${diff}${units}`)
+}
+
+// ---------------- Logging Helper ------------------ //
+
+function createLogger(opts = {}) {
+  const LEVELS = {
+    DEBUG: 5,
+    LOG: 4,
+    INFO: 3,
+    WARN: 2,
+    ERROR: 1,
+    OFF: 0
+  }
+  const DEFAULT_LEVEL = 'INFO'
+  const DEFAULT_MESSAGE_LEVEL = 'LOG'
+  const LOG_METHDOS = [null, 'error', 'warn', 'info', 'log', 'debug']
+  const COLORS = {
+    DEBUG: '\x1b[36m',
+    LOG: '\x1b[37m',
+    INFO: '\x1b[34m',
+    WARN: '\x1b[33m',
+    ERROR: '\x1b[31m',
+    RESET: '\x1b[0m'
+  }
+  
+  const loggerLevel = (LEVELS[opts.level] === undefined) ? (process.env.DEBUG_LEVEL || DEFAULT_LEVEL) : opts.level
+
+  if (loggerLevel === 'DEBUG') {
+      console.debug(`${COLORS.DEBUG}Creating logger with level ${loggerLevel}${COLORS.RESET}`)
+  }
+
+  function writeLog(level, args) {
+      level = (LEVELS[level] === undefined) ? DEFAULT_MESSAGE_LEVEL : level
+      args = (args.splice) ? args : [ args ]
+
+      if ( LEVELS[loggerLevel] < LEVELS[level] ) { return }
+
+      const message = [COLORS[level], args[0]]
+
+      if (args.length > 1) {
+          args.slice(1).forEach((a) => {
+              if (typeof(a) === 'object') {
+                  message.push('\n')
+                  message.push(JSON.stringify(a))
+                  message.push('\n')
+              } else {
+                  message.push(a)
+              }
+          })
+      }
+
+      message.push(COLORS.RESET)
+
+      console[LOG_METHDOS[LEVELS[level]]].apply( console, [message.join(' ')] )
+  }
+
+  const loggerInstance = function() {
+      writeLog('LOG', Array.from(arguments))
+  }
+  loggerInstance.debug = function() { writeLog('DEBUG', Array.from(arguments)) }
+  loggerInstance.log = function() { writeLog('LOG', Array.from(arguments)) }
+  loggerInstance.info = function() { writeLog('INFO', Array.from(arguments)) }
+  loggerInstance.warn = function() { writeLog('WARN', Array.from(arguments)) }
+  loggerInstance.error = function() { writeLog('ERROR', Array.from(arguments)) }
+
+  return loggerInstance
 }

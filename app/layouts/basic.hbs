@@ -6,23 +6,22 @@
         <title>{{#if title}}{{title}}{{else}}P52{{/if}}</title>
         <meta name='description' content='Companion app for the P52 Role Playing Game system.'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link href='/css/vendor/barekit.min.css' rel='stylesheet'>
+        <link href='/css/barekit.min.css' rel='stylesheet'>
         <link href='/css/main.css' rel='stylesheet'>
     </head>
 
-    <body>
+    <body id='page-{{page}}'>
         {{> header}}
 
-        <section class='main-body row'>
-            <article class='main-content sm-12 md-12 lg-12'>
-
-                {{{contents}}}
-
-            </article>
-        </section>
+        <main>
+            {{{contents}}}
+        </main>
 
         {{> footer}}
 
-        <script src='/scripts/app.js'></script>
+        <script type='module'>
+            import main from './scripts/app.js'
+            main({{#if page}}'{{page}}'{{else}}null{{/if}})
+        </script>
     </body>
 </html>

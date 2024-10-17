@@ -1,1 +1,19 @@
-p { color: red; }
+
+/* Basic page elemenets */
+footer { color: #666; }
+
+
+/* Creating a Character */
+#page-create-character .current-character { display: none; }
+#page-create-character .choose-race .modifiers, #page-create-character .choose-class .modifiers {
+    display: none;
+}
+#page-create-character .page-section {
+    display: none;
+}
+#page-create-character .character-race-class {
+    display: block;
+}
+#page-create-character .core-bonus {
+    width: 3em;
+}

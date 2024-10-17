@@ -5,7 +5,7 @@
 > 
 > Copyright [Jordan Kasper](https://jordankasper.com) 2024
 
-The land of Mioweth has been at peace for over two hundred years. Their people are simple, but practical folk, living in mostly stone dwellings and primarily focused on agriculture. They have been trading more and more with outside groups, but they still produce most of their own food and clothing. Of course, with trade comes interaction with other peoples, and other skills.
+The land of Mioweth in the realm of Animalia has been at peace for over two hundred years. Their people are simple, but practical folk, living in mostly stone dwellings and primarily focused on agriculture. They have been trading more and more with outside groups, but they still produce most of their own food and clothing. Of course, with trade comes interaction with other peoples, and other skills.
 
 Mioweth has recently seen numerous attacks in the outlying villages by terrible beasts, especially the villages in the foothills of the Lichanden mountains. The mountains have long been seen as a possible source of evil, with stories going back hundreds of years. Not too long ago, sentries in the forests observed a strange glow emanating from caves up the mountain side.
 

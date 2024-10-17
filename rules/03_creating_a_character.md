@@ -67,7 +67,33 @@ After selecting your race and class, and determining your bonus, you can determi
 > Move: 1 + 1 + 1 + 2 = **5**
 > Lead: 1 + 0 - 1 + 0 = **0 => 1** (minimum is 1)
 
-### Step 5: Choose a Quirk
+#### Determine Other Attributes
+
+At this point you are ready to calculate your character's maximum Hit Points (max HP), their starting Movement speed, and your characters initiative (you'll see how to use these values later). To do so, simple use the following formulas, replacing the ability names with their level:
+
+```
+Max HP = Lift x Think + 3
+Movement = (Move / 4) + 1
+Initiative = Move + (Lead x 2)
+```
+
+> Remember, these values will need to be updated any time you core ability levels change!
+
+### Step 5: Determine Character Abilities
+
+Now that your race, class, and core abilities are set, you will receive some additional abilities. Some of these may come from your race or class directly, so check there first.
+
+> Each scenario will be different, so check your race and class descriptions carefully! They may say that you are "given" abilities, and they may say that you have the "option" to choose an ability. Be sure you check both!
+
+In addition to any race or class abilities you gain, **each player may then pick one additional ability** for their character. These must come from the Abilities table in your scenario, and note that you **must meet the prerequisites** for any of these additional abilities (though not for the ones gained through your race or class).
+
+You will always start at level 1 for this new ability. Make sure to record it on your [character sheet](guides/P52-character-sheet.pdf)!
+
+### Step 6: Determine Default Items
+
+Some races and classes will either grant you items to start out, or give you the option of selecting an item. Be sure to check your scenario! Note that while some items may have requirements to _use_ them, any character can carry any item.
+
+### Step 7: Choose a Quirk
 
 This step is sort of optional, but highly recommended!
 
@@ -81,23 +107,7 @@ Some quirks may be ongoing (like the defensive bonus discussed above), or they m
 
 > Note that any quirk must have both **a bonus AND a penalty** that fit within the game mechanics!
 
-### Step 6: Add a non-Core Ability
-
-In addition to any additional (non-core) abilities you gain from your race or class, each player may then pick one additional ability for their character. These must come from the Abilities table in your scenario, and note that you **must meet the prerequisites** for any ability gained at this step (and generally for any other gained abilities).
-
-You will start at level 1 for this ability. Make sure to record it on your [character sheet](guides/P52-character-sheet.pdf)!
-
-### Step 7: Determine Other Attributes
-
-At this point you are ready to calculate your character's maximum Hit Points (max HP), their starting Movement speed, and your characters initiative (you'll see how to use these values later). To do so, simple use the following formulas, replacing the ability names with their level:
-
-```
-Max HP = Lift x Think + 3
-Movement = (Move / 4) + 1
-Initiative = Move + (Lead x 2)
-```
-
-**Don't forget to give your character a name!**
+**And don't forget to give your character a name!**
 
 ---
 

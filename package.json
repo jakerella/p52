@@ -15,7 +15,7 @@
     "debug": {
       "patterns": [
         "app/assets/**/*.*",
-        "app/content/**/*.*",
+        "app/pages/**/*.*",
         "app/layouts/**/*.*"
       ],
       "delay": 1000

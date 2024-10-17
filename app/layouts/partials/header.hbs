@@ -1,12 +1,14 @@
-<header class='row sm-12 top-sticky' >
-    <h1 class='left'>
+<header>
+    <h1>
         <a href='/' title='Back to the home page'>{{#if title}}{{title}}{{else}}P52{{/if}}</a>
     </h1>
-    <a href='#' aria-controls='off-canvas-nav' class='off-canvas-trigger-right hide-lg right'><i class='icon-menu'></i></a>
-    <nav id='off-canvas-nav' class='off-canvas-right no-bullets text-center'>
-        {{> mainnav }}
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/load-scenario">Load Scenario</a></li>
+            <li><a href="/create-character">Create Character</a></li>
+        </ul>
     </nav>
-    <nav class='show-lg no-bullets right'>
-        {{> mainnav }}
-    </nav>
+
+    <aside id='messages'></aside>
 </header>

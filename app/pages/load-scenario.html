@@ -1,6 +1,19 @@
 ---
 layout: basic
 title: P52 Load Scenario
+page: load-scenario
 ---
 
 <p>Let's load a new scenario.</p>
+
+<p>Choose one of the scenarios below, then a description will appear before you choose to load the scenario.</p>
+
+<form action='' method='get'>
+    <select name='scenario' id='scenario'>
+        <option value=''>Choose a scenario...</value>
+    </select>
+    <!-- TODO: allow uploading of scenario data file -->
+    <input type='submit' value='Load'>
+
+    <p class='description'></p>
+</form>
