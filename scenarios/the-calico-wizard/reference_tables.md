@@ -83,18 +83,18 @@ There are various shorthands used in the table below:
 |       Name       |   Pre-req   |    Target    |          Effect        | Exp (x aLv) | Usage |
 | ---------------- |:-----------:|:------------:|:----------------------:|:-----------:| ----- |
 | Grapple †        | Lt 2, Mv 3  | 7 - aLv      | (Lt / 3) + (Over x 2)  |  4  | Melee attack |
-| Knife *†         | Bc 3, Mv 2  | 8 - aLv      | aLv + Bc + I           |  6  | Melee attack, must have knife equipped |
-| Bow *            | Th 2, Bc 3  | 6 + R - aLv  | (aLv x 2) + (Bc / 2) + I | 6 | Ranged attack (cannot be on same spot), must have bow equipped, must have arrows in your inventory. Although you may attack enemies at R=1, the minimum value in the target for R is 2. |
-| Sword *†         | Lt 5, Bc 2  | 9 - aLv      | (aLv x 2) + Over + I   |  6  | Melee attack, must have sword equipped |
-| Two-handed *†    | Lt 4, Th 2  | 10 - aLv     | (aLv x 3) + (Over / 2) + I | 6 | Melee attack, must have two-handed weapon equipped |
-| Knife Throw *    | Lt 2, Bc 4  | 9 - aLv + R  | (Over + 1) x 2 + I     |  8  | Ranged attack, Range limit 2, , must have knife equipped |
+| Knife *†         | Bc 3, Mv 2  | 8 - aLv      | aLv + Bc               |  6  | Melee attack, must have knife equipped |
+| Bow *            | Th 2, Bc 3  | 6 + R - aLv  | (aLv x 2) + (Bc / 2)   | 6 | Ranged attack (cannot be on same spot), must have bow equipped, must have arrows in your inventory. Although you may attack enemies at R=1, the minimum value in the target for R is 2. |
+| Sword *†         | Lt 5, Bc 2  | 9 - aLv      | (aLv x 2) + Over       |  6  | Melee attack, must have sword equipped |
+| Two-handed *†    | Lt 4, Th 2  | 10 - aLv     | (aLv x 3) + (Over / 2) | 6 | Melee attack, must have two-handed weapon equipped |
+| Knife Throw *    | Lt 2, Bc 4  | 9 - aLv + R  | (Over + 1) x 2         |  8  | Ranged attack, Range limit 2, , must have knife equipped |
 | Fire Ball        | Th 6, Bc 2  | 9 - aLv + R  | (aLv x 2) + Over       |  9  | Magical attack, 1/2 damage to other enemies or player characters on same spot, 1/4 damage to all adjacent enemies |
 | Ice Storm        | Th 6, Lt 3  | 9 - aLv + R  | (aLv x 2) + Over       |  9  | Magical attack, freezes all enemies or characters on the target spot, and all enemies on adjacent spots for 2 rounds |
 | Tidal Wave       | Th 6, Mv 3  | 9 - aLv + R  | (aLv x 2) + Over       |  9  | Magical attack, Pushes all enemies on target spot back 1 spot (player's choice in direction); if not possible, enemies take (2 x avgLv) extra damage |
 | Heal             | Th 6, Ld 2  | 5 + R        | aLv + Over             |  9  | Magically heal target character (can be self)
 | Body Block       | Lt 4, Mv 2  | 8 - aLv      | -(aLv + (Lt / 2))      |  7  | Reduce damage from a non-magical attack. |
-| Shield Block *   | Lt 5, Bc 2  | 7 - aLv      | -(aLv + I)             |  9  | Reduce damage from a non-magical attack. Must have shield equipped, equipped shield quality partially determines reduction (see items table). On a King, character may initiate a counter attack per normal attack rules. |
-| Parry *          | Lt 4, Th 3  | 10 - aLv      | -(aLv + I)             |  10 | Reduce damage from a non-magical attack. Must have suitable weapon equipped (see items table), equipped weapon damage bonus modifies damage reduction. If over the target by 4 or more (or on a King), character may initiate a counter attack per normal attack rules. |
+| Shield Block *   | Lt 5, Bc 2  | 8 - aLv      | -(aLv + (Over / 2))    |  9  | Reduce damage from a non-magical attack. Must have shield equipped, equipped shield quality partially determines reduction (see items table). On a King, character may initiate a counter attack per normal attack rules. |
+| Parry *          | Lt 4, Th 3  | 10 - aLv     | -(aLv + (Over / 3))    |  10 | Reduce damage from a non-magical attack. Must have suitable weapon equipped (see items table), equipped weapon damage bonus modifies damage reduction. If over the target by 3 or more (or on a King), character may initiate a counter attack per normal attack rules. |
 | Counter Spell    | Th 4, Bc 2  | 8 - aLv      | -(aLv + Over + Th)     |  8  | Reduce damage from magical attack |
 | Dodge            | Mv 3, Bc 3  | 10 - aLv     | (see usage)            |  10 | Over > 5: no damage taken, move 1 spot; Over 3-5: no damage; Over 0-2: half damage |
 | Poison tip †     | Th 3, Ld 3  | 11 - aLv     | aLv x 2                |  11 | Bow, knife, or sword must be equipped; if successful, next 3 attacks will deal extra damage per ability effect; missed hits DO count against 3 attacks; can be used on another character's weapon if on the same spot |

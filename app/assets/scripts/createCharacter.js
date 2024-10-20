@@ -1,7 +1,7 @@
 
 import $ from './jqes6.js'
 import c from './constants.js'
-import { showMessage, getScenario, setupPaging } from './shared.js'
+import { showMessage, getScenario, setupPaging, saveCharacter, getCoreAbilitiesTableHtml, getCharacter, getItemsByName } from './shared.js'
 import template from '../data/character_template.js'
 
 async function initCreateCharacter() {
@@ -12,7 +12,14 @@ async function initCreateCharacter() {
         return
     }
 
-    const inProgressCharacter = JSON.parse(localStorage.getItem('inProgressCharacter') || 'null')
+    if (getCharacter()) {
+        showMessage(`Sorry, but it looks like you already have a character created! You can view your <a href='/character'>Character Sheet</a> to check!`, null, 'warn')
+        $('form.create-character').hide()
+        setupReset()
+        return
+    }
+
+    const inProgressCharacter = JSON.parse(localStorage.getItem(c.IN_PROGRESS_CHARACTER_KEY) || 'null')
     let character = null
     if (inProgressCharacter) {
         character = inProgressCharacter
@@ -25,6 +32,9 @@ async function initCreateCharacter() {
         character.scenarios = [scenario.id]
         character.reality = scenario.reality
     }
+
+    $('#page-create-character .core-table').html(getCoreAbilitiesTableHtml('modifiers', 0))
+    $('#page-create-character .in-progress-core-table').html(getCoreAbilitiesTableHtml('in-progress-core-abilities', 1))
 
     setupPaging('.create-character', {
         // checks before progressing
@@ -75,15 +85,23 @@ async function initCreateCharacter() {
 }
 
 function setupCompletion(character, scenario) {
-    $('input.complete').on('click', () => {
+    $('input.complete').on('click', async () => {
         if (!character.race || !character.class) {
             return showMessage('Please select a race and class for your character before proceeding!', 5)
         }
+
+        const quirkFreqElem = $('[name=quirk-frequency').filter((r) => r.getAttribute('checked'))[0]
+        let quirkFrequency = 'c'
+        if (quirkFreqElem) {
+            quirkFrequency = quirkFreqElem.value
+        }
+
         const quirk = {
-            title: $('#quirk-title')[0].value,
-            bonus: $('#quirk-bonus')[0].value,
-            penalty: $('#quirk-penalty')[0].value,
-            description: $('#quirk-description')[0].value
+            title: $('#quirk-title')[0].value || 'none',
+            bonus: $('#quirk-bonus')[0].value || 'n/a',
+            penalty: $('#quirk-penalty')[0].value || 'n/a',
+            description: $('#quirk-description')[0].value || 'n/a',
+            frequency: quirkFrequency
         }
         if (quirk.title && (!quirk.bonus || !quirk.penalty)) {
             return showMessage('Your quirk must have both a bonus and a penalty!', 5)
@@ -99,29 +117,46 @@ function setupCompletion(character, scenario) {
         if (ability) {
             character.abilities.push(ability)
         }
+        character.abilities = character.abilities.map((name) => { return { name, level: 1, modifiers: [] } })
+
         character.items.push(...getRaceAndClassItems('given', character, scenario))
         const item = $('.character-items .availableItems')[0].value
         if (item) {
             character.items.push(item)
         }
+        const itemsByName = getItemsByName(scenario)
+        character.items = character.items.map((name) => {
+            let count = 1
+            if (itemsByName[name]) {
+                count = (itemsByName[name].count || 1)
+                ;(itemsByName[name].includes || []).forEach((item) => {
+                    return { name: item.name, equipped: false, count: (item.count || 1) }
+                })
+            }
+            return { name, equipped: false, count }
+        })
+
         character.quirk = quirk
         character.hp = (character.core.lift * character.core.think) + 3
         delete character.build
 
         console.log('Creating character', character)
-        localStorage.removeItem('inProgressCharacter')
-        localStorage.setItem('character', JSON.stringify(character))
+        localStorage.removeItem(c.IN_PROGRESS_CHARACTER_KEY)
+        await saveCharacter(character)
         window.location.replace('/')
     })
 }
 
 function setupReset() {
-    $('input.reset').on('click', () => {
+    $('.reset').on('click', (e) => {
+        e.preventDefault()
         if (!confirm('Are you sure you want to start over? Anything you have selected will be reset!')) {
             return false
         }
-        localStorage.removeItem('inProgressCharacter')
+        localStorage.removeItem(c.CHARACTER_KEY)
+        localStorage.removeItem(c.IN_PROGRESS_CHARACTER_KEY)
         window.location.reload()
+        return false
     })
 }
 
@@ -179,7 +214,7 @@ function updateInProgressCharacter(character, scenario) {
 }
 
 function saveInProgressCharacter(character) {
-    localStorage.setItem('inProgressCharacter', JSON.stringify(character))
+    localStorage.setItem(c.IN_PROGRESS_CHARACTER_KEY, JSON.stringify(character))
 }
 
 function setupRaceAndClass(type, character, scenario) {
@@ -302,7 +337,11 @@ function setupAbilities(character, scenario) {
         
         const verbs = { damage: 'deal', defense: 'defend', heal: 'heal' }
         const effects = (ab.effects || []).map((e) => {
-            return `${verbs[e.type]} <strong>${e.amount}</strong> damage`
+            if (verbs[e.type]) {
+                return `${verbs[e.type]} <strong>${e.amount}</strong> damage`
+            } else {
+                return '(see description)'
+            }
         })
 
         const content = [
@@ -373,8 +412,7 @@ function setupItems(character, scenario) {
 
     setAvailableItems(character, scenario)
 
-    const itemsByName = {}
-    scenario.items.forEach((item) => itemsByName[item.name.toLowerCase()] = item)
+    const itemsByName = getItemsByName(scenario)
     selector.on('change', () => {
         if (!selector[0].value) { return description.html(' ') }
 
@@ -430,8 +468,7 @@ function setAvailableItems(character, scenario) {
     }
 
     const selector = section.find('select')
-    const itemsByName = {}
-    scenario.items.forEach((item) => itemsByName[item.name.toLowerCase()] = item)
+    const itemsByName = getItemsByName(scenario)
 
     const optionalItems = getRaceAndClassItems('options', character, scenario)
     if (optionalItems.length) {
@@ -456,8 +493,15 @@ function setupQuirks(character, scenario) {
     selector.on('change', () => {
         const quirk = scenario.quirks[selector[0].value]
         if (quirk) {
+            $('[name=quirk-frequency]').forEach((f) => f.removeAttribute('checked'))
             Object.keys(quirk).forEach((field) => {
-                $(`#quirk-${field}`)[0].value = quirk[field]
+                if (field === 'frequency') {
+                    const input = $(`#quirk-frequency-${quirk[field]}`)[0]
+                    if (input) { input.setAttribute('checked', 'checked') }
+                } else {
+                    const input = $(`#quirk-${field}`)[0]
+                    if (input) { input.value = quirk[field] }
+                }
             })
         }
     })

@@ -67,42 +67,49 @@
             "title": "Scared of magic",
             "penalty": "+2 target for defense against magic",
             "bonus": "-2 target to hit magical enemies",
+            "frequency": "c",
             "description": "You're very scared of magic, and panic around it, which causes you to be bad at defending yourself. That said, you hate it so much, that you're really good at hitting magical targets with your weapon."
         },
         {
             "title": "Scared of the dark",
             "penalty": "+1 target to hit in room with dark areas",
             "bonus": "+1 Movement in room with dark areas",
+            "frequency": "c",
             "description": "You just really want to get this over with and get back to the light."
         },
         {
             "title": "Controlling personality",
             "penalty": "+2 to target on any enemy YOU don't attack first",
             "bonus": "+4 Initiative and +AvgLv damage to targets you DO attack first",
+            "frequency": "c",
             "description": "It's not that you have to do everything, it's that everything has to be done the way you want."
         },
         {
             "title": "Blood thirsty",
             "penalty": "-1 x AvgLv exp points per enemy YOU don't kill",
             "bonus": "+2 exp per enemy defeated",
+            "frequency": "c",
             "description": "I just like to kill things, so what?"
         },
         {
             "title": "Sorcerer's apprentice",
             "penalty": "-AvgLv to effect of any magic ability",
             "bonus": "-5 exp points to Level up magic abilities",
+            "frequency": "c",
             "description": "One day you'll learn all their tricks... then you'll show 'em."
         },
         {
             "title": "Can't sit still",
             "penalty": "Must move every 3 turns or they lose the next turn",
             "bonus": "Once per space, may take 3 turns at once",
+            "frequency": "s",
             "description": "Look, I don't know how you can all just _sit_ there and talk away when there's so much cool stuff to do and did you see that chest over there I bet it has some awesome loot let's check it hey where are you going was I talking too fast?"
         },
         {
             "title": "Magical Tourette's Syndrome",
             "penalty": "Cast magic uncontrollably",
             "bonus": "Cast magic uncontrollably",
+            "frequency": "c",
             "description": "Any turn that you don't attack (when enemies are present), flip a card: on 4 or less you cast a magic attack uncontrollably. If the card is red, it's Fire Ball, if black, then it's Ice Storm. The attack always targets the nearest enemy, even if that's the same spot you are on. Flip another card for the attack on the target as normal. If you are not trained in the spell, assume a level of 1 in that ability. If on your first flip (to determine if the effect happens) you flip a King, you get a free attack of the same type (red or black deciding which type) on a target of your choice."
         }
     ],
@@ -131,7 +138,7 @@
             "effects": [{
                 "type": "damage",
                 "object": "enemy",
-                "amount": "aLv + Bc + I",
+                "amount": "aLv + Bc",
                 "attribute": "hp"
             }],
             "exp": 6,
@@ -146,7 +153,7 @@
             "effects": [{
                 "type": "damage",
                 "object": "enemy",
-                "amount": "(aLv x 2) + (Bc / 2) + I",
+                "amount": "(aLv x 2) + (Bc / 2)",
                 "attribute": "hp"
             }],
             "exp": 6,
@@ -161,7 +168,7 @@
             "effects": [{
                 "type": "damage",
                 "object": "enemy",
-                "amount": "(aLv x 2) + Over + I",
+                "amount": "(aLv x 2) + Over",
                 "attribute": "hp"
             }],
             "exp": 6,
@@ -176,7 +183,7 @@
             "effects": [{
                 "type": "damage",
                 "object": "enemy",
-                "amount": "(aLv x 3) + (Over / 2) + I",
+                "amount": "(aLv x 3) + (Over / 2)",
                 "attribute": "hp"
             }],
             "exp": 6,
@@ -191,7 +198,7 @@
             "effects": [{
                 "type": "damage",
                 "object": "enemy",
-                "amount": "(Over + 1) x 2 + I",
+                "amount": "(Over + 1) x 2",
                 "attribute": "hp"
             }],
             "exp": 8,
@@ -277,11 +284,11 @@
             "requirements": [ {"ability": "Lift", "value": 5}, {"ability": "Balance", "value": 2} ],
             "type": "defense",
             "range": 0,
-            "target": "7 - aLv",
+            "target": "8 - aLv",
             "effects": [{
                 "type": "defense",
                 "object": "player",
-                "amount": "-(aLv + I)",
+                "amount": "-(aLv + (Over / 2))",
                 "attribute": "damage"
             }],
             "exp": 9,
@@ -296,11 +303,11 @@
             "effects": [{
                 "type": "defense",
                 "object": "player",
-                "amount": "-(aLv + I)",
+                "amount": "-(aLv + (Over / 3))",
                 "attribute": "damage"
             }],
             "exp": 10,
-            "usage": "Reduce damage from a non-magical attack. Must have suitable weapon equipped (see items table), equipped weapon damage bonus modifies damage reduction. If over the target by 4 or more (or on a King), character may initiate a counter attack per normal attack rules."
+            "usage": "Reduce damage from a non-magical attack. Must have suitable weapon equipped (see items table), equipped weapon damage bonus divided by 2 modifies damage reduction. If over the target by 3 or more (or on a King), character may initiate a counter attack per normal attack rules."
         },
         {
             "name": "Counter Spell",
@@ -335,14 +342,14 @@
         {
             "name": "Poison tip",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Lead", "value": 3} ],
-            "type": "modifier",
+            "type": "action",
             "range": 0,
             "target": "11 - aLv",
             "effects": [{
-                "type": "damage",
-                "object": "enemy",
+                "type": "modifer",
+                "object": "item",
                 "amount": "aLv x 2",
-                "attribute": "hp"
+                "attribute": "damage"
             }],
             "exp": 11,
             "usage": "Bow, knife, or sword must be equipped; if successful, next 3 attacks will deal extra damage per ability effect; missed hits DO count against 3 attacks; can be used on another character's weapon if on the same spot"
@@ -391,7 +398,7 @@
             "effects": [{
                 "type": "damage",
                 "object": "enemy",
-                "amount": "(aLv x 3) + Over + I",
+                "amount": "(aLv x 3) + Over",
                 "attribute": "hp"
             }],
             "exp": 10,
@@ -699,53 +706,7 @@
     ],
     "items": [
         {
-            "sum": 2,
-            "color": "red",
-            "name": "Booby Trap",
-            "requirements": null,
-            "equip": false,
-            "consumable": false,
-            "weight": null,
-            "effects": [{
-                "type": "damage",
-                "object": "player",
-                "amount": "-(F / 2)",
-                "attribute": "hp"
-            }],
-            "description": "That looks painful. Flip for damage, it **cannot be defended**."
-        },
-        {
-            "sum": 2,
-            "color": "black",
-            "name": "Bats",
-            "requirements": null,
-            "equip": false,
-            "consumable": false,
-            "weight": null,
-            "effects": [{
-                "type": "damage",
-                "object": "player",
-                "amount": "-(F / 2)",
-                "attribute": "hp"
-            }],
-            "description": "A flurry of bats escape and attack you and anyone **on or adjacent to your spot**. All characters in range take damage and **cannot defend**."
-        },
-        {
-            "sum": 2,
-            "color": "mixed",
-            "name": "Nothing",
-            "requirements": null,
-            "equip": false,
-            "consumable": false,
-            "weight": null,
-            "effects": null,
-            "description": "Huh, you were sure there was something here. Oh well."
-        },
-        {
-            "sum": 3,
-            "color": "red",
             "name": "Torch",
-            "count": 2,
             "requirements": null,
             "equip": false,
             "consumable": true,
@@ -754,40 +715,21 @@
             "description": "Lights up a dark space. Treat the space as if it were lit for the remainder of your time in it."
         },
         {
-            "sum": 3,
-            "color": "black",
-            "name": "Rusted trap",
-            "requirements": null,
-            "equip": false,
-            "consumable": false,
-            "weight": null,
-            "effects": [{
-                "type": "stun",
-                "object": "player",
-                "amount": 1,
-                "attribute": null
-            }],
-            "description": "A rusted old trap springs on you, but doesn't do any damage. You are stunned and lose your next turn."
-        },
-        {
-            "sum": 3,
-            "color": "mixed",
             "name": "Lock Pick",
-            "count": 2,
             "requirements": null,
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.1,
             "effects": null,
             "description": "A simple pick, but does the trick. Use to attempt to [open a locked chest](../../rules/07_chests_and_items.md)."
         },
         {
-            "sum": 4,
-            "color": "red",
             "name": "Medicinal Herbs",
             "requirements": null,
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.6,
             "effects": [{
                 "type": "heal",
@@ -798,8 +740,6 @@
             "description": "A foul tasting, but effective elixir for restoring health. When used to heal another player, use **their** level."
         },
         {
-            "sum": 4,
-            "color": "black",
             "name": "Nice Shoes",
             "requirements": null,
             "equip": true,
@@ -814,12 +754,11 @@
             "description": "Hey, those look pretty good on you. These may be worn in addition to any armor."
         },
         {
-            "sum": 4,
-            "color": "mixed",
             "name": "Smoke Bomb",
             "requirements": null,
             "equip": false,
             "consumable": true,
+            "duration": "variable",
             "weight": 0.3,
             "effects": [{
                 "type": "stun",
@@ -830,8 +769,6 @@
             "description": "Helpful in a pinch. **If dropped on your spot**, no enemies may attack you for 2 turns while you stay on that same spot. **If thrown**, any creatures on that spot lose their next turn (player or enemy)."
         },
         {
-            "sum": 5,
-            "color": "red",
             "name": "Hunting Knife",
             "requirements": null,
             "equip": true,
@@ -839,15 +776,13 @@
             "weight": 1,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "knife",
                 "amount": 1,
                 "attribute": "damage"
             }],
             "description": "A simple knife with a bone hilt."
         },
         {
-            "sum": 5,
-            "color": "black",
             "name": "Light Sword",
             "requirements": [ {"ability": "Lift", "value": 2} ],
             "equip": true,
@@ -855,15 +790,18 @@
             "weight": 2,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "sword",
                 "amount": 2,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": -1,
                 "attribute": "damage"
             }],
             "description": "A perfectly normal sword with a dulled edge. May be used to Parry."
         },
         {
-            "sum": 5,
-            "color": "mixed",
             "name": "Long Bow",
             "requirements": [ {"ability": "Balance", "value": 2} ],
             "equip": true,
@@ -871,22 +809,34 @@
             "weight": 3,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "bow",
                 "amount": 1,
                 "attribute": "damage"
             }],
-            "includes": [
-                { "name": "Basic Arrow", "count": 10, "weight": 0.1 }
-            ],
-            "description": "A lightweight, cheaply made bow used primarily for hunting. **Note**: you must have arrows to shoot! You **gain 10 basic arrows** when you receive this bow (0 damage bonus). These arrows are **single use** and weigh 0.1 each. Although this is a two-handed weapon, you may have a second, one-handed weapon equipped."
+            "includes": [{ "name": "basic arrow", "count": 10 }],
+            "description": "A lightweight, cheaply made bow used primarily for hunting. **Note**: you must have arrows to shoot! You **gain 10 basic arrows** when you receive this bow (1 damage bonus). These arrows are **single use** and weigh 0.1 each. Although this is a two-handed weapon, you may have a second, one-handed weapon equipped."
         },
         {
-            "sum": 6,
-            "color": "red",
+            "name": "Basic Arrow",
+            "requirements": null,
+            "weight": 0.1,
+            "equip": false,
+            "consumable": true,
+            "duration": 1,
+            "effects": [{
+                "type": "modifier",
+                "object": "bow",
+                "amount": 1,
+                "attribute": "damage"
+            }],
+            "description": "Not very sharp, but it'll fly straight enough. Must be used with a bow. **These arrows are NOT recoverable.** (In other words, once fired, they're gone.)"
+        },
+        {
             "name": "Weapon Tuner",
             "requirements": [ {"ability": "Think", "value": 2} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.5,
             "effects": [{
                 "type": "modifier",
@@ -895,15 +845,13 @@
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": "ability",
+                "object": "item",
                 "amount": -1,
                 "attribute": "target"
             }],
             "description": "This tool will help you to enhance 1 weapon in **your inventory**. The effects are permanent, and stay with the weapon even if traded. **Weapons may only be tuned once, regardless of the method**."
         },
         {
-            "sum": 6,
-            "color": "black",
             "name": "Leather Shield",
             "requirements": [ {"ability": "Lift", "value": 2}, {"ability": "Balance", "value": 2} ],
             "equip": true,
@@ -911,15 +859,13 @@
             "weight": 2,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "shield block",
                 "amount": -3,
                 "attribute": "defense"
             }],
             "description": "It's not much, but it'll take some of that hit. Effect only applies when using the **Shield Block ability**. If **untrained**, effect is only **-2 damage**! No effect against magical attacks!"
         },
         {
-            "sum": 6,
-            "color": "mixed",
             "name": "Leather Bracers",
             "requirements": [ {"ability": "Balance", "value": 3} ],
             "equip": true,
@@ -927,15 +873,23 @@
             "weight": 1,
             "effects": [{
                 "type": "defense",
-                "object": "player",
+                "object": ["player"],
                 "amount": -1,
                 "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": "parry",
+                "amount": -1,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": "parry",
+                "amount": 2,
+                "attribute": "target"
             }],
             "description": "These things chaff, but I suppose they'll take some hits. May be used to Parry, but with a +2 to the target."
         },
         {
-            "sum": 7,
-            "color": "red",
             "name": "Leather Cap",
             "requirements": [ {"ability": "Think", "value": 2} ],
             "equip": true,
@@ -950,8 +904,6 @@
             "description": "It's not stylish, but it might help in a scrape."
         },
         {
-            "sum": 7,
-            "color": "black",
             "name": "Leather Greaves",
             "requirements": [ {"ability": "Lift", "value": 2} ],
             "equip": true,
@@ -966,8 +918,6 @@
             "description": "These are awkward, but I guess if we run into very short enemies?"
         },
         {
-            "sum": 7,
-            "color": "mixed",
             "name": "Leather Jacket",
             "requirements": [ {"ability": "Lead", "value": 2} ],
             "equip": true,
@@ -982,46 +932,41 @@
             "description": "Are you even cool enough to wear this?"
         },
         {
-            "sum": 8,
-            "color": "red",
             "name": "Sharp Arrows",
-            "count": 10,
             "requirements": null,
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.1,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
-                "amount": 2,
+                "object": "bow",
+                "amount": 3,
                 "attribute": "damage"
             }],
             "description": "Ouch! That's a sharp tip. Must be used with a bow. **These arrows are recoverable and reusable.** (Be sure to mark them in your space after firing!)"
         },
         {
-            "sum": 8,
-            "color": "black",
             "name": "Poison Arrows",
-            "count": 5,
             "requirements": [ {"ability": "Think", "value": 3} ],
             "equip": false,
             "consumable": true,
+            "duration": 3,
             "weight": 0.1,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "bow",
                 "amount": 2,
                 "attribute": "damage"
             }],
             "description": "That stuff will mess you up. Must be used with a bow. If this attack hits, **regardless of the defense** and initial damage reduction, the enemy will take +2 damage this turn **and on the enemy's next two turns** (3 total turns, so +6 damage total). The poison damage bonus cannot be defended. **Warning**, a critical failure on your attack (flipping an Ace) means **you take all 6 damage from the poison**! This cannot be defended."
         },
         {
-            "sum": 8,
-            "color": "mixed",
             "name": "Caltrops",
             "requirements": [ {"ability": "Think", "value": 3} ],
             "equip": false,
             "consumable": true,
+            "duration": "variable",
             "weight": 1,
             "effects": [{
                 "type": "damage",
@@ -1037,12 +982,11 @@
             "description": "These oughta slow 'em down. When thrown, these devices remain on a spot until an enemy enters the spot (mark the spot!). On the turn the enemy enters the spot, deal damage effect, enemy cannot defend. Enemy also loses their next turn. **Does not work on bosses**, they will see the caltrops and avoid the spot."
         },
         {
-            "sum": 9,
-            "color": "red",
             "name": "Fire Elixir",
             "requirements": [ {"ability": "Think", "value": 2}, {"ability": "Balance", "value": 2} ],
             "equip": false,
             "consumable": true,
+            "duration": 2,
             "weight": 0.6,
             "effects": [{
                 "type": "damage",
@@ -1053,12 +997,11 @@
             "description": "Fire is so pretty... When thrown, deals damage (**minimum damage of 1**) to all enemies on target spot (may be defended). Any enemy that fully fails their defense will take an additional +2 damage on their next turn. On an Ace, character takes -2 HP damage (and there is no effect on the enemies)."
         },
         {
-            "sum": 9,
-            "color": "black",
             "name": "Ice Elixir",
             "requirements": [ {"ability": "Think", "value": 2}, {"ability": "Lift", "value": 2} ],
             "equip": false,
             "consumable": true,
+            "duration": 2,
             "weight": 0.6,
             "effects": [{
                 "type": "stun",
@@ -1069,12 +1012,11 @@
             "description": "Halt! When thrown, every enemy on target spot is frozen and loses their next turn (may not be defended, and enemies may not defend during those turns)."
         },
         {
-            "sum": 9,
-            "color": "mixed",
             "name": "Water Elixir",
             "requirements": [ {"ability": "Think", "value": 2}, {"ability": "Move", "value": 2} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.6,
             "effects": [{
                 "type": "damage",
@@ -1090,8 +1032,6 @@
             "description": "Nothing can hold back the flood. When thrown, deals damage to all enemies on target spot (may be defended). All enemies also move 1 spot away from attacker (may not be defended). No effect if they cannot move."
         },
         {
-            "sum": 10,
-            "color": "red",
             "name": "Stiletto Knife",
             "requirements": [ {"ability": "Balance", "value": 3} ],
             "equip": true,
@@ -1099,15 +1039,23 @@
             "weight": 1,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "knife",
                 "amount": 2,
                 "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": -1,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": 1,
+                "attribute": "target"
             }],
             "description": "An extremely sharp point, but terrible for slashing. May be used to Parry, but with a +1 to the target. Gain +1 additional damage when successfully counter attacking."
         },
         {
-            "sum": 10,
-            "color": "black",
             "name": "Long Sword",
             "requirements": [ {"ability": "Lift", "value": 4} ],
             "equip": true,
@@ -1115,15 +1063,18 @@
             "weight": 3,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": ["sword", "two-handed"],
                 "amount": 4,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": -2,
                 "attribute": "damage"
             }],
             "description": "A heavy, **two-handed** blade with a bone-slicing edge. May be used to Parry. When attacking after aiming for at least 2 turns, you get a second chance to hit if the first fails. May be used with either the Sword or Two-handed ability."
         },
         {
-            "sum": 10,
-            "color": "mixed",
             "name": "Recurve Bow",
             "requirements": [ {"ability": "Balance", "value": 3}, {"ability": "Think", "value": 2} ],
             "equip": true,
@@ -1131,20 +1082,19 @@
             "weight": 2,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "bow",
                 "amount": 2,
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": "ability",
+                "object": "bow",
                 "amount": -1,
                 "attribute": "target"
             }],
+            "includes": [{ "name": "basic arrow", "count": 10 }],
             "description": "A solid bow with decent accuracy. **Note**: you must have arrows to shoot! You **gain 10 basic arrows** when you receive this bow (0 damage bonus). These arrows are **single use** and weigh 0.1 each. Although this is a two-handed weapon, you may have a second, one-handed weapon equipped."
         },
         {
-            "sum": 11,
-            "color": "red",
             "name": "Magic Wand",
             "requirements": [ {"ability": "Think", "value": 4} ],
             "equip": true,
@@ -1152,20 +1102,18 @@
             "weight": 1,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "magical ability",
                 "amount": 2,
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": "ability",
+                "object": "magical ability",
                 "amount": -1,
                 "attribute": "target"
             }],
             "description": "A wizard requires proper gear, too. The target for any **magical ability** is reduced and its damage increased."
         },
         {
-            "sum": 11,
-            "color": "black",
             "name": "Whip",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Balance", "value": 4} ],
             "equip": true,
@@ -1180,8 +1128,6 @@
             "description": "A long, leather whip with a sturdy handle and frayed edges at the tip. This weapon may be used by anyone who meets the requirements. Target to attack an enemy is `(12 - Bc)` with a range of 0 or 1 (may be used to attack enemies 1 spot away). Characters may also use this weapon to retrieve an item on an adjacent spot with a target of `(14 - bc)`."
         },
         {
-            "sum": 11,
-            "color": "mixed",
             "name": "Staff",
             "requirements": [ {"ability": "Lift", "value": 3}, {"ability": "Balance", "value": 2} ],
             "equip": true,
@@ -1189,19 +1135,23 @@
             "weight": 3,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "two-handed",
                 "amount": 3,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": -1,
                 "attribute": "damage"
             }],
             "description": "A simple, **two-handed** long staff made of oak with intricate carvings. Used with the Two-handed ability and a range of 0 or 1 (may be used to attack enemies 1 spot away). May be used to Parry."
         },
         {
-            "sum": 12,
-            "color": "red",
             "name": "Magic Scroll",
             "requirements": [ {"ability": "Think", "value": 5} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.2,
             "effects": [{
                 "type": "modifier",
@@ -1212,12 +1162,11 @@
             "description": "The words on the paper are written in an ancient script, and the letters almost glow. When read, gain +1 to any **magical ability** you are trained in. If trained in **Scholar**, Flip a card: on an 11+ you gain +1 level to your Think or Lead core ability as well."
         },
         {
-            "sum": 12,
-            "color": "black",
             "name": "Training Manual",
             "requirements": null,
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.6,
             "effects": [{
                 "type": "modifier",
@@ -1228,12 +1177,11 @@
             "description": "Books are cool. Reading this manual allows the reader to gain +1 level in Think, Balance, or Lead. If trained in **Scholar** ability, Flip a card: on an 11+ you gain +1 level in any **non-core ability** as well."
         },
         {
-            "sum": 12,
-            "color": "mixed",
             "name": "Resistance Trainers",
             "requirements": null,
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 1,
             "effects": [{
                 "type": "modifier",
@@ -1244,12 +1192,11 @@
             "description": "Woah, have you been working out? You look great. This training has paid off, gain +1 level to your Lift and Move core abilities."
         },
         {
-            "sum": 13,
-            "color": "red",
             "name": "Healing Potion",
             "requirements": null,
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.6,
             "effects": [{
                 "type": "heal",
@@ -1260,12 +1207,11 @@
             "description": "It has a slight minty flavor, not bad actually. When used to heal another player, use **their** level."
         },
         {
-            "sum": 13,
-            "color": "black",
             "name": "Crafty Smoke Bomb",
             "requirements": null,
             "equip": false,
             "consumable": true,
+            "duration": "variable",
             "weight": 0.4,
             "effects": [{
                 "type": "stun",
@@ -1276,42 +1222,36 @@
             "description": "Helpful in a pinch. **If dropped on your spot**, no enemies may attack you for 3 turns while you stay on that same spot. **If thrown**, any enemies on that spot lose their next turn (player characters are not affected)."
         },
         {
-            "sum": 13,
-            "color": "mixed",
             "name": "Better Lock Pick",
-            "count": 2,
             "requirements": null,
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.1,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "lock pick",
                 "amount": -2,
                 "attribute": "target"
             }],
             "description": "A good pick for most locks. Use to attempt to open a locked chest with a -2 target."
         },
         {
-            "sum": 14,
-            "color": "red",
             "name": "Exploding Arrows",
-            "count": 5,
             "requirements": [ {"ability": "Lift", "value": 3} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.2,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "bow",
                 "amount": 4,
                 "attribute": "damage"
             }],
             "description": "Make it go boom! Must be used with a bow. If this attack hits, the damage affects the target enemy **and all other enemies on the same spot**. All enemies may defend."
         },
         {
-            "sum": 14,
-            "color": "black",
             "name": "Iron Shield",
             "requirements": [ {"ability": "Lift", "value": 4}, {"ability": "Balance", "value": 3} ],
             "equip": true,
@@ -1326,8 +1266,6 @@
             "description": "When used properly, this shield can be a life saver. Effect only applies when using the **Shield Block ability**. If **untrained**, effect is only **-4 damage**! If the Flip is an Ace, the shield hits you in the head, you lose -2 HP. If the Flip is a King, you immediately get a counter attack. No effect against magical attacks!"
         },
         {
-            "sum": 14,
-            "color": "mixed",
             "name": "Iron Bracers",
             "requirements": [ {"ability": "Balance", "value": 4} ],
             "equip": true,
@@ -1338,12 +1276,20 @@
                 "object": "player",
                 "amount": -2,
                 "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": -1,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": 2,
+                "attribute": "target"
             }],
             "description": "Surprisingly light, and very effective. May be used to Parry, but with a +2 to the target."
         },
         {
-            "sum": 15,
-            "color": "red",
             "name": "Iron Helmet",
             "requirements": [ {"ability": "Think", "value": 3} ],
             "equip": true,
@@ -1358,8 +1304,6 @@
             "description": "Not easy to see through, but this may keep an enemy arrow from embedding in your brain."
         },
         {
-            "sum": 15,
-            "color": "black",
             "name": "Iron Greaves",
             "requirements": [ {"ability": "Lift", "value": 3} ],
             "equip": true,
@@ -1374,8 +1318,6 @@
             "description": "Not great for running in, but they'll keep your legs attached."
         },
         {
-            "sum": 15,
-            "color": "mixed",
             "name": "Iron Chest Plate",
             "requirements": [ {"ability": "Lead", "value": 3} ],
             "equip": true,
@@ -1390,12 +1332,11 @@
             "description": "A solid piece of metal strapped to your torso... what could go wrong?"
         },
         {
-            "sum": 16,
-            "color": "red",
             "name": "Weapon Fine Tuner",
             "requirements": [ {"ability": "Think", "value": 4} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.5,
             "effects": [{
                 "type": "modifier",
@@ -1404,19 +1345,18 @@
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": "ability",
+                "object": "item",
                 "amount": -2,
                 "attribute": "target"
             }],
             "description": "This tool will help you to enhance 1 weapon in **your inventory**. The effects are permanent, and stay with the weapon even if traded. **Weapons may only be tuned once, regardless of the method**."
         },
         {
-            "sum": 16,
-            "color": "black",
             "name": "Armor Tuner",
             "requirements": [ {"ability": "Think", "value": 3} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.5,
             "effects": [{
                 "type": "modifier",
@@ -1427,8 +1367,6 @@
             "description": "This tool will help you to enhance 1 piece of armor in **your inventory**. The effect is permanent, and stays with the armor even if traded. **Armor may only be tuned once, regardless of the method**."
         },
         {
-            "sum": 16,
-            "color": "mixed",
             "name": "Magic Flute",
             "requirements": [ {"ability": "Think", "value": 2}, {"ability": "Lead", "value": 2} ],
             "equip": false,
@@ -1438,12 +1376,11 @@
             "description": "Music is powerful. Once per space, you may attempt to enchant a target enemy with song. Flip a card, your target is `(14 - (Th + Ld))`. On success, your target enemy will attack their nearest other enemy on their next turn as if it was a player character. Defend per usual rules. On an Ace, the enemy gets an immediate, extra turn. On a King, the enemy will do this enemy-on-enemy attack on their following turn as well. **Does not work on bosses**."
         },
         {
-            "sum": 17,
-            "color": "red",
             "name": "Reviving Potion",
             "requirements": [ {"ability": "Lead", "value": 3} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.6,
             "effects": [{
                 "type": "heal",
@@ -1454,23 +1391,21 @@
             "description": "The chocolate coating makes it go down easier. When used to heal another player, use **their** level."
         },
         {
-            "sum": 17,
-            "color": "black",
             "name": "Stretching Elixir",
             "requirements": [ {"ability": "Balance", "value": 2}, {"ability": "Move", "value": 2} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.3,
             "effects": null,
             "description": "This small vial swirls with a mix of three colored liquids. Draw up to your Stamina limit, then look at all of your Stamina cards, order them how you like, and place them back face down again."
         },
         {
-            "sum": 17,
-            "color": "mixed",
             "name": "Adrenaline Boost",
             "requirements": [ {"ability": "Lift", "value": 3} ],
             "equip": false,
             "consumable": true,
+            "duration": 3,
             "weight": 0.3,
             "effects": [{
                 "type": "modifier",
@@ -1481,12 +1416,11 @@
             "description": "This small vial contains a green liquid that smells of elderberries, you hope it isn't just elderberry juice. Take two additional turns after this one, any ability targets are -1 for those additional turns."
         },
         {
-            "sum": 18,
-            "color": "red",
             "name": "Strong Fire Elixir",
             "requirements": [ {"ability": "Think", "value": 4}, {"ability": "Balance", "value": 2} ],
             "equip": false,
             "consumable": true,
+            "duration": "variable",
             "weight": 0.6,
             "effects": [{
                 "type": "damage",
@@ -1497,12 +1431,11 @@
             "description": "A swirling inferno erupts. When thrown, deals damage to all enemies on target spot (may be defended). Any enemy that fully fails their defense will take an additional +4 damage on their next turn. On an Ace, character takes -2 HP damage (and there is no effect on the enemies)."
         },
         {
-            "sum": 18,
-            "color": "black",
             "name": "Strong Ice Elixir",
             "requirements": [ {"ability": "Think", "value": 4}, {"ability": "Lift", "value": 2} ],
             "equip": false,
             "consumable": true,
+            "duration": 2,
             "weight": 0.6,
             "effects": [{
                 "type": "stun",
@@ -1513,12 +1446,11 @@
             "description": "Halt! When thrown, every enemy on target spot is frozen and loses their next **two turns** (may not be defended, and enemies may not defend during those turns)."
         },
         {
-            "sum": 18,
-            "color": "mixed",
             "name": "Strong Water Elixir",
             "requirements": [ {"ability": "Think", "value": 4}, {"ability": "Move", "value": 2} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.6,
             "effects": [{
                 "type": "damage",
@@ -1534,8 +1466,6 @@
             "description": "Nothing can hold back the flood. When thrown, deals damage to all enemies on target spot (may be defended). All enemies also move 1 spot away from attacker (may not be defended). No effect if they cannot move."
         },
         {
-            "sum": 19,
-            "color": "red",
             "name": "Battle Axe",
             "requirements": [ {"ability": "Lift", "value": 4} ],
             "equip": true,
@@ -1543,15 +1473,13 @@
             "weight": 4,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "two-handed",
                 "amount": 5,
                 "attribute": "damage"
             }],
             "description": "This double-sided, two-handed axe is heavy, but packs a punch. Used with the Two-handed ability. If the attack hits (regardless of damage), player may make an immediate second attack at the same enemy (may not be transferred to any other enemy). May **not** be used to Parry."
         },
         {
-            "sum": 19,
-            "color": "black",
             "name": "Pike",
             "requirements": [ {"ability": "Lift", "value": 4}, {"ability": "Balance", "value": 2} ],
             "equip": true,
@@ -1559,15 +1487,18 @@
             "weight": 3,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "two-handed",
                 "amount": 4,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": -2,
                 "attribute": "damage"
             }],
             "description": "A long, two-handed pole with a sharpened metal tip and a flourish of barbs. Used with the Two-handed ability and a range of 0 or 1 (may be used to attack enemies 1 spot away). May be used to Parry. When attacking, if enemy defends fully (no damage), player may choose to attack same enemy again with **no weapon damage bonus** (essentially using the other end of the pole)."
         },
         {
-            "sum": 19,
-            "color": "mixed",
             "name": "Enchanted Staff",
             "requirements": [ {"ability": "Think", "value": 5}, {"ability": "Lead", "value": 3} ],
             "equip": true,
@@ -1575,20 +1506,18 @@
             "weight": 1,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": ["magical ability", "two-handed"],
                 "amount": 3,
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": "ability",
+                "object": "magical ability",
                 "amount": -2,
                 "attribute": "target"
             }],
             "description": "An artfully crafted, two-handed staff of some rare wood that is light as a feather, with inlaid gems and intricate carvings. Player may choose to use as a melee weapon (Two-handed ability) or to effect magical abilities. When used as a melee weapon, only the damage bonus is in effect. When used to enhance magical abilities, both the target and damage effects apply."
         },
         {
-            "sum": 20,
-            "color": "red",
             "name": "Kris Knife",
             "requirements": [ {"ability": "Balance", "value": 4}, {"ability": "Move", "value": 2} ],
             "equip": true,
@@ -1596,15 +1525,23 @@
             "weight": 1,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "knife",
                 "amount": 3,
                 "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": -1,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": 1,
+                "attribute": "target"
             }],
             "description": "An undulating blade with a gold and leather hilt, excellent for slicing and dicing enemies. Character performs two attacks against the target enemy, if the enemy fully fails to defend the first, they cannot defend the second. May be used to Parry, but with a +1 to the target."
         },
         {
-            "sum": 20,
-            "color": "black",
             "name": "Scimitar",
             "requirements": [ {"ability": "Lift", "value": 3}, {"ability": "Balance", "value": 2} ],
             "equip": true,
@@ -1612,15 +1549,23 @@
             "weight": 2,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "sword",
                 "amount": 4,
                 "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": -2,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": 1,
+                "attribute": "target"
             }],
             "description": "A long, curved implement with a protective guard and ornate hilt. May be used to Parry with a -1 to the target."
         },
         {
-            "sum": 20,
-            "color": "mixed",
             "name": "Compound Bow",
             "requirements": [ {"ability": "Balance", "value": 4}, {"ability": "Think", "value": 2} ],
             "equip": true,
@@ -1628,24 +1573,24 @@
             "weight": 1,
             "effects": [{
                 "type": "modifier",
-                "object": "ability",
+                "object": "bow",
                 "amount": 2,
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": "ability",
+                "object": "bow",
                 "amount": -1,
                 "attribute": "target"
             }],
+            "includes": [{ "name": "basic arrow", "count": 10 }],
             "description": "A very lightweight bow with intricate mechanisms to aid in firing. If your first arrow on an attack fails to deal full damage, you may immediately attack the same target again (only once). **Note**: you must have arrows to shoot! You **gain 10 Sharp Arrows** when you receive this bow (+2 damage bonus). These arrows weigh 0.1 each. Although this is a two-handed weapon, you may have a second, one-handed weapon equipped."
         },
         {
-            "sum": 21,
-            "color": "red",
             "name": "Armor Fine Tuner",
             "requirements": [ {"ability": "Think", "value": 3} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.5,
             "effects": [{
                 "type": "modifier",
@@ -1656,8 +1601,6 @@
             "description": "This tool will help you to enhance 1 piece of armor in **your inventory**. The effect is permanent, and stays with the armor even if traded. **Armor may only be tuned once, regardless of the method**."
         },
         {
-            "sum": 21,
-            "color": "black",
             "name": "Enchanted Shield",
             "requirements": [ {"ability": "Think", "value": 5}, {"ability": "Balance", "value": 2} ],
             "equip": true,
@@ -1672,8 +1615,6 @@
             "description": "The shimmer on this shield is mesmerizing, and even though it feels sturdy, it is very light! Does _not_ require Shield Block ability (but may be used with it). May be used against any attack (magical or not). If the Flip is an Ace, you will take an additional `+Lv` damage. If the Flip is a King, you immediately get a counter attack."
         },
         {
-            "sum": 21,
-            "color": "mixed",
             "name": "Enchanted Bracers",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Balance", "value": 4} ],
             "equip": true,
@@ -1684,12 +1625,20 @@
                 "object": "player",
                 "amount": -3,
                 "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": -1,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": ["parry"],
+                "amount": 1,
+                "attribute": "target"
             }],
             "description": "It's as if you're wearing nothing at all! May be used to Parry, but with a +1 to the target. Against **magic attacks** the effect is increased by `-2` damage."
         },
         {
-            "sum": 22,
-            "color": "red",
             "name": "Enchanted Helmet",
             "requirements": [ {"ability": "Think", "value": 4} ],
             "equip": true,
@@ -1704,8 +1653,6 @@
             "description": "An elegant covering that fits well on any wearer. Against **magic attacks** the effect is increased by `-2` damage."
         },
         {
-            "sum": 22,
-            "color": "black",
             "name": "Enchanted Greaves",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Lift", "value": 3} ],
             "equip": true,
@@ -1720,8 +1667,6 @@
             "description": "These leggings seamlessly blend into your trousers, and barely alter your gait at all. Against **magic attacks** the effect is increased by `-2` damage."
         },
         {
-            "sum": 22,
-            "color": "mixed",
             "name": "Enchanted Chest Plate",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Lead", "value": 3} ],
             "equip": true,
@@ -1736,12 +1681,11 @@
             "description": "A quite comfortable tunic, this armor still allows full motion of your upper body! Against **magic attacks** the effect is increased by `-2` damage."
         },
         {
-            "sum": 23,
-            "color": "red",
             "name": "Dragon's Blood",
             "requirements": [ {"ability": "Lead", "value": 3} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.6,
             "effects": [{
                 "type": "heal",
@@ -1752,23 +1696,21 @@
             "description": "This dark red compound smells foul and tastes even worse, but its effects cannot be matched. Restore all HP for you or any character on your spot. If the other character is dead, revive them to 2/3 of their Max HP."
         },
         {
-            "sum": 23,
-            "color": "black",
             "name": "Stamina Boost",
             "requirements": [ {"ability": "Balance", "value": 2}, {"ability": "Move", "value": 2} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.3,
             "effects": null,
             "description": "This is a small vial with a cloudy liquid - the guy at the tavern said it works wonders. Draw 5 Stamina cards and place them face down at the bottom of your Stamina deck (no peeking). You can go over the Stamina card limit, but you may not draw Stamina again until below it."
         },
         {
-            "sum": 23,
-            "color": "mixed",
             "name": "Quickening Elixir",
             "requirements": [ {"ability": "Move", "value": 3} ],
             "equip": false,
             "consumable": true,
+            "duration": 4,
             "weight": 0.3,
             "effects": [{
                 "type": "modifier",
@@ -1779,19 +1721,16 @@
             "description": "After drinking this horrid mixture you notice everything moving much slower around you. Take three additional turns after this one, any ability targets are -2 for those additional turns."
         },
         {
-            "sum": 24,
-            "color": "red",
             "name": "Acid Bath",
             "requirements": [ {"ability": "Balance", "value": 4} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.6,
             "effects": null,
             "description": "This highly volatile elixir bubbles and churns in a way that makes you very anxious. When thrown at a target enemy, they dissolve completely. **This can only be defended by dodging**. Flip a card, if you flip a 6 or lower, you get some on you and take `-Lv` HP. **Bosses will always dodge this attack**, but will take `+Lv` damage."
         },
         {
-            "sum": 24,
-            "color": "black",
             "name": "Quick Shoes",
             "requirements": [ {"ability": "Lead", "value": 3} ],
             "equip": true,
@@ -1806,8 +1745,6 @@
             "description": "This these are amazing, feels like you're walking on air! These may be worn in addition to any armor."
         },
         {
-            "sum": 24,
-            "color": "mixed",
             "name": "Winged Boots",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Move", "value": 3} ],
             "equip": true,
@@ -1822,12 +1759,11 @@
             "description": "These tall boots have wings on the side that allow the wearer to move and take another action in the same turn. However, the character cannot wear any leg armor while wearing these boots."
         },
         {
-            "sum": 25,
-            "color": "red",
             "name": "Phoenix Feather",
             "requirements": null,
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.1,
             "effects": [{
                 "type": "heal",
@@ -1838,8 +1774,6 @@
             "description": "This long feather is bright red and orange, with a faint shimmer. Revive a dead character to the specified HP (from 0), using **their** level. If this item is in your inventory when you die, you are automatically revived on your _next_ turn by the HP amount above. You do not lose your gear in this case, except for your companion."
         },
         {
-            "sum": 25,
-            "color": "black",
             "name": "Invisibility Cloak",
             "requirements": null,
             "equip": true,
@@ -1849,19 +1783,16 @@
             "description": "A long, black shimmery cloak, this item will render you invisible for 3 rounds starting on the turn you equip it. During this time, no enemy may attack you, even when moving through their spot. This cloak fits over any armor you are wearing. May only be used **once per space**."
         },
         {
-            "sum": 25,
-            "color": "mixed",
             "name": "Time Elixir",
             "requirements": [ {"ability": "Think", "value": 5}, {"ability": "Lead", "value": 3} ],
             "equip": false,
             "consumable": true,
+            "duration": 1,
             "weight": 0.6,
             "effects": null,
             "description": "This yellowish-green elixir seems to have an audible tick... that's weird. Reveal the top 10 Action deck cards and reorder them in any way you wish, replacing them face down on the top of that deck."
         },
         {
-            "sum": 26,
-            "color": "red",
             "name": "Companion",
             "requirements": null,
             "equip": false,
@@ -1875,32 +1806,418 @@
             },{
                 "type": "modifier",
                 "object": "enemy",
-                "amount": -1,
+                "amount": 1,
                 "attribute": "target"
             }],
             "description": "Did you hear that? Describe what you heard, and the creature you have found. This companion **adds damage to any attack, _successful or not_**. All enemies have a +1 to target you. Cannot be traded. If you receive a new companion, you may keep the current one or describe a new one. New companions will get an additional +1 damage."
+        }
+    ],
+    "chests": [
+        {
+            "sum": 2,
+            "color": "red",
+            "items": "Booby Trap",
+            "description": "That looks painful. Flip for damage, it **cannot be defended**.",
+            "effects": [{
+                "type": "damage",
+                "object": "player",
+                "amount": "-(F / 2)",
+                "attribute": "hp"
+            }]
+        },
+        {
+            "sum": 2,
+            "color": "black",
+            "items": "Bats",
+            "description": "A flurry of bats escape and attack you and anyone **on or adjacent to your spot**. All characters in range take damage and **cannot defend**.",
+            "effects": [{
+                "type": "damage",
+                "object": "player",
+                "amount": "-(F / 2)",
+                "attribute": "hp"
+            }]
+        },
+        {
+            "sum": 2,
+            "color": "mixed",
+            "items": "Nothing",
+            "description": "Huh, you were sure there was something here. Oh well.",
+            "effects": null
+        },
+        {
+            "sum": 3,
+            "color": "red",
+            "items": "Torch",
+            "count": 2
+        },
+        {
+            "sum": 3,
+            "color": "black",
+            "items": "Rusted trap",
+            "description": "A rusted old trap springs on you, but doesn't do any damage. You are stunned and lose your next turn.",
+            "effects": [{
+                "type": "stun",
+                "object": "player",
+                "amount": 1,
+                "attribute": null
+            }]
+        },
+        {
+            "sum": 3,
+            "color": "mixed",
+            "items": "Lock Pick",
+            "count": 2
+        },
+        {
+            "sum": 4,
+            "color": "red",
+            "items": "Medicinal Herbs"
+        },
+        {
+            "sum": 4,
+            "color": "black",
+            "items": "Nice Shoes"
+        },
+        {
+            "sum": 4,
+            "color": "mixed",
+            "items": "Smoke Bomb"
+        },
+        {
+            "sum": 5,
+            "color": "red",
+            "items": "Hunting Knife"
+        },
+        {
+            "sum": 5,
+            "color": "black",
+            "items": "Light Sword"
+        },
+        {
+            "sum": 5,
+            "color": "mixed",
+            "items": "Long Bow"
+        },
+        {
+            "sum": 6,
+            "color": "red",
+            "items": "Weapon Tuner"
+        },
+        {
+            "sum": 6,
+            "color": "black",
+            "items": "Leather Shield"
+        },
+        {
+            "sum": 6,
+            "color": "mixed",
+            "items": "Leather Bracers"
+        },
+        {
+            "sum": 7,
+            "color": "red",
+            "items": "Leather Cap"
+        },
+        {
+            "sum": 7,
+            "color": "black",
+            "items": "Leather Greaves"
+        },
+        {
+            "sum": 7,
+            "color": "mixed",
+            "items": "Leather Jacket"
+        },
+        {
+            "sum": 8,
+            "color": "red",
+            "items": "Sharp Arrows",
+            "count": 10
+        },
+        {
+            "sum": 8,
+            "color": "black",
+            "items": "Poison Arrows",
+            "count": 5
+        },
+        {
+            "sum": 8,
+            "color": "mixed",
+            "items": "Caltrops"
+        },
+        {
+            "sum": 9,
+            "color": "red",
+            "items": "Fire Elixir"
+        },
+        {
+            "sum": 9,
+            "color": "black",
+            "items": "Ice Elixir"
+        },
+        {
+            "sum": 9,
+            "color": "mixed",
+            "items": "Water Elixir"
+        },
+        {
+            "sum": 10,
+            "color": "red",
+            "items": "Stiletto Knife"
+        },
+        {
+            "sum": 10,
+            "color": "black",
+            "items": "Long Sword"
+        },
+        {
+            "sum": 10,
+            "color": "mixed",
+            "items": "Recurve Bow"
+        },
+        {
+            "sum": 11,
+            "color": "red",
+            "items": "Magic Wand"
+        },
+        {
+            "sum": 11,
+            "color": "black",
+            "items": "Whip"
+        },
+        {
+            "sum": 11,
+            "color": "mixed",
+            "items": "Staff"
+        },
+        {
+            "sum": 12,
+            "color": "red",
+            "items": "Magic Scroll"
+        },
+        {
+            "sum": 12,
+            "color": "black",
+            "items": "Training Manual"
+        },
+        {
+            "sum": 12,
+            "color": "mixed",
+            "items": "Resistance Trainers"
+        },
+        {
+            "sum": 13,
+            "color": "red",
+            "items": "Healing Potion"
+        },
+        {
+            "sum": 13,
+            "color": "black",
+            "items": "Crafty Smoke Bomb"
+        },
+        {
+            "sum": 13,
+            "color": "mixed",
+            "items": "Better Lock Pick",
+            "count": 2
+        },
+        {
+            "sum": 14,
+            "color": "red",
+            "items": "Exploding Arrows",
+            "count": 5
+        },
+        {
+            "sum": 14,
+            "color": "black",
+            "items": "Iron Shield"
+        },
+        {
+            "sum": 14,
+            "color": "mixed",
+            "items": "Iron Bracers"
+        },
+        {
+            "sum": 15,
+            "color": "red",
+            "items": "Iron Helmet"
+        },
+        {
+            "sum": 15,
+            "color": "black",
+            "items": "Iron Greaves"
+        },
+        {
+            "sum": 15,
+            "color": "mixed",
+            "items": "Iron Chest Plate"
+        },
+        {
+            "sum": 16,
+            "color": "red",
+            "items": "Weapon Fine Tuner"
+        },
+        {
+            "sum": 16,
+            "color": "black",
+            "items": "Armor Tuner"
+        },
+        {
+            "sum": 16,
+            "color": "mixed",
+            "items": "Magic Flute"
+        },
+        {
+            "sum": 17,
+            "color": "red",
+            "items": "Reviving Potion"
+        },
+        {
+            "sum": 17,
+            "color": "black",
+            "items": "Stretching Elixir"
+        },
+        {
+            "sum": 17,
+            "color": "mixed",
+            "items": "Adrenaline Boost"
+        },
+        {
+            "sum": 18,
+            "color": "red",
+            "items": "Strong Fire Elixir"
+            },
+        {
+            "sum": 18,
+            "color": "black",
+            "items": "Strong Ice Elixir"
+            },
+        {
+            "sum": 18,
+            "color": "mixed",
+            "items": "Strong Water Elixir"
+        },
+        {
+            "sum": 19,
+            "color": "red",
+            "items": "Battle Axe"
+        },
+        {
+            "sum": 19,
+            "color": "black",
+            "items": "Pike"
+        },
+        {
+            "sum": 19,
+            "color": "mixed",
+            "items": "Enchanted Staff"
+        },
+        {
+            "sum": 20,
+            "color": "red",
+            "items": "Kris Knife"
+        },
+        {
+            "sum": 20,
+            "color": "black",
+            "items": "Scimitar"
+        },
+        {
+            "sum": 20,
+            "color": "mixed",
+            "items": "Compound Bow"
+        },
+        {
+            "sum": 21,
+            "color": "red",
+            "items": "Armor Fine Tuner"
+        },
+        {
+            "sum": 21,
+            "color": "black",
+            "items": "Enchanted Shield"
+        },
+        {
+            "sum": 21,
+            "color": "mixed",
+            "items": "Enchanted Bracers"
+        },
+        {
+            "sum": 22,
+            "color": "red",
+            "items": "Enchanted Helmet"
+        },
+        {
+            "sum": 22,
+            "color": "black",
+            "items": "Enchanted Greaves"
+        },
+        {
+            "sum": 22,
+            "color": "mixed",
+            "items": "Enchanted Chest Plate"
+        },
+        {
+            "sum": 23,
+            "color": "red",
+            "items": "Dragon's Blood"
+            },
+        {
+            "sum": 23,
+            "color": "black",
+            "items": "Stamina Boost"
+        },
+        {
+            "sum": 23,
+            "color": "mixed",
+            "items": "Quickening Elixir"
+        },
+        {
+            "sum": 24,
+            "color": "red",
+            "items": "Acid Bath"
+        },
+        {
+            "sum": 24,
+            "color": "black",
+            "items": "Quick Shoes"
+        },
+        {
+            "sum": 24,
+            "color": "mixed",
+            "items": "Winged Boots"
+        },
+        {
+            "sum": 25,
+            "color": "red",
+            "items": "Phoenix Feather"
+        },
+        {
+            "sum": 25,
+            "color": "black",
+            "items": "Invisibility Cloak"
+        },
+        {
+            "sum": 25,
+            "color": "mixed",
+            "items": "Time Elixir"
+        },
+            {
+            "sum": 26,
+            "color": "red",
+            "items": "Companion"
         },
         {
             "sum": 26,
             "color": "black",
-            "name": "Anything",
-            "requirements": null,
-            "equip": false,
-            "consumable": false,
-            "weight": null,
-            "effects": null,
-            "description": "Pick any item available in this table, _except the companion_."
+            "items": "Anything",
+            "description": "Pick any item available in this table, **except the companion**."
         },
         {
             "sum": 26,
             "color": "mixed",
-            "name": "Anything + 1",
-            "requirements": null,
-            "equip": false,
-            "consumable": false,
-            "weight": null,
-            "effects": null,
-            "description": "Pick any item available in this table, _except the companion_, and then flip two more cards to determine another item. _You may only do this once._ If you happen to get a mixed 26 again, you may pick any item, but do not flip again."
+            "items": "Anything + 1",
+            "description": "Pick any item **except the companion**, and then flip two more cards to determine another item. You may only do this once, if you happen to get a mixed 26 again, you may pick any item, but do not flip again."
         }
     ],
     "enemies": [

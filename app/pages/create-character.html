@@ -4,26 +4,15 @@ title: P52 Create Character
 page: create-character
 ---
 
+<p class='start-over'>
+    You can <a href='#' class='reset'>reset your character</a> and start over any time.
+</p>
+
 <section class='current-character'>
     
     <p>You are a <strong class='selected-race'>?</strong> <strong class='selected-class'>?</strong> with:</p>
 
-    <table class='in-progress-core-abilities'>
-        <thead><tr>
-            <th>Lift</th>
-            <th>Think</th>
-            <th>Balance</th>
-            <th>Move</th>
-            <th>Lead</th>
-        </tr></thead>
-        <tbody><tr>
-            <td class='core-lift'>1</td>
-            <td class='core-think'>1</td>
-            <td class='core-balance'>1</td>
-            <td class='core-move'>1</td>
-            <td class='core-lead'>1</td>
-        </tr></tbody>
-    </table>
+    <aside class='in-progress-core-table'></aside>
 
     <p>
         Your Max HP would be <strong class='max-hp'>0</strong>, 
@@ -56,22 +45,7 @@ page: create-character
 
             <p class='description'></p>
 
-            <table class='modifiers'>
-                <thead><tr>
-                    <th>Lift</th>
-                    <th>Think</th>
-                    <th>Balance</th>
-                    <th>Move</th>
-                    <th>Lead</th>
-                </tr></thead>
-                <tbody><tr>
-                    <td class='core-lift'>0</td>
-                    <td class='core-think'>0</td>
-                    <td class='core-balance'>0</td>
-                    <td class='core-move'>0</td>
-                    <td class='core-lead'>0</td>
-                </tr></tbody>
-            </table>
+            <aside class='core-table'></aside>
         </fieldset>
 
         <fieldset class='choose-class'>
@@ -82,22 +56,7 @@ page: create-character
 
             <p class='description'></p>
 
-            <table class='modifiers'>
-                <thead><tr>
-                    <th>Lift</th>
-                    <th>Think</th>
-                    <th>Balance</th>
-                    <th>Move</th>
-                    <th>Lead</th>
-                </tr></thead>
-                <tbody><tr>
-                    <td class='core-lift'>0</td>
-                    <td class='core-think'>0</td>
-                    <td class='core-balance'>0</td>
-                    <td class='core-move'>0</td>
-                    <td class='core-lead'>0</td>
-                </tr></tbody>
-            </table>
+            <aside class='core-table'></aside>
         </fieldset>
 
         <aside class='actions'>
@@ -264,6 +223,21 @@ page: create-character
             </aside>
             <aside>
                 <label for='quirk-penalty'>Penalty:</label><input type='text' name='quirk-penalty' id='quirk-penalty'>
+            </aside>
+            <aside>
+                <label>Frequency:</label>
+                <label for='quirk-frequency-c'>
+                    <input type='radio' name='quirk-frequency' id='quirk-frequency-c' value='c'>
+                    continuous
+                </label>
+                <label for='quirk-frequency-s'>
+                    <input type='radio' name='quirk-frequency' id='quirk-frequency-s' value='s'>
+                    per space
+                </label>
+                <label for='quirk-frequency-q'>
+                    <input type='radio' name='quirk-frequency' id='quirk-frequency-q' value='q'>
+                    per quest
+                </label>
             </aside>
             <aside>
                 <label for='quirk-description'>Description:</label><textarea name='quirk-description' id='quirk-description'></textarea>
