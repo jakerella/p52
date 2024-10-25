@@ -1,5 +1,7 @@
 
 import initCreateCharacter from './createCharacter.js'
+import initCharacterSheet from './loadCharacterSheet.js'
+import initLoadHome from './loadHome.js'
 import initLoadScenario from './loadScenario.js'
 
 
@@ -9,8 +11,11 @@ function main(page) {
 }
 
 const PAGE_INIT = {
+    'home': initLoadHome,
     'load-scenario': initLoadScenario,
-    'create-character': initCreateCharacter
+    'create-character': initCreateCharacter,
+    'character-sheet': initCharacterSheet
 }
+
 
 export default main

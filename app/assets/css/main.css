@@ -3,7 +3,11 @@
 footer { color: #666; }
 
 
-/* Creating a Character */
+#page-home .no-character, #page-home .scenario-and-character {
+    display: none;
+}
+
+
 #page-create-character .current-character { display: none; }
 #page-create-character .choose-race .modifiers, #page-create-character .choose-class .modifiers {
     display: none;

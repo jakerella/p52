@@ -13,7 +13,8 @@ const PARTIALS_LOC = 'app/layouts/partials/'
 const PAGES_LOC = 'app/pages/'
 const STATIC_COPIES = [
   { source: 'app/assets/', dest: '' },
-  { source: 'scenarios/the-calico-wizard/calico-wizard.json', dest: 'scenarios/calico-wizard.json' }
+  { source: 'scenarios/the-calico-wizard/calico-wizard.json', dest: 'scenarios/calico-wizard.json' },
+  { source: 'node_modules/@picocss/pico/css/pico.blue.min.css', dest: 'css/pico.blue.min.css' }
 ]
 
 // TODO: custom step to copy in scenarios?

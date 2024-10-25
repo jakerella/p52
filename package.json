@@ -22,6 +22,7 @@
     }
   },
   "devDependencies": {
+    "@picocss/pico": "^2.0.6",
     "fs-extra": "^11.2.0",
     "handlebars": "^4.7.8",
     "http-server": "^14.1.1",

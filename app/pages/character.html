@@ -1,118 +1,58 @@
 ---
 layout: basic
 title: P52 Character Sheet
+page: character-sheet
 ---
 
-<p>Here's your character...</p>
 
 <section>
-    <h2>Basic Info</h2>
-
     <dl>
         <dt>Name</dt>
-        <dd>Romeo</dd>
+        <dd class='char-name'>?</dd>
 
         <dt>Race</dt>
-        <dd>Miowethian</dd>
+        <dd class='char-race'>?</dd>
 
         <dt>Class</dt>
-        <dd>Wizard</dd>
+        <dd class='char-class'>?</dd>
 
-        <dt>Experience</dt>
-        <dd>7</dd>
+        <dt>Exp</dt>
+        <dd class='char-experience'>0</dd>
 
         <dt>Level</dt>
-        <dd>2</dd>
-
-        <dt>Next Level</dt>
-        <dd>30</dd>
+        <dd class='char-level'>1</dd>
 
         <dt>Movement</dt>
-        <dd>1</dd>
+        <dd class='char-movement'>1</dd>
 
-        <dt>Max HP</dt>
-        <dd>15</dd>
+        <dt>HP</dt>
+        <dd>
+            <span class='char-hp'>1</span>
+            (Max: <span class='char-max-hp'>1</span>)
+        </dd>
 
-        <dt>Current HP</dt>
-        <dd>13</dd>
-
-        <dt>Initiative</dt>
-        <dd>7</dd>
+        <dt>Init</dt>
+        <dd class='char-initiative'>1</dd>
     </dl>
-    <aside>
-        <h3>Quirk</h3>
-        <p>Whatever my quirk happens to be</p>
+    <aside class='quirk'>
+        <h3 class='quirk-title'></h3>
+        <p class='quirk-description'></p>
+        <p class='quirk-bonus'></p>
+        <p class='quirk-penalty'></p>
     </aside>
 </section>
 
-<section id='core-abilities'>
-    <h2>Core Abilities</h2>
-    <dl>
-        <dt>Lift</dt>
-        <dd>2</dd>
+<section class='core-abilities'></section>
 
-        <dt>Think</dt>
-        <dd>4</dd>
-
-        <dt>Balance</dt>
-        <dd>3</dd>
-
-        <dt>Move</dt>
-        <dd>2</dd>
-
-        <dt>Lead</dt>
-        <dd>4</dd>
-    </dl>
-</section>
-
-<section id='abilities'>
+<section class='abilities'>
     <h2>Abilities</h2>
-
-    <aside class='ability'>
-        <h3>Fire Ball <span class='level'>(2)</span></h3>
-        <h4>magic</h4>
-        <figure class='target'>7 + R</figure>
-        <figure class='effect'>4 + Over dmg</figure>
-        <figure class='level-up'>18</figure>
-        <p class='description'>Magical attack, 1/2 damage to other enemies or player characters on same spot, 1/4 damage to all adjacent enemies</p>
-    </aside>
-
-    <aside class='ability'>
-        <h3>Counter Spell <span class='level'>(1)</span></h3>
-        <h4>magic</h4>
-        <figure class='target'>7</figure>
-        <figure class='effect'>-(5 + Over) dmg</figure>
-        <figure class='level-up'>8</figure>
-        <p class='description'>Reduce damage from magical attack</p>
-    </aside>
-
 </section>
 
-<section id='items'>
+<section class='items'>
     <h2>Items</h2>
 
-    <aside class='item'>
-        <h3>Staff <span class='equipped'>(equipped)</span></h3>
-        <h4>weapon</h4>
-        <figure class='effect'>+3 dmg</figure>
-        <figure class='weight'>3</figure>
-        <p>A simple long staff made of oak with intricate carvings. Used with the Two-handed ability and a range of 0 or 1 (may be used to attack enemies 1 spot away). May be used to Parry.</p>
-    </aside>
-
-    <aside class='item'>
-        <h3>Medicinal Herbs</h3>
-        <h4>consumable</h4>
-        <figure class='effect'>+(5 x Lv) HP</figure>
-        <figure class='weight'>0.6</figure>
-        <p>A foul tasting, but effective elixir for restoring health. When used to heal another player, use **their** level.</p>
-    </aside>
-
-    <aside class='item'>
-        <h3>Leather Cap <span class='equipped'>(unequipped)</span></h3>
-        <h4>armor</h4>
-        <figure class='effect'>-1 dmg</figure>
-        <figure class='weight'>1</figure>
-        <p>It's not stylish, but it might help in a scrape.</p>
-    </aside>
-
 </section>
+
+<aside class='character-metadata'>
+    <p>Character saved locally <span class='last-save'>?</span></p>
+</aside>

@@ -795,7 +795,7 @@
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": -1,
                 "attribute": "damage"
             }],
@@ -873,7 +873,7 @@
             "weight": 1,
             "effects": [{
                 "type": "defense",
-                "object": ["player"],
+                "object": "player",
                 "amount": -1,
                 "attribute": "damage"
             },{
@@ -1044,12 +1044,12 @@
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": -1,
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": 1,
                 "attribute": "target"
             }],
@@ -1063,12 +1063,17 @@
             "weight": 3,
             "effects": [{
                 "type": "modifier",
-                "object": ["sword", "two-handed"],
+                "object": "sword",
                 "amount": 4,
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "two-handed",
+                "amount": 4,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": "parry",
                 "amount": -2,
                 "attribute": "damage"
             }],
@@ -1140,7 +1145,7 @@
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": -1,
                 "attribute": "damage"
             }],
@@ -1278,12 +1283,12 @@
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": -1,
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": 2,
                 "attribute": "target"
             }],
@@ -1492,7 +1497,7 @@
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": -2,
                 "attribute": "damage"
             }],
@@ -1506,7 +1511,12 @@
             "weight": 1,
             "effects": [{
                 "type": "modifier",
-                "object": ["magical ability", "two-handed"],
+                "object": "magical ability",
+                "amount": 3,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": "two-handed",
                 "amount": 3,
                 "attribute": "damage"
             },{
@@ -1530,12 +1540,12 @@
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": -1,
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": 1,
                 "attribute": "target"
             }],
@@ -1554,12 +1564,12 @@
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": -2,
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": 1,
                 "attribute": "target"
             }],
@@ -1627,12 +1637,12 @@
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": -1,
                 "attribute": "damage"
             },{
                 "type": "modifier",
-                "object": ["parry"],
+                "object": "parry",
                 "amount": 1,
                 "attribute": "target"
             }],

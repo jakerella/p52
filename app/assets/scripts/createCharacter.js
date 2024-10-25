@@ -1,7 +1,7 @@
 
 import $ from './jqes6.js'
 import c from './constants.js'
-import { showMessage, getScenario, setupPaging, saveCharacter, getCoreAbilitiesTableHtml, getCharacter, getItemsByName } from './shared.js'
+import { showMessage, getScenario, setupPaging, saveCharacter, getCoreAbilitiesTableHtml, getCharacter, getItemsByName, buildAbilityDisplay, getAbilitiesByName, buildItemDisplay } from './shared.js'
 import template from '../data/character_template.js'
 
 async function initCreateCharacter() {
@@ -138,6 +138,7 @@ function setupCompletion(character, scenario) {
 
         character.quirk = quirk
         character.hp = (character.core.lift * character.core.think) + 3
+        character.level = 1
         delete character.build
 
         console.log('Creating character', character)
@@ -328,33 +329,14 @@ function setupAbilities(character, scenario) {
 
     setAvailableAbilities(character, scenario)
     
-    const abilitiesByName = {}
-    scenario.abilities.forEach((ab) => abilitiesByName[ab.name.toLowerCase()] = ab)
+    const abilitiesByName = getAbilitiesByName(scenario)
     availableSelector.on('change', () => {
         if (!availableSelector[0].value) { return description.html(' ') }
 
         const ab = abilitiesByName[availableSelector[0].value]
         
-        const verbs = { damage: 'deal', defense: 'defend', heal: 'heal' }
-        const effects = (ab.effects || []).map((e) => {
-            if (verbs[e.type]) {
-                return `${verbs[e.type]} <strong>${e.amount}</strong> damage`
-            } else {
-                return '(see description)'
-            }
-        })
-
-        const content = [
-            `<h4>${ab.name} (${ab.type})</h4>`,
-            `<p>${ab.usage}</p>`,
-            `<ul>`,
-            `<li>Target: ${ab.target}</li>`,
-            `<li>Range: ${ab.range === 0 ? '(not ranged)' : ab.range[1]}</li>`,
-            `<li>Effects: ${effects.length ? effects.join('; ') : '(see description)'}</li>`,
-            `</ul>`
-        ]
         const abilities = getRaceAndClassAbilities('given', character, scenario)
-        description.html(content.join('\n'))
+        description.html(buildAbilityDisplay(ab))
         $('.in-progress-abilities').html([...abilities, ab.name.toLowerCase()].join(', '))
     })
 }
@@ -417,32 +399,9 @@ function setupItems(character, scenario) {
         if (!selector[0].value) { return description.html(' ') }
 
         const item = itemsByName[selector[0].value]
-        
-        const effects = (item.effects || []).map((e) => {
-            if (e.type === 'heal') {
-                return `heal <strong>${e.amount}</strong> damage`
-            } else if (e.type === 'modifier') {
-                return `modify <strong>${e.attribute}</strong> by <strong>${e.amount}</strong>`
-            } else if (e.type === 'stun') {
-                return `stun for <strong>${e.amount} turns</strong>`
-            } else if (e.type === 'defense') {
-                return `defend <strong>${Math.abs(e.amount)}</strong> damage`
-            } else if (e.type === 'damage') {
-                return `deal <strong>${Math.abs(e.amount)}</strong> damage`
-            }
-        })
-
-        const content = [
-            `<h4>${item.name}${(item.count && item.count > 1) ? ` (${item.count})` : ''}${item.equip ? ' (gear)' : ''}${item.consumable ? ' (consumable)' : ''}</h4>`,
-            `<p>${item.description}</p>`,
-            `<ul>`,
-            `<li>Weight: ${item.weight}</li>`,
-            `<li>Effects: ${effects.length ? effects.join('; ') : '(see description)'}</li>`,
-            `</ul>`
-        ]
-        const items = getRaceAndClassItems('given', character, scenario)
-        description.html(content.join('\n'))
-        $('.in-progress-items').html([...items, item.name.toLowerCase()].join(', '))
+        const raceClassItems = getRaceAndClassItems('given', character, scenario)
+        description.html(buildItemDisplay(item))
+        $('.in-progress-items').html([...raceClassItems, item.name.toLowerCase()].join(', '))
     })
 }
 

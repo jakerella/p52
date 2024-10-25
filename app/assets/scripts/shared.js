@@ -111,3 +111,88 @@ export function getItemsByName(scenario) {
     scenario.items.forEach((item) => itemsByName[item.name.toLowerCase()] = item)
     return itemsByName
 }
+
+export function getAbilitiesByName(scenario) {
+    const abilitiesByName = {}
+    scenario.abilities.forEach((ab) => abilitiesByName[ab.name.toLowerCase()] = ab)
+    return abilitiesByName
+}
+
+export function buildAbilityDisplay(ability, charAbility = null, charItems = null) {
+    const verbs = { damage: 'deal', defense: 'defend', heal: 'heal' }
+    const effects = (ability.effects || []).map((e) => {
+        // @TODO: use items to change effect formulas
+        if (verbs[e.type]) {
+            return `${verbs[e.type]} <strong>${e.amount}</strong> damage`
+        } else {
+            return '(see description)'
+        }
+    })
+
+    let target = ability.target
+    if (charAbility) {
+        target = target.replace('aLv', `${charAbility.level}(aLv)`)
+        ;(charAbility.modifiers || []).forEach((mod) => {
+            if (mod.attribute === 'target') {
+                const sign = (e.amount < 0) ? '-' : '+'
+                target += ` ${sign} ${mod.amount}(mod)`
+            }
+        })
+    }
+
+    if (charItems && charItems.length) {
+        const items = getItemsByName(getScenario())
+        charItems.forEach((item) => {
+            if (item.equipped && items[item.name] && items[item.name].effects) {
+                items[item.name].effects.forEach((e) => {
+                    if (e.object.toLowerCase() === ability.name.toLowerCase() && e.attribute === 'target') {
+                        const sign = (e.amount < 0) ? '-' : '+'
+                        target += ` ${sign} ${e.amount}(${item.name})`
+                    }
+                })
+            }
+        })
+    }
+
+    // TODO: change target to reflect actual if we have charAbility
+    // TODO: change effects to reflect actual if we have charAbility
+    // TOD: update stats if we have items
+
+    return `<h4>${ability.name} ${(charAbility ? `<span class='ability-level'>(Lv ${charAbility.level})</span>` : `(${ability.type})`)}</h4>
+<aside class='ability-details'>
+    <p>${ability.usage}</p>
+    <ul>
+        <li>Target: <strong>${target}</strong></li>
+        <li>Range: ${ability.range === 0 ? '(not ranged)' : ability.range[1]}</li>
+        <li>Effects: ${effects.length ? effects.join('; ') : '(see description)'}</li>
+    </ul>
+</aside>`
+}
+
+export function buildItemDisplay(item, charItem = null) {
+    const effects = (item.effects || []).map((e) => {
+        if (e.type === 'heal') {
+            return `heal <strong>${e.amount}</strong> damage`
+        } else if (e.type === 'modifier') {
+            return `modify <strong>${e.attribute}</strong> of <strong>${e.object}</strong> by <strong>${e.amount}</strong>`
+        } else if (e.type === 'stun') {
+            return `stun for <strong>${e.amount} turns</strong>`
+        } else if (e.type === 'defense') {
+            return `defend <strong>${Math.abs(e.amount)}</strong> damage`
+        } else if (e.type === 'damage') {
+            return `deal <strong>${Math.abs(e.amount)}</strong> damage`
+        }
+    })
+
+    const count = (charItem?.count > 1) ? ` (x${charItem.count})` : ''
+    const equip = charItem?.equipped ? ' (equipped)' : (item.equip ? ' (not equipped)' : '')
+
+    return `<h4>${item.name}${count}${equip}</h4>
+<aside class='item-details'>
+    <p>${item.description}</p>
+    <ul>
+        <li>Weight: ${item.weight}</li>
+        <li>Effects: ${effects.length ? effects.join('; ') : '(see description)'}</li>
+    </ul>
+</aside>`
+}
