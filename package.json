@@ -5,10 +5,9 @@
   "description": "Companion app for the P52 Role Playing Game system.",
   "main": "build/index.html",
   "scripts": {
-    "clean": "rm -rf app/build/",
-    "build": "node app/build.js",
-    "debug": "DEBUG_LEVEL=DEBUG node app/build.js",
-    "serve": "http-server -p 3030 app/build/",
+    "build": "npx builder",
+    "debug": "DEBUG_LEVEL=DEBUG npx builder",
+    "serve": "npx http-server -p 3030 app/build/",
     "watch": "npm-watch debug"
   },
   "watch": {
@@ -23,8 +22,7 @@
   },
   "devDependencies": {
     "@picocss/pico": "^2.0.6",
-    "fs-extra": "^11.2.0",
-    "handlebars": "^4.7.8",
+    "builder": "github:jakerella/builder",
     "http-server": "^14.1.1",
     "npm-watch": "^0.13.0"
   },
