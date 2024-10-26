@@ -54,7 +54,7 @@ function updateCharacterDisplay(character, scenario) {
     const abElem = page.find('.abilities')
     character.abilities.forEach((ability) => {
         const slug = ability.name.toLowerCase().replaceAll(' ', '-')
-        abElem.append(`<aside id='ability-${slug}' class='ability'>${buildAbilityDisplay(abilitiesByName[ability.name], ability, character.items)}</aside>`)
+        abElem.append(`<aside id='ability-${slug}' class='ability'>${buildAbilityDisplay(abilitiesByName[ability.name], ability, character.items, character.core)}</aside>`)
     })
 
     const itemsByName = getItemsByName(scenario)

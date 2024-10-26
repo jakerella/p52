@@ -21,3 +21,10 @@ footer { color: #666; }
 #page-create-character .core-bonus {
     width: 3em;
 }
+
+
+.calc-source {
+    font-weight: normal;
+    vertical-align: super;
+    font-size: 0.9em;
+}

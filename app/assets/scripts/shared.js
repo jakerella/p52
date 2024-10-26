@@ -118,20 +118,10 @@ export function getAbilitiesByName(scenario) {
     return abilitiesByName
 }
 
-export function buildAbilityDisplay(ability, charAbility = null, charItems = null) {
-    const verbs = { damage: 'deal', defense: 'defend', heal: 'heal' }
-    const effects = (ability.effects || []).map((e) => {
-        // @TODO: use items to change effect formulas
-        if (verbs[e.type]) {
-            return `${verbs[e.type]} <strong>${e.amount}</strong> damage`
-        } else {
-            return '(see description)'
-        }
-    })
-
+export function buildAbilityDisplay(ability, charAbility = null, charItems = null, core = null) {
     let target = ability.target
     if (charAbility) {
-        target = target.replace('aLv', `${charAbility.level}(aLv)`)
+        target = target.replace('aLv', `${charAbility.level}<span class='calc-source'>(aLv)</span>`)
         ;(charAbility.modifiers || []).forEach((mod) => {
             if (mod.attribute === 'target') {
                 const sign = (e.amount < 0) ? '-' : '+'
@@ -140,6 +130,26 @@ export function buildAbilityDisplay(ability, charAbility = null, charItems = nul
         })
     }
 
+    const verbs = { damage: 'deal', defense: 'defend', heal: 'heal' }
+    const effects = {}
+    ;(ability.effects || []).forEach((e) => {
+        if (verbs[e.type]) {
+            effects[e.type] = { text: `${verbs[e.type]} <strong>{{amount}}</strong> damage`, amount: e.amount }
+        } else if (e.type === 'modifier') {
+            effects[`modifier-${e.object}`] = { text: `modify <strong>${e.object} ${e.attribute}</strong> by <strong>{{amount}}</strong>`, amount: e.amount }
+        } else if (e.type === 'action') {
+            effects.action = { text: 'perform the action', amount: e.amount }
+        } else if (e.type === 'level') {
+            effects[`level-${e.attribute}`] = { text: `modify <strong>${e.object} ${e.attribute}</strong>`, amount: e.amount }
+        } else if (e.type === 'turn') {
+            effects.turn = { text: `${e.object} takes {{amount}} turn${Number(e.amount) === 1 ? '' : 's'}`, amount: e.amount }
+        } else if (e.type === 'move') {
+            effects.move = { text: `move ${e.object}`, amount: e.amount }
+        } else {
+            effects[e.type] = { text: '(see description)', amount: e.amount }
+        }
+    })
+
     if (charItems && charItems.length) {
         const items = getItemsByName(getScenario())
         charItems.forEach((item) => {
@@ -147,16 +157,34 @@ export function buildAbilityDisplay(ability, charAbility = null, charItems = nul
                 items[item.name].effects.forEach((e) => {
                     if (e.object.toLowerCase() === ability.name.toLowerCase() && e.attribute === 'target') {
                         const sign = (e.amount < 0) ? '-' : '+'
-                        target += ` ${sign} ${e.amount}(${item.name})`
+                        target += ` ${sign} ${e.amount}<span class='calc-source'>(${item.name})</span>`
+                    }
+                    if (e.object.toLowerCase() === ability.name.toLowerCase() && e.attribute === 'damage' && effects.damage) {
+                        const sign = (e.amount < 0) ? '-' : '+'
+                        effects.damage.amount = `${effects.damage.amount} ${sign} ${e.amount}<span class='calc-source'>(${item.name})</span>`
                     }
                 })
             }
         })
     }
 
-    // TODO: change target to reflect actual if we have charAbility
-    // TODO: change effects to reflect actual if we have charAbility
-    // TOD: update stats if we have items
+    const effectText = Object.keys(effects).map((type) => {
+        let text = effects[type].text.replace('{{amount}}', effects[type].amount)
+        
+        if (charAbility) {
+            text = text.replace('aLv', `${charAbility.level}<span class='calc-source'>(aLv)</span>`)
+        }
+        if (core) {
+            text = text.replace('Lt', `${core.lift}<span class='calc-source'>(Lt)</span>`)
+                .replace('Th', `${core.think}<span class='calc-source'>(Th)</span>`)
+                .replace('Bc', `${core.balance}<span class='calc-source'>(Bc)</span>`)
+                .replace('Mv', `${core.move}<span class='calc-source'>(Mv)</span>`)
+                .replace('Ld', `${core.lead}<span class='calc-source'>(Ld)</span>`)
+        }
+        return text
+    })
+
+    // TODO: do full calculation of target and effects if we have the info
 
     return `<h4>${ability.name} ${(charAbility ? `<span class='ability-level'>(Lv ${charAbility.level})</span>` : `(${ability.type})`)}</h4>
 <aside class='ability-details'>
@@ -164,7 +192,7 @@ export function buildAbilityDisplay(ability, charAbility = null, charItems = nul
     <ul>
         <li>Target: <strong>${target}</strong></li>
         <li>Range: ${ability.range === 0 ? '(not ranged)' : ability.range[1]}</li>
-        <li>Effects: ${effects.length ? effects.join('; ') : '(see description)'}</li>
+        <li>Effects: ${effectText.length ? effectText.join('; ') : '(see description)'}</li>
     </ul>
 </aside>`
 }
