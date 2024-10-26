@@ -19,7 +19,7 @@ async function initCharacterSheet() {
 
     updateCharacterDisplay(character, scenario)
 
-    // TODO: make abilities and items expandable
+    // TODO: add modal to "use" ability
 
     // TODO: make certain things editable
 
@@ -36,9 +36,15 @@ function updateCharacterDisplay(character, scenario) {
         if (elem.length) { elem.html(character[attr]) }
     })
 
-    page.find('.char-max-hp').html((character.core.lift * character.core.think) + 3)
-    page.find('.char-movement').html(Math.floor(character.core.move / 4) + 1)
+    page.find('.char-max-hp').html((character.core.lift * character.core.think) + 3)    
     page.find('.char-initiative').html(character.core.move + (character.core.lead * 2))
+
+    const itemsByName = getItemsByName(scenario)
+    let movement = Math.floor(character.core.move / 4) + 1
+    const weight = character.items.reduce((prev, curr) => {
+        return curr.equipped ? prev + itemsByName[curr.name.toLowerCase()].weight : prev
+    }, 0)
+    page.find('.char-movement').html(movement - Math.floor(weight / (character.core.lift * character.core.balance)))
 
     Object.keys(character.core).forEach((attr) => {
         const elem = page.find(`.core-${attr}`)
@@ -54,14 +60,21 @@ function updateCharacterDisplay(character, scenario) {
     const abElem = page.find('.abilities')
     character.abilities.forEach((ability) => {
         const slug = ability.name.toLowerCase().replaceAll(' ', '-')
-        abElem.append(`<aside id='ability-${slug}' class='ability'>${buildAbilityDisplay(abilitiesByName[ability.name], ability, character.items, character.core)}</aside>`)
+        abElem.append(`<details id='ability-${slug}' class='ability'>
+    <summary><h3>${ability.name} <span class='ability-level'>(Lv ${ability.level})</span></h3></summary>
+    ${buildAbilityDisplay(abilitiesByName[ability.name], ability, character.items, character.core)}
+</details>`)
     })
 
-    const itemsByName = getItemsByName(scenario)
     const itemElem = page.find('.items')
     character.items.forEach((item) => {
         const slug = item.name.toLowerCase().replaceAll(' ', '-')
-        itemElem.append(`<aside id='item-${slug}' class='item'>${buildItemDisplay(itemsByName[item.name], item)}</aside>`)
+        const count = (item.count > 1) ? ` (x${item.count})` : ''
+        const equip = item.equipped ? ' (equipped)' : (itemsByName.equip ? ' (not equipped)' : '')
+        itemElem.append(`<details id='item-${slug}' class='item'>
+    <summary><h3>${item.name}${count}${equip}</h3></summary>
+    ${buildItemDisplay(itemsByName[item.name], item, character.core)}
+</details>`)
     })
     
     $('.character-metadata .last-save').html((new Date(character.last_save)).toLocaleString())

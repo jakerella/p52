@@ -118,7 +118,7 @@ export function getAbilitiesByName(scenario) {
     return abilitiesByName
 }
 
-export function buildAbilityDisplay(ability, charAbility = null, charItems = null, core = null) {
+export function buildAbilityDisplay(ability, charAbility = null, charItems = null, charCore = null) {
     let target = ability.target
     if (charAbility) {
         target = target.replace('aLv', `${charAbility.level}<span class='calc-source'>(aLv)</span>`)
@@ -174,19 +174,19 @@ export function buildAbilityDisplay(ability, charAbility = null, charItems = nul
         if (charAbility) {
             text = text.replace('aLv', `${charAbility.level}<span class='calc-source'>(aLv)</span>`)
         }
-        if (core) {
-            text = text.replace('Lt', `${core.lift}<span class='calc-source'>(Lt)</span>`)
-                .replace('Th', `${core.think}<span class='calc-source'>(Th)</span>`)
-                .replace('Bc', `${core.balance}<span class='calc-source'>(Bc)</span>`)
-                .replace('Mv', `${core.move}<span class='calc-source'>(Mv)</span>`)
-                .replace('Ld', `${core.lead}<span class='calc-source'>(Ld)</span>`)
+        if (charCore) {
+            text = text.replace('Lt', `${charCore.lift}<span class='calc-source'>(Lt)</span>`)
+                .replace('Th', `${charCore.think}<span class='calc-source'>(Th)</span>`)
+                .replace('Bc', `${charCore.balance}<span class='calc-source'>(Bc)</span>`)
+                .replace('Mv', `${charCore.move}<span class='calc-source'>(Mv)</span>`)
+                .replace('Ld', `${charCore.lead}<span class='calc-source'>(Ld)</span>`)
         }
         return text
     })
 
     // TODO: do full calculation of target and effects if we have the info
 
-    return `<h4>${ability.name} ${(charAbility ? `<span class='ability-level'>(Lv ${charAbility.level})</span>` : `(${ability.type})`)}</h4>
+    return `${(charAbility) ? '' : `<h3>${ability.name} (${ability.type})</h3>`}
 <aside class='ability-details'>
     <p>${ability.usage}</p>
     <ul>
@@ -197,25 +197,33 @@ export function buildAbilityDisplay(ability, charAbility = null, charItems = nul
 </aside>`
 }
 
-export function buildItemDisplay(item, charItem = null) {
+export function buildItemDisplay(item, charItem = null, charCore = null) {
     const effects = (item.effects || []).map((e) => {
+        let text = '(see description)'
         if (e.type === 'heal') {
-            return `heal <strong>${e.amount}</strong> damage`
+            text = `heal <strong>${e.amount}</strong> damage`
         } else if (e.type === 'modifier') {
-            return `modify <strong>${e.attribute}</strong> of <strong>${e.object}</strong> by <strong>${e.amount}</strong>`
+            text = `modify <strong>${e.attribute}</strong> of <strong>${e.object}</strong> by <strong>${e.amount}</strong>`
         } else if (e.type === 'stun') {
-            return `stun for <strong>${e.amount} turns</strong>`
+            text = `stun for <strong>${e.amount} turns</strong>`
         } else if (e.type === 'defense') {
-            return `defend <strong>${Math.abs(e.amount)}</strong> damage`
+            text = `defend <strong>${(Number(e.amount)) ? Math.abs(e.amount) : e.amount}</strong> damage`
         } else if (e.type === 'damage') {
-            return `deal <strong>${Math.abs(e.amount)}</strong> damage`
+            text = `deal <strong>${(Number(e.amount)) ? Math.abs(e.amount) : e.amount}</strong> damage`
         }
+        if (charCore) {
+            text = text.replace('Lt', `${charCore.lift}<span class='calc-source'>(Lt)</span>`)
+                .replace('Th', `${charCore.think}<span class='calc-source'>(Th)</span>`)
+                .replace('Bc', `${charCore.balance}<span class='calc-source'>(Bc)</span>`)
+                .replace('Mv', `${charCore.move}<span class='calc-source'>(Mv)</span>`)
+                .replace('Ld', `${charCore.lead}<span class='calc-source'>(Ld)</span>`)
+        }
+        return text
     })
 
-    const count = (charItem?.count > 1) ? ` (x${charItem.count})` : ''
-    const equip = charItem?.equipped ? ' (equipped)' : (item.equip ? ' (not equipped)' : '')
+    const equip = item.equip ? ' (must equip)' : ''
 
-    return `<h4>${item.name}${count}${equip}</h4>
+    return `${(charItem) ? '' : `<h4>${item.name}${equip}</h4>`}
 <aside class='item-details'>
     <p>${item.description}</p>
     <ul>

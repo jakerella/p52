@@ -23,6 +23,10 @@ footer { color: #666; }
 }
 
 
+#page-character-sheet .abilities h3, #page-character-sheet .items h3 {
+    display: inline;
+}
+
 .calc-source {
     font-weight: normal;
     vertical-align: super;
