@@ -28,6 +28,42 @@ class Collection extends Array {
         return new Collection(children);
     }
 
+    is(selector) {
+        if (!this.length) { return false; }
+
+        let allMatch = true;
+        this.forEach((node) => {
+            try {
+                if (!node.matches(selector)) { allMatch = false; }
+            } catch(_) {
+                allMatch = false;
+            }
+        });
+        return allMatch;
+    }
+
+    parents(selector = null) {
+        const parents = [];
+        this.forEach((node) => {
+            let count = 0
+            let parent = node.parentNode;
+            while(parent) {
+                if (++count > 99) { break; }
+                if (selector) {
+                    try {
+                        if (!parent.matches(selector)) {
+                            parent = parent.parentNode
+                            continue;
+                        }
+                    } catch(_) { break; /* bad selector */ }
+                }
+                parents.push(parent);
+                parent = parent.parentNode;
+            }
+        });
+        return new Collection(parents);
+    }
+
     hide() {
         this.toggle('hide');
     }
@@ -94,9 +130,18 @@ class Collection extends Array {
         });
         return this;
     }
+
     off(evtName) {
         this.forEach((node) => node.removeEventListener(evtName, node[`${evtName}_handler`]));
         return this;
+    }
+
+    trigger(evtName, options) {
+        const event = new Event(evtName, { bubbles: true, cancelable: true, ...(options || {}) });
+        this.forEach((node) => {
+            node.dispatchEvent(event);
+        });
+        return this
     }
 
     html(content) {

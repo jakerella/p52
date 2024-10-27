@@ -3,13 +3,15 @@ import c from './constants.js'
 import $ from './jqes6.js'
 
 export function showMessage(msg, ttl, type) {
-    const msgNode = $(`<p id='msg-${Date.now()}' class='${type || 'info'}'>${msg}</p>`)
-    msgNode.appendTo('#messages')
+    const ts = Date.now()
+    $('#messages').append(`<p id='msg-${ts}' class='${type || 'info'}'>${msg}</p>`)
     if (ttl) {
         setTimeout(() => {
-            msgNode[0].parentNode.removeChild(msgNode[0])
+            const elem = $(`#msg-${ts}`)
+            elem[0].parentNode.removeChild(elem[0])
         }, ttl * 1000)
     }
+    window.scrollTo(0,0)
 }
 
 export function parseQuery() {
@@ -49,18 +51,60 @@ export function getCharacter() {
     return character
 }
 
-export async function saveCharacter(character = {}) {
+export async function saveCharacter(character) {
     if (!character) {
         return console.warn(`No character provided to save`)
     }
-    character.last_save = Date.now()
+
+    const oldCharacter = getCharacter()
+
+    delete character.last_save
+    delete character.hash_check
     character.hash_check = await generateHash(character)
+    character.last_save = Date.now()
+
     try {
+        console.debug(`Saving character at ${character.last_save} with hash ${character.hash_check}`)
         localStorage.setItem(c.CHARACTER_KEY, JSON.stringify(character))
+        if (oldCharacter.hash_check !== character.hash_check) {
+            addToCharacterHistory(oldCharacter)
+        }
+
     } catch(e) {
-        console.warn(`Unable to save character to localStorage key '${c.CHARACTER_KEY}': ${JSON.stringify(character)}`)
+        console.warn(`Unable to save character to localStorage key '${c.CHARACTER_KEY}': ${e.message}`)
+        if (oldCharacter) {
+            console.debug(`Attempting to revert to previous character`)
+            localStorage.setItem(c.CHARACTER_KEY, JSON.stringify(oldCharacter))
+        }
+        throw new Error('Sorry, we were unable to save the character data.')
     }
     return true
+}
+
+export function getCharacterHistory() {
+    let history = []
+    try {
+        history = JSON.parse(localStorage.getItem(c.CHARACTER_HISTORY_KEY) || '[]')
+    } catch(e) {
+        console.warn(`Unable to load character history from localStorage key: ${c.CHARACTER_HISTORY_KEY}`)
+    }
+    return history
+}
+
+function addToCharacterHistory(character) {
+    if (!character) { return }
+    const history = getCharacterHistory()
+    history.push(character)
+    if (history.length > c.MAX_CHARACTER_HISTORY) {
+        history.shift()
+    }
+
+    try {
+        console.debug(`Saving character history entry in localStorage: ${c.CHARACTER_HISTORY_KEY}`)
+        localStorage.setItem(c.CHARACTER_HISTORY_KEY, JSON.stringify(history))
+    } catch(e) {
+        console.warn(`Unable to save character history to localStorage key '${c.CHARACTER_HISTORY_KEY}': ${e.message}`)
+    }
 }
 
 export function setupPaging(parent, checks = {}, onshow = {}) {

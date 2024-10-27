@@ -1,7 +1,73 @@
 
 /* Basic page elemenets */
-footer { color: #666; }
+body>header {
+    padding-top: 0
+}
+header h1 a {
+    text-decoration: none;
+}
+header nav {
+    overflow: hidden;
+}
+header nav li {
+    --pico-nav-element-spacing-vertical: 0.2rem;
+    --pico-nav-element-spacing-horizontal: 0.5rem;
+}
+/* .nav-character-sheet { */
+nav li {
+    font-size: 1.7rem;
+}
+footer {
+    border-top: 1px solid #666;
+    background-color: #eee;
+    color: #666;
+}
 
+
+/* General style elements */
+h1 {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+}
+h2 {
+    font-size: 1.2rem;
+}
+h3 {
+    font-size: 1.2rem;
+}
+h4 {
+    font-size: 1.1rem;
+}
+hgroup.grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+table td {
+    text-align: center;
+}
+.calc-source {
+    font-weight: normal;
+    vertical-align: super;
+    font-size: 0.9rem;
+}
+main details summary::after {
+    background: none;
+    content: "▼";
+    color: #888;
+    overflow: hidden;
+    margin-right: 0.5rem;
+}
+[role=group] {
+    align-items: center;
+}
+[role=group] label {
+    margin-right: 1rem;
+    font-size: 1.1rem;
+}
+
+
+/* Page-specific */
 
 #page-home .no-character, #page-home .scenario-and-character {
     display: none;
@@ -19,16 +85,61 @@ footer { color: #666; }
     display: block;
 }
 #page-create-character .core-bonus {
-    width: 3em;
+    width: 4rem;
 }
 
 
+#page-character-sheet .edit-section {
+    font-size: 1.3rem;
+    padding-right: 0.5rem;
+}
+#page-character-sheet .basic-stats th {
+    text-align: center;
+}
+#page-character-sheet .char-hp-display {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#page-character-sheet .hp-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 1.2rem;
+}
+#page-character-sheet .quirk h3 {
+    display: inline;
+}
+#page-character-sheet .abilities, #page-character-sheet .items {
+    padding-top: 1rem;
+    border-top: 1px solid #666;
+}
 #page-character-sheet .abilities h3, #page-character-sheet .items h3 {
     display: inline;
 }
-
-.calc-source {
-    font-weight: normal;
-    vertical-align: super;
-    font-size: 0.9em;
+#page-character-sheet .character-metadata {
+    border-top: 1px solid #666;
 }
+#page-character-sheet .add-item-icon {
+    margin-right: 0.5rem;
+}
+.ability-item-add-on {
+    display: inline;
+    font-weight: normal;
+    font-size: 1.1rem;
+}
+#page-character-sheet .character-metadata {
+    padding: 0.5rem;
+}
+#page-character-sheet .character-metadata p {
+    margin: 0;
+    color: #888;
+}
+#page-character-sheet .core-value-updates td {
+    padding: 0.5rem 0;
+}
+#page-character-sheet .core-value-updates input {
+    text-align: center;
+    max-width: 4rem;
+}
+

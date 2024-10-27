@@ -7,7 +7,7 @@
   "scripts": {
     "build": "npx builder",
     "debug": "DEBUG_LEVEL=DEBUG npx builder",
-    "serve": "npx http-server -p 3030 app/build/",
+    "serve": "npx http-server -p 3000 app/build/",
     "watch": "npm-watch debug"
   },
   "watch": {
@@ -24,6 +24,7 @@
     "@picocss/pico": "^2.0.6",
     "builder": "github:jakerella/builder",
     "http-server": "^14.1.1",
+    "jqes6": "github:jakerella/jqes6",
     "npm-watch": "^0.13.0"
   },
   "repository": {

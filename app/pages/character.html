@@ -1,55 +1,103 @@
 ---
 layout: basic
-title: P52 Character Sheet
+title: Character Sheet
 page: character-sheet
 ---
 
+<hgroup class='grid'>
+    <h2 class='whoami'>
+        <span class='char-name'>?</span>, a
+        <span class='char-race'>?</span>
+        <span class='char-class'>?</span>
+    </h2>
+    <aside class='show-modal edit-core edit-section' data-modal='edit-core-modal'>✎</aside>
+</hgroup>
 
-<section>
-    <dl>
-        <dt>Name</dt>
-        <dd class='char-name'>?</dd>
-
-        <dt>Race</dt>
-        <dd class='char-race'>?</dd>
-
-        <dt>Class</dt>
-        <dd class='char-class'>?</dd>
-
-        <dt>Exp</dt>
-        <dd class='char-experience'>0</dd>
-
-        <dt>Level</dt>
-        <dd class='char-level'>1</dd>
-
-        <dt>Movement</dt>
-        <dd class='char-movement'>1</dd>
-
-        <dt>HP</dt>
-        <dd>
-            <span class='char-hp'>1</span>
-            (Max: <span class='char-max-hp'>1</span>)
-        </dd>
-
-        <dt>Init</dt>
-        <dd class='char-initiative'>1</dd>
-    </dl>
-    <aside class='quirk'>
-        <h3 class='quirk-title'></h3>
-        <p class='quirk-description'></p>
-        <p class='quirk-bonus'></p>
-        <p class='quirk-penalty'></p>
-    </aside>
-</section>
+<table class='basic-stats'>
+    <thead>
+        <tr>
+            <th>HP</th>
+            <th>Init</th>
+            <th>Movement</th>
+            <th>Level</th>
+            <th>Exp</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class='char-hp-display'>
+                <aside class='hp-toggle'>
+                    <div class='action-heal'>▲</div>
+                    <div class='action-damage'>▼</div>
+                </aside>
+                <div><span class='char-hp'>1</span>/<span class='char-max-hp'>1</span></div>
+            </td>
+            <td class='char-initiative'>1</td>
+            <td class='char-movement'>1</td>
+            <td class='char-level'>1</td>
+            <td class='char-experience'>1</td>
+        </tr>
+    </tbody>
+</table>
 
 <section class='core-abilities'></section>
 
+<dialog class='edit-core-modal'>
+    <article>
+        <form action='#' method='get'>
+            <header><h2>Edit Core Values</h2></header>
+            <p>
+                You may edit any of these items, but be sure you're following all applicable rules!
+                Once changed, your character will be saved and this page reloaded to reflect the result.
+            </p>
+            
+            <fieldset role='group'>
+                <label for='update-experience'>Experience</label>
+                <input type='number' name='experience' id='update-experience' value='0'>
+            </fieldset>
+            <table class='core-value-updates'>
+                <thead><tr>
+                    <th>Lift</th>
+                    <th>Think</th>
+                    <th>Balance</th>
+                    <th>Move</th>
+                    <th>Lead</th>
+                </tr></thead>
+                <tbody><tr>
+                    <td><input type='number' name='core-lift' step='1' min='0' max='99' value='1'></td>
+                    <td><input type='number' name='core-think' step='1' min='0' max='99' value='1'></td>
+                    <td><input type='number' name='core-balance' step='1' min='0' max='99' value='1'></td>
+                    <td><input type='number' name='core-move' step='1' min='0' max='99' value='1'></td>
+                    <td><input type='number' name='core-lead' step='1' min='0' max='99' value='1'></td>
+                </tr></tbody>
+            </table>
+            <footer>
+                <input type='button' class='secondary close-modal' data-modal='edit-core-modal' value='Cancel'>
+                <input type='submit' value='Update'>
+            </footer>
+        </form>
+    </article>
+</dialog>
+
+<details class='quirk'>
+    <summary><h3>Quirk: <span class='quirk-title'></span></h3></summary>
+    <p class='quirk-description'></p>
+    <p class='quirk-bonus'></p>
+    <p class='quirk-penalty'></p>
+</details>
+
 <section class='abilities'>
-    <h2>Abilities</h2>
+    <hgroup class='grid'>
+        <h2>Abilities...</h2>
+        <aside class='edit-abilities edit-section'>✎</aside>
+    </hgroup>
 </section>
 
 <section class='items'>
-    <h2>Items</h2>
+    <hgroup class='grid'>
+        <h2>Items...</h2>
+        <aside class='edit-items edit-section'>✎</aside>
+    </hgroup>
 
 </section>
 

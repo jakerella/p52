@@ -1,11 +1,12 @@
 <header>
-    <h1>
-        <a href='/' title='Back to the home page'>{{#if title}}{{title}}{{else}}P52{{/if}}</a>
-    </h1>
+        
     <nav>
+        <h1>
+            <a href='/' class='secondary' data-tooltip='Back to the home page' data-placement='right' title='Back to the home page'>{{#if title}}{{title}}{{else}}P52{{/if}}</a>
+        </h1>
         <ul>
-            <li><a href='/character' title='View your character sheet'>Character</a></li>
-            <li><a href='/quest' title='View your active quest'>Quest</a></li>
+            <li><a href='/character' class='nav-character-sheet' data-tooltip='View your character sheet' data-placement='left' title='View your character sheet'>🂾</a></li>
+            <li><a href='/quest' class='nav-quest' data-tooltip='View your active quest' data-placement='left' title='View your active quest'>⚔</a></li>
         </ul>
     </nav>
 
