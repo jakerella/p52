@@ -1,0 +1,13 @@
+{
+    "destination": "app/build/rules",
+    "clean": false,
+    "default_layout": "basic",
+    "layouts_loc": "app/layouts/",
+    "partials_loc": "app/layouts/partials/",
+    "pages_loc": "rules/",
+    "recurse_pages": false,
+    "static_copy": [
+        { "source": "rules/images/", "dest": "images/" },
+        { "source": "rules/guides/", "dest": "guides/" }
+    ]
+}

@@ -5,6 +5,7 @@
     "layouts_loc": "app/layouts/",
     "partials_loc": "app/layouts/partials/",
     "pages_loc": "app/pages/",
+    "recurse_pages": true,
     "static_copy": [
         { "source": "app/assets/", "dest": "" },
         { "source": "scenarios/the-calico-wizard/calico-wizard.json", "dest": "scenarios/calico-wizard.json" },
