@@ -1,8 +1,21 @@
 
 import $ from './jqes6.js'
-import { buildAbilityDisplay, buildItemDisplay, getAbilitiesByName, getCharacter, getCoreAbilitiesTableHtml, getItemsByName, getScenario, saveCharacter, showMessage } from './shared.js'
+import {
+    buildAbilityDisplay,
+    buildItemDisplay,
+    canUseItem,
+    getAbilitiesByName,
+    getCharacter,
+    getCoreAbilitiesTableHtml,
+    getItemEffects,
+    getItemsByName,
+    getScenario,
+    saveCharacter,
+    showMessage
+} from './shared.js'
 
 const EQUIPPED_NOTE = '<aside class="ability-item-add-on">(equip? <span class="equip-flip"></span>)</aside>'
+const CONSUME_BUTTON = '<button class="use-item">use</button>'
 const ABILITY_LEVEL_ADD_ON = '<aside class="ability-item-add-on">(Lv <span class="ability-level"></span>)</span></aside>'
 const COUNT_NOTE = '<aside class="ability-item-add-on">(x<span class="item-count">1</span>)</aside>'
 
@@ -23,18 +36,22 @@ async function initCharacterSheet() {
 
     $('.core-abilities').html(getCoreAbilitiesTableHtml(''))
 
-    updateCharacterDisplay(character, scenario)
+    addCharacterDetails(character, scenario)
     handleCoreEdits(character)
     handleHPChange(character)
     handleGearEquipping(character, scenario)
+    handleConsumeItem(character, scenario)
 
-    window.addEventListener('beforeunload', async () => { await saveCharacter(character) })
+    if (!/debug/.test(window.location.search)) {
+        window.addEventListener('beforeunload', async () => { await saveCharacter(character) })
+    }
 
-    // TODO: edit items (pick up (any), chests, consume, drop)
+    // TODO: edit items (pick up (any), chests, drop)
     // TODO: edit ability levels
     // TODO: add modal to "use" ability (with calculations)
     // TODO: level up (use experience)
     // TODO: adding abilities (remove?)
+    // TODO: revert character sheet to previous save
 }
 
 
@@ -54,7 +71,7 @@ function doCharacterSave(character) {
 }
 
 
-function updateCharacterDisplay(character, scenario) {
+function addCharacterDetails(character, scenario) {
     Object.keys(character).forEach((attr) => {
         const elem = $(`.char-${attr}`)
         if (elem.length) { elem.html(''+character[attr]) }
@@ -97,13 +114,13 @@ function updateCharacterDisplay(character, scenario) {
         const slug = item.name.toLowerCase().replaceAll(' ', '-')
         
         const count = (item.count > 1) ? COUNT_NOTE : ''
-        const equipNote = itemsByName[item.name].equip ? EQUIPPED_NOTE : ''
+        const equipNote = (itemsByName[item.name].equip && canUseItem(item.name, character, scenario)) ? EQUIPPED_NOTE : ''
+        const consume = (itemsByName[item.name].consumable) ? CONSUME_BUTTON : ''
 
         itemElem.append(`<details id='item-${slug}' data-item='${item.name}' class='item'>
-    <summary><h3>${item.name} ${count} ${equipNote}</h3></summary>
+    <summary><h3>${item.name} ${count} ${equipNote} ${consume}</h3></summary>
     ${buildItemDisplay(itemsByName[item.name], item, character.core)}
 </details>`)
-        // @TODO: include requirements to use!!
         $(`#item-${slug} .item-count`).html(item.count)
         $(`#item-${slug} .equip-flip`).html(item.equipped ? '☑' : '☐')
     })
@@ -140,7 +157,6 @@ function handleCoreEdits(character) {
 
 function handleHPChange(character) {
     const hpElem = $('.char-hp')
-    let debounce = null
     $('.action-heal').on('click', () => {
         hpElem.text(++character.hp)
         doCharacterSave(character)
@@ -152,34 +168,83 @@ function handleHPChange(character) {
 }
 
 function handleGearEquipping(character, scenario) {
-    const itemsByName = getItemsByName(scenario)
-
     $('.equip-flip').on('click', (e) => {
         e.preventDefault()
-
         const elem =$(e.target)
         const itemName = (elem.parents('details.item').attr('data-item') || '').toLowerCase()
         character.items.forEach((item) => {
             if (item.name.toLowerCase() === itemName) {
-                let canEquip = true
-                if (!item.equipped) {
-                    ;(itemsByName[itemName].requirements || []).forEach((req) => {
-                        if (character.core[req.ability.toLowerCase()] < req.value) {
-                            canEquip = false
-                            showMessage(`Your ${req.ability} (${character.core[req.ability.toLowerCase()]}) is not high enough to equip this item!`, 6, 'warn')
-                        }
-                    })
-                }
-                if (canEquip) {
-                    item.equipped = !item.equipped
-                    elem.text(item.equipped ? '☑' : '☐')
+                let canEquip = canUseItem(itemName, character, scenario, true)
+                if (!item.equipped && canEquip) {
+                    item.equipped = true
+                    doCharacterSave(character)
+                } else if (item.equipped) {
+                    item.equipped = false
                     doCharacterSave(character)
                 }
+                elem.text(item.equipped ? '☑' : '☐')
             }
         })
 
         return false
     })
+}
+
+function handleConsumeItem(character, scenario) {
+    $('.use-item').on('click', (e) => {
+        e.preventDefault()
+        const elem =$(e.target)
+        const parent = elem.parents('details.item')
+        const itemName = (parent.attr('data-item') || '').toLowerCase()
+        character.items.forEach((item, i) => {
+            if (item.name.toLowerCase() === itemName) {
+                let canUse = canUseItem(itemName, character, scenario, true)
+                if (item.count && canUse) {
+                    showItemModal(itemName, character, scenario)
+                } else if (!item.count) {
+                    showMessage('Sorry, but you do not have any of that item left!', 5, 'info')
+                    parent[0].parentNode.removeChild(parent[0])
+                }
+            }
+        })
+    })
+
+    $('.consume-item').on('click', (e) => {
+        e.preventDefault()
+
+        const modal = $(e.target).parents('.use-item-modal')
+        const itemName = modal.attr('data-item-name')
+        const itemElem = $(`[data-item="${itemName}"]`)
+
+        character.items.forEach((item, i) => {
+            if (item.name.toLowerCase() === itemName) {
+                let canUse = canUseItem(itemName, character, scenario, true)
+                if (item.count && canUse) {
+                    item.count--
+                    if (item.count) {
+                        itemElem.find('.item-count').text(item.count)
+                    } else {
+                        character.items.splice(i, 1)
+                        itemElem[0]?.parentNode?.removeChild(itemElem[0])
+                    }
+                    doCharacterSave(character)
+                }
+            }
+        })
+    })
+}
+
+function showItemModal(itemName, character, scenario) {
+    const modal = $('.use-item-modal')
+    modal.attr('data-item-name', itemName.toLowerCase())
+    const itemsByName = getItemsByName(scenario)
+    modal.find('.item-name').text(itemsByName[itemName].name)
+    modal.find('.item-description').text(itemsByName[itemName].description)
+    const effects = modal.find('.item-effects').html(' ')
+    getItemEffects(itemsByName[itemName], character.core).forEach((effect) => {
+        effects.append(`<li>${effect}</li>`)
+    })
+    modal.attr('open', 'open')
 }
 
 

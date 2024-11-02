@@ -98,8 +98,19 @@ page: character-sheet
         <h2>Items...</h2>
         <aside class='edit-items edit-section'>✎</aside>
     </hgroup>
-
 </section>
+
+<dialog class='use-item-modal'>
+    <article>
+        <header><h3 class='item-name'></h3></header>
+        <ul class='item-effects'></ul>
+        <p class='item-description'></p>
+        <footer>
+            <button class='secondary close-modal' data-modal='use-item-modal'>Cancel</button>
+            <button class='consume-item close-modal' data-modal='use-item-modal'>Consume Item</button>
+        </footer>
+    </article>
+</dialog>
 
 <aside class='character-metadata'>
     <p>Character saved locally <span class='last-save'>?</span></p>

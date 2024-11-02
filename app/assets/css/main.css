@@ -182,4 +182,7 @@ main details summary::after {
     text-align: center;
     max-width: 4rem;
 }
+#page-character-sheet .items button {
+    padding: 0.2rem 0.7rem;
+}
 

@@ -5,11 +5,13 @@ import $ from './jqes6.js'
 export function showMessage(msg, ttl, type) {
     // CSS-defined types: info, warn, error
     const ts = Date.now()
-    $('#messages').append(`<p id='msg-${ts}' class='msg msg-${type || 'info'}'>${msg}</p>`)
+    $('#messages').append(`<p id='msg-${ts}' class='msg msg-${type || 'info'}' data-remove='${ts + (ttl * 1000)}'>${msg}</p>`)
     if (ttl) {
         setTimeout(() => {
             const elem = $(`#msg-${ts}`).addClass('complete')
-            setTimeout(() => { elem[0].parentNode.removeChild(elem[0]) }, 550)
+            setTimeout(() => {
+                elem.forEach((n) => { n.parentNode?.removeChild(n) })
+            }, 550)
         }, ttl * 1000)
     }
     window.scrollTo(0,0)
@@ -243,7 +245,26 @@ export function buildAbilityDisplay(ability, charAbility = null, charItems = nul
 }
 
 export function buildItemDisplay(item, charItem = null, charCore = null) {
-    const effects = (item.effects || []).map((e) => {
+    const effects = getItemEffects(item, charCore)
+
+    const equip = item.equip ? ' (must equip)' : ''
+    const requirements = (item.requirements || []).map((req) => {
+        return `${req.ability} >= ${req.value}`
+    })
+
+    return `${(charItem) ? '' : `<h4>${item.name}${equip}</h4>`}
+<aside class='item-details'>
+    <p>${item.description}</p>
+    <ul>
+        <li>Weight: ${item.weight}</li>
+        <li>To Use: ${(requirements.length) ? requirements.join('; ') : '(none)'}</li>
+        <li>Effects: ${effects.length ? effects.join('; ') : '(see description)'}</li>
+    </ul>
+</aside>`
+}
+
+export function getItemEffects(item, charCore = null) {
+    return (item.effects || []).map((e) => {
         let text = '(see description)'
         if (e.type === 'heal') {
             text = `heal <strong>${e.amount}</strong> damage`
@@ -265,15 +286,18 @@ export function buildItemDisplay(item, charItem = null, charCore = null) {
         }
         return text
     })
+}
 
-    const equip = item.equip ? ' (must equip)' : ''
-
-    return `${(charItem) ? '' : `<h4>${item.name}${equip}</h4>`}
-<aside class='item-details'>
-    <p>${item.description}</p>
-    <ul>
-        <li>Weight: ${item.weight}</li>
-        <li>Effects: ${effects.length ? effects.join('; ') : '(see description)'}</li>
-    </ul>
-</aside>`
+export function canUseItem(itemName, character, scenario, showMsg = false) {
+    let canUse = true
+    const itemsByName = getItemsByName(scenario)
+    ;(itemsByName[itemName].requirements || []).forEach((req) => {
+        if (character.core[req.ability.toLowerCase()] < req.value) {
+            canUse = false
+            if (showMsg) {
+                showMessage(`Your ${req.ability} is not high enough to use this item (${character.core[req.ability.toLowerCase()]} < ${req.value})!`, 6, 'warn')
+            }
+        }
+    })
+    return canUse
 }

@@ -38,17 +38,14 @@ function addSharedControls(page) {
 }
 
 function switchRuleLinks() {
+    console.debug('Rewriting links for rules page')
     $('a').forEach((link) => {
         let href = link.getAttribute('href')
         if (!/^http/.test(href) && /\.md/.test(href)) {
-            console.log(`switching link to html (${href})`)
             href = href.replace('.md', '.html')
             link.setAttribute('href', href)
         } else if (/^\.\.\/scenarios/.test(href)) {
-            console.log(`switching link to scenarios in app (${href})`)
             link.setAttribute('href', '/load-scenario')
-        } else {
-            console.log(`leaving link as is: ${href}`)
         }
     })
 }
