@@ -8,7 +8,7 @@
     "build": "npm run buildapp && npm run buildrules",
     "buildapp": "npx builder build.json",
     "buildrules": "npx builder build_rules.json",
-    "debug": "DEBUG_LEVEL=DEBUG npx builder build.json",
+    "debug": "DEBUG_LEVEL=DEBUG npm run build",
     "serve": "npx http-server -p 3000 app/build/",
     "watch": "npm-watch debug"
   },
@@ -17,7 +17,8 @@
       "patterns": [
         "app/assets/**/*.*",
         "app/layouts/**/*.*",
-        "app/pages/**/*.*"
+        "app/pages/**/*.*",
+        "rules/**/*.*"
       ],
       "delay": 1000
     }
