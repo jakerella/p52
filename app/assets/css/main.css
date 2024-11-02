@@ -1,21 +1,54 @@
 
+/* Some common vars */
+:root {
+    --info-background-color: #D1E5FB;
+    --warn-background-color: #FDF1B4;
+    --error-background-color: #F9B4BE;
+}
+
 /* Basic page elemenets */
+body>header, body>main {
+    padding: 0 0.3rem;
+}
 body>header {
     padding-top: 0
 }
-header h1 a {
+body>header h1 a {
     text-decoration: none;
 }
-header nav {
+body>header nav {
     overflow: hidden;
 }
-header nav li {
+body>header nav li {
     --pico-nav-element-spacing-vertical: 0.2rem;
     --pico-nav-element-spacing-horizontal: 0.5rem;
 }
-/* .nav-character-sheet { */
-nav li {
+body>header nav li {
     font-size: 1.7rem;
+}
+#messages {
+    padding: 0 1rem;
+}
+.msg {
+    font-weight: bold;
+    border: 1px solid #999;
+    border-radius: 0.2rem;
+    padding: 0.2rem 0.5rem;
+    box-shadow: 0.1rem 0.1rem 0.3rem #666;
+    opacity: 1;
+}
+.msg.complete {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+}
+.msg-info {
+    background-color: var(--info-background-color);
+}
+.msg-warn {
+    background-color: var(--warn-background-color);
+}
+.msg-error {
+    background-color: var(--error-background-color);
 }
 footer {
     border-top: 1px solid #666;
@@ -84,8 +117,15 @@ main details summary::after {
 #page-create-character .character-race-class {
     display: block;
 }
+#page-create-character .card-flips {
+    display: flex;
+    justify-content: space-around;
+}
+#page-create-character .card-flip {
+    width: 6rem;
+}
 #page-create-character .core-bonus {
-    width: 4rem;
+    width: 3rem;
 }
 
 

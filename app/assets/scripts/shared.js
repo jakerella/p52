@@ -3,12 +3,13 @@ import c from './constants.js'
 import $ from './jqes6.js'
 
 export function showMessage(msg, ttl, type) {
+    // CSS-defined types: info, warn, error
     const ts = Date.now()
-    $('#messages').append(`<p id='msg-${ts}' class='${type || 'info'}'>${msg}</p>`)
+    $('#messages').append(`<p id='msg-${ts}' class='msg msg-${type || 'info'}'>${msg}</p>`)
     if (ttl) {
         setTimeout(() => {
-            const elem = $(`#msg-${ts}`)
-            elem[0].parentNode.removeChild(elem[0])
+            const elem = $(`#msg-${ts}`).addClass('complete')
+            setTimeout(() => { elem[0].parentNode.removeChild(elem[0]) }, 550)
         }, ttl * 1000)
     }
     window.scrollTo(0,0)
@@ -66,7 +67,7 @@ export async function saveCharacter(character) {
     try {
         console.debug(`Saving character at ${character.last_save} with hash ${character.hash_check}`)
         localStorage.setItem(c.CHARACTER_KEY, JSON.stringify(character))
-        if (oldCharacter.hash_check !== character.hash_check) {
+        if (oldCharacter?.hash_check !== character.hash_check) {
             addToCharacterHistory(oldCharacter)
         }
 

@@ -40,14 +40,14 @@ async function initCreateCharacter() {
         // checks before progressing
         raceAndClass: () => {
             if (!character.race || !character.class) {
-                showMessage('Please select a race and class for your character before proceeding!', 5)
+                showMessage('Please select a race and class for your character before proceeding!', 5, 'warn')
                 return false
             }
             return true
         },
         coreBonus: () => {
             if (!character.build.hasCoreBonus) {
-                showMessage('Please flip for your core bonuses before proceeding!', 5)
+                showMessage('Please flip for your core bonuses and "assign" them before proceeding!', 6, 'warn')
                 return false
             }
             return true
@@ -87,7 +87,7 @@ async function initCreateCharacter() {
 function setupCompletion(character, scenario) {
     $('input.complete').on('click', async () => {
         if (!character.race || !character.class) {
-            return showMessage('Please select a race and class for your character before proceeding!', 5)
+            return showMessage('Please select a race and class for your character before proceeding!', 5, 'warn')
         }
 
         const quirkFreqElem = $('[name=quirk-frequency').filter((r) => r.getAttribute('checked'))[0]
@@ -104,7 +104,7 @@ function setupCompletion(character, scenario) {
             frequency: quirkFrequency
         }
         if (quirk.title && (!quirk.bonus || !quirk.penalty)) {
-            return showMessage('Your quirk must have both a bonus and a penalty!', 5)
+            return showMessage('Your quirk must have both a bonus and a penalty!', 5, 'warn')
         }
 
         character.name = prompt('Pleae give your character a name!')
@@ -144,7 +144,7 @@ function setupCompletion(character, scenario) {
         console.log('Creating character', character)
         localStorage.removeItem(c.IN_PROGRESS_CHARACTER_KEY)
         await saveCharacter(character)
-        window.location.replace('/')
+        window.location.replace('/character')
     })
 }
 
@@ -305,7 +305,7 @@ function setupCoreBonus(character, scenario) {
             character.core[c.CORE_ORDER[i].toLowerCase()] = Math.max(val, 1)
             updateInProgressCharacter(character, scenario)
         }
-        $('.choose-race, .choose-class, .core-bonus').forEach((e) => { e.setAttribute('disabled', 'disabled') })
+        $('input.assign-bonus, .choose-race, .choose-class, .core-bonus').attr('disabled', 'disabled')
     })
 }
 

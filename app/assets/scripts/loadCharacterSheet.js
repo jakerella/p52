@@ -28,6 +28,7 @@ async function initCharacterSheet() {
     handleHPChange(character)
     handleGearEquipping(character, scenario)
 
+    window.addEventListener('beforeunload', async () => { await saveCharacter(character) })
 
     // TODO: edit items (pick up (any), chests, consume, drop)
     // TODO: edit ability levels

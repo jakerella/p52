@@ -76,10 +76,10 @@ page: create-character
 
         <p><strong>Flip over the top 3 Action cards:</strong></p>
         <p><em>Ace=1, Jack=11, Queen=12, King=13</em></p>
-        <p>
-            <label for='core-bonus-1'>Card 1:</label> <input type='number' class='core-bonus card-flip' name='core-bonus-1' id='core-bonus-1' list='card-values' step='1' min='1' max='13'>
-            <label for='core-bonus-2'>Card 2:</label> <input type='number' class='core-bonus card-flip' name='core-bonus-2' id='core-bonus-2' list='card-values' step='1' min='1' max='13'>
-            <label for='core-bonus-3'>Card 3:</label> <input type='number' class='core-bonus card-flip' name='core-bonus-3' id='core-bonus-3' list='card-values' step='1' min='1' max='13'>
+        <aside class='card-flips'>
+            <input type='number' class='card-flip' name='core-bonus-1' id='core-bonus-1' list='card-values' placeholder='Flip 1' step='1' min='1' max='13'>
+            <input type='number' class='card-flip' name='core-bonus-2' id='core-bonus-2' list='card-values' placeholder='Flip 2' step='1' min='1' max='13'>
+            <input type='number' class='card-flip' name='core-bonus-3' id='core-bonus-3' list='card-values' placeholder='Flip 3' step='1' min='1' max='13'>
 
             <datalist id='card-values'>
                 <option value='1'>A</option>
@@ -96,7 +96,7 @@ page: create-character
                 <option value='12'>Q</option>
                 <option value='13'>K</option>
             </datalist>
-        </p>
+        </aside>
 
         <p>Avaialble core bonus points: <strong class='core-bonus-value'>0</strong></p>
 
