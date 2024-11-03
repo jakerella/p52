@@ -297,8 +297,6 @@ function handleAddItem(character, scenario) {
     $('.save-item').on('click', (e) => {
         e.preventDefault()
 
-        // @TODO: somehow this breaks re-opening either the open-chest or add-item modals?!?!
-
         const itemName = select[0].value.toLowerCase()
         const count = Number($('.add-item-modal .add-item-count')[0]?.value) || 1
         if (!itemName) {
