@@ -96,7 +96,10 @@ page: character-sheet
 <section class='items'>
     <hgroup class='grid'>
         <h2>Items...</h2>
-        <aside class='edit-items edit-section'>✎</aside>
+        <aside class='item-actions'>
+            <span class='show-modal open-chest edit-section' data-tooltip='Open a chest' data-placement='left' data-modal='open-chest-modal'>◛</span>
+            <span class='show-modal add-item edit-section' data-tooltip='Pick up an item' data-placement='left' data-modal='add-item-modal'>✚</span>
+        </aside>
     </hgroup>
 </section>
 
@@ -105,9 +108,46 @@ page: character-sheet
         <header><h3 class='item-name'></h3></header>
         <ul class='item-effects'></ul>
         <p class='item-description'></p>
+        <p class='fine'>Note that you will need to update your character stats yourself!</p>
         <footer>
             <button class='secondary close-modal' data-modal='use-item-modal'>Cancel</button>
             <button class='consume-item close-modal' data-modal='use-item-modal'>Consume Item</button>
+        </footer>
+    </article>
+</dialog>
+
+<dialog class='add-item-modal'>
+    <article>
+        <header><h3>Pick Up An Item</h3></header>
+        
+        <p>
+            You may pick up any item on your current spot or traded to you by another player on this spot.
+            You might also aquire items from the quest bonuses or from enemy drops. This is the place to 
+            add those items to your inventory!
+        </p>
+        <select class='item'>
+            <option value=''>Choose an item...</option>
+        </select>
+        <aside role='group'>
+            <label for='add-item-count'>Count:</label>
+            <input type='number' class='add-item-count' id='add-item-count' value='1'>
+        </aside>
+        <section class='item-detail'></section>
+
+        <footer>
+            <button class='secondary close-modal' data-modal='add-item-modal'>Cancel</button>
+            <button class='save-item close-modal' data-modal='add-item-modal'>Pick Up</button>
+        </footer>
+    </article>
+</dialog>
+
+<dialog class='open-chest-modal'>
+    <article>
+        <header><h3>Open a Chest</h3></header>
+        <p>Open a chest to find an item...</p>
+        <footer>
+            <button class='secondary close-modal' data-modal='open-chest-modal'>Cancel</button>
+            <button class='save-item close-modal' data-modal='open-chest-modal'>Save</button>
         </footer>
     </article>
 </dialog>

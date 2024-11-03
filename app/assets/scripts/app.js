@@ -11,7 +11,7 @@ function main(page) {
     if (PAGE_INIT[page]) { PAGE_INIT[page]() }
     if (/\/rules/.test(window.location.href)) { switchRuleLinks() }
 
-    addSharedControls(page)
+    addSharedControls()
 }
 
 const PAGE_INIT = {
@@ -22,8 +22,9 @@ const PAGE_INIT = {
 }
 
 
-function addSharedControls(page) {
+function addSharedControls() {
     $('.show-modal').on('click', (e) => {
+        console.log('showing modal', e.target.getAttribute('data-modal'))
         const selector = e.target.getAttribute('data-modal')
         if (selector) {
             $(`.${selector}`).attr('open', 'open')

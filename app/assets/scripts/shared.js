@@ -38,6 +38,8 @@ export function getScenario() {
     let scenario = null
     try {
         scenario = JSON.parse(localStorage.getItem(c.SCENARIO_KEY) || 'null')
+        scenario.itemsByName = {}
+        scenario.items.forEach((item) => { scenario.itemsByName[item.name.toLowerCase()] = item })
     } catch(e) {
         console.warn(`Unable to load scenario from localStorage key: ${c.SCENARIO_KEY}`)
     }
@@ -153,12 +155,6 @@ export function getCoreAbilitiesTableHtml(tableClass = 'core-abilities', default
 </table>`
 }
 
-export function getItemsByName(scenario) {
-    const itemsByName = {}
-    scenario.items.forEach((item) => itemsByName[item.name.toLowerCase()] = item)
-    return itemsByName
-}
-
 export function getAbilitiesByName(scenario) {
     const abilitiesByName = {}
     scenario.abilities.forEach((ab) => abilitiesByName[ab.name.toLowerCase()] = ab)
@@ -198,7 +194,7 @@ export function buildAbilityDisplay(ability, charAbility = null, charItems = nul
     })
 
     if (charItems && charItems.length) {
-        const items = getItemsByName(getScenario())
+        const items = getScenario().itemsByName
         charItems.forEach((item) => {
             if (item.equipped && items[item.name] && items[item.name].effects) {
                 items[item.name].effects.forEach((e) => {
@@ -290,8 +286,7 @@ export function getItemEffects(item, charCore = null) {
 
 export function canUseItem(itemName, character, scenario, showMsg = false) {
     let canUse = true
-    const itemsByName = getItemsByName(scenario)
-    ;(itemsByName[itemName].requirements || []).forEach((req) => {
+    ;(scenario.itemsByName[itemName].requirements || []).forEach((req) => {
         if (character.core[req.ability.toLowerCase()] < req.value) {
             canUse = false
             if (showMsg) {

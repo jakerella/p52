@@ -1,7 +1,7 @@
 
 import $ from './jqes6.js'
 import c from './constants.js'
-import { showMessage, getScenario, setupPaging, saveCharacter, getCoreAbilitiesTableHtml, getCharacter, getItemsByName, buildAbilityDisplay, getAbilitiesByName, buildItemDisplay } from './shared.js'
+import { showMessage, getScenario, setupPaging, saveCharacter, getCoreAbilitiesTableHtml, getCharacter, buildAbilityDisplay, getAbilitiesByName, buildItemDisplay } from './shared.js'
 import template from '../data/character_template.js'
 
 async function initCreateCharacter() {
@@ -124,12 +124,11 @@ function setupCompletion(character, scenario) {
         if (item) {
             character.items.push(item)
         }
-        const itemsByName = getItemsByName(scenario)
         character.items = character.items.map((name) => {
             let count = 1
-            if (itemsByName[name]) {
-                count = (itemsByName[name].count || 1)
-                ;(itemsByName[name].includes || []).forEach((item) => {
+            if (scenario.itemsByName[name]) {
+                count = (scenario.itemsByName[name].count || 1)
+                ;(scenario.itemsByName[name].includes || []).forEach((item) => {
                     return { name: item.name, equipped: false, count: (item.count || 1) }
                 })
             }
@@ -394,11 +393,10 @@ function setupItems(character, scenario) {
 
     setAvailableItems(character, scenario)
 
-    const itemsByName = getItemsByName(scenario)
     selector.on('change', () => {
         if (!selector[0].value) { return description.html(' ') }
 
-        const item = itemsByName[selector[0].value]
+        const item = scenario.itemsByName[selector[0].value]
         const raceClassItems = getRaceAndClassItems('given', character, scenario)
         description.html(buildItemDisplay(item))
         $('.in-progress-items').html([...raceClassItems, item.name.toLowerCase()].join(', '))
@@ -427,14 +425,13 @@ function setAvailableItems(character, scenario) {
     }
 
     const selector = section.find('select')
-    const itemsByName = getItemsByName(scenario)
 
     const optionalItems = getRaceAndClassItems('options', character, scenario)
     if (optionalItems.length) {
         section.find('.optional-items').show()
         selector.html('<option value=\'\'>Select an item</option>')
         optionalItems.forEach((item) => {
-            selector.append(`<option value='${itemsByName[item].name.toLowerCase()}'>${itemsByName[item].name}</option>`)
+            selector.append(`<option value='${scenario.itemsByName[item].name.toLowerCase()}'>${scenario.itemsByName[item].name}</option>`)
         })
     } else {
         section.find('.optional-items').hide()

@@ -8,14 +8,12 @@ import {
     getCharacter,
     getCoreAbilitiesTableHtml,
     getItemEffects,
-    getItemsByName,
     getScenario,
     saveCharacter,
     showMessage
 } from './shared.js'
 
-const EQUIPPED_NOTE = '<aside class="ability-item-add-on">(equip? <span class="equip-flip"></span>)</aside>'
-const CONSUME_BUTTON = '<button class="use-item">use</button>'
+
 const ABILITY_LEVEL_ADD_ON = '<aside class="ability-item-add-on">(Lv <span class="ability-level"></span>)</span></aside>'
 const COUNT_NOTE = '<aside class="ability-item-add-on">(x<span class="item-count">1</span>)</aside>'
 
@@ -41,16 +39,18 @@ async function initCharacterSheet() {
     handleHPChange(character)
     handleGearEquipping(character, scenario)
     handleConsumeItem(character, scenario)
+    handleDropItem(character, scenario)
+    handleAddItem(character, scenario)
 
     if (!/debug/.test(window.location.search)) {
         window.addEventListener('beforeunload', async () => { await saveCharacter(character) })
     }
 
-    // TODO: edit items (pick up (any), chests, drop)
+    // TODO: edit items (pick up (any), chests)
     // TODO: edit ability levels
     // TODO: add modal to "use" ability (with calculations)
-    // TODO: level up (use experience)
-    // TODO: adding abilities (remove?)
+    // TODO: make use item work on yourself dynamically (versus manually)
+    // TODO: level up (use experience, add abilities)
     // TODO: revert character sheet to previous save
 }
 
@@ -80,10 +80,9 @@ function addCharacterDetails(character, scenario) {
     $('.char-max-hp').html((character.core.lift * character.core.think) + 3)    
     $('.char-initiative').html(character.core.move + (character.core.lead * 2))
 
-    const itemsByName = getItemsByName(scenario)
     let movement = Math.floor(character.core.move / 4) + 1
     const weight = character.items.reduce((prev, curr) => {
-        return curr.equipped ? prev + itemsByName[curr.name.toLowerCase()].weight : prev
+        return curr.equipped ? prev + scenario.itemsByName[curr.name.toLowerCase()].weight : prev
     }, 0)
     // TODO: modify by items or abilities
     $('.char-movement').html(movement - Math.floor(weight / (character.core.lift * character.core.balance)))
@@ -111,23 +110,32 @@ function addCharacterDetails(character, scenario) {
 
     const itemElem = $('.items')
     character.items.forEach((item) => {
-        const slug = item.name.toLowerCase().replaceAll(' ', '-')
-        
-        const count = (item.count > 1) ? COUNT_NOTE : ''
-        const equipNote = (itemsByName[item.name].equip && canUseItem(item.name, character, scenario)) ? EQUIPPED_NOTE : ''
-        const consume = (itemsByName[item.name].consumable) ? CONSUME_BUTTON : ''
-
-        itemElem.append(`<details id='item-${slug}' data-item='${item.name}' class='item'>
-    <summary><h3>${item.name} ${count} ${equipNote} ${consume}</h3></summary>
-    ${buildItemDisplay(itemsByName[item.name], item, character.core)}
-</details>`)
-        $(`#item-${slug} .item-count`).html(item.count)
-        $(`#item-${slug} .equip-flip`).html(item.equipped ? '☑' : '☐')
+        itemElem.append(getItemElement(item, character, scenario))
     })
     
     $('.character-metadata .last-save').html((new Date(character.last_save)).toLocaleString())
 }
 
+function getItemElement(charItem, character, scenario) {
+    const slug = charItem.name.toLowerCase().replaceAll(' ', '-')
+    
+    const EQUIPPED_NOTE = '<aside class="ability-item-add-on">(equip? <span class="equip-flip"></span>)</aside>'
+    const CONSUME_BUTTON = '<button class="inline-button use-item">use</button>'
+    const DROP_BUTTON = '<button class="inline-button drop-item">drop</button>'
+
+    const count = (charItem.count > 1) ? COUNT_NOTE : ''
+    const equipNote = (scenario.itemsByName[charItem.name].equip && canUseItem(charItem.name, character, scenario)) ? EQUIPPED_NOTE : ''
+    const consume = (scenario.itemsByName[charItem.name].consumable) ? CONSUME_BUTTON : ''
+
+    const newElem = $(`<details id='item-${slug}' data-item='${charItem.name}' class='item'>
+<summary><h3>${charItem.name} ${count} ${equipNote} ${consume} ${DROP_BUTTON}</h3></summary>
+${buildItemDisplay(scenario.itemsByName[charItem.name], charItem, character.core)}
+</details>`)
+    newElem.find(`.item-count`).text(charItem.count)
+    newElem.find(`.equip-flip`).text(charItem.equipped ? '☑' : '☐')
+
+    return newElem[0]
+}
 
 function handleCoreEdits(character) {
     $('.edit-core').on('click', () => {
@@ -168,7 +176,7 @@ function handleHPChange(character) {
 }
 
 function handleGearEquipping(character, scenario) {
-    $('.equip-flip').on('click', (e) => {
+    $('.items').on('click', '.equip-flip', (e) => {
         e.preventDefault()
         const elem =$(e.target)
         const itemName = (elem.parents('details.item').attr('data-item') || '').toLowerCase()
@@ -191,7 +199,7 @@ function handleGearEquipping(character, scenario) {
 }
 
 function handleConsumeItem(character, scenario) {
-    $('.use-item').on('click', (e) => {
+    $('.items').on('click', '.use-item', (e) => {
         e.preventDefault()
         const elem =$(e.target)
         const parent = elem.parents('details.item')
@@ -201,7 +209,7 @@ function handleConsumeItem(character, scenario) {
                 let canUse = canUseItem(itemName, character, scenario, true)
                 if (item.count && canUse) {
                     showItemModal(itemName, character, scenario)
-                } else if (!item.count) {
+                } else if (item.count < 1) {
                     showMessage('Sorry, but you do not have any of that item left!', 5, 'info')
                     parent[0].parentNode.removeChild(parent[0])
                 }
@@ -219,9 +227,9 @@ function handleConsumeItem(character, scenario) {
         character.items.forEach((item, i) => {
             if (item.name.toLowerCase() === itemName) {
                 let canUse = canUseItem(itemName, character, scenario, true)
-                if (item.count && canUse) {
+                if (item.count > 0 && canUse) {
                     item.count--
-                    if (item.count) {
+                    if (item.count > 0) {
                         itemElem.find('.item-count').text(item.count)
                     } else {
                         character.items.splice(i, 1)
@@ -237,14 +245,82 @@ function handleConsumeItem(character, scenario) {
 function showItemModal(itemName, character, scenario) {
     const modal = $('.use-item-modal')
     modal.attr('data-item-name', itemName.toLowerCase())
-    const itemsByName = getItemsByName(scenario)
-    modal.find('.item-name').text(itemsByName[itemName].name)
-    modal.find('.item-description').text(itemsByName[itemName].description)
+    modal.find('.item-name').text(scenario.itemsByName[itemName].name)
+    modal.find('.item-description').text(scenario.itemsByName[itemName].description)
     const effects = modal.find('.item-effects').html(' ')
-    getItemEffects(itemsByName[itemName], character.core).forEach((effect) => {
+    getItemEffects(scenario.itemsByName[itemName], character.core).forEach((effect) => {
         effects.append(`<li>${effect}</li>`)
     })
     modal.attr('open', 'open')
+}
+
+function handleDropItem(character, scenario) {
+    $('.items').on('click', '.drop-item', (e) => {
+        e.preventDefault()
+        const parent = $(e.target).parents('details.item')
+        const itemName = (parent.attr('data-item') || '').toLowerCase()
+        character.items.forEach((item, i) => {
+            if (item.name.toLowerCase() === itemName && 
+                item.count > 0 &&
+                confirm(`Are you sure you want to drop 1 ${itemName}?`)) {
+                item.count--
+                if (item.count > 0) {
+                    parent.find('.item-count').text(item.count)
+                } else {
+                    character.items.splice(i, 1)
+                    parent[0]?.parentNode?.removeChild(parent[0])
+                }
+                doCharacterSave(character)
+            } else if (item.name.toLowerCase() === itemName && item.count < 1) {
+                character.items.splice(i, 1)
+                parent[0]?.parentNode?.removeChild(parent[0])
+                doCharacterSave(character)
+            }
+        })
+    })
+}
+
+function handleAddItem(character, scenario) {
+    const select = $('.add-item-modal .item')
+    const options = []
+    scenario.items.forEach((item) => {
+        options.push(`<option value='${item.name.toLowerCase()}'>${item.name}</option>`)
+    })
+    select.append(options.join(''))
+
+    const detail = $('.add-item-modal .item-detail')
+    select.on('change', () => {
+        const itemName = select[0].value
+        detail.html(buildItemDisplay(scenario.itemsByName[itemName], null, character.core))
+    })
+    
+    $('.save-item').on('click', (e) => {
+        e.preventDefault()
+
+        // @TODO: somehow this breaks re-opening either the open-chest or add-item modals?!?!
+
+        const itemName = select[0].value.toLowerCase()
+        const count = Number($('.add-item-modal .add-item-count')[0]?.value) || 1
+        if (!itemName) {
+            return alert('Please select an item to pick up!')
+        }
+        let found = false
+        for (let i in character.items) {
+            if (character.items[i].name === itemName) {
+                found = true
+                character.items[i].count += count
+                $(`[data-item="${itemName}"] .item-count`).text(character.items[i].count)
+                doCharacterSave(character)
+                break;
+            }
+        }
+        if (!found) {
+            const item = { name: itemName, equipped: false, count }
+            character.items.push(item)
+            $('.items').append(getItemElement(item, character, scenario))
+            doCharacterSave(character)
+        }
+    })
 }
 
 
