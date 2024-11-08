@@ -128,11 +128,12 @@ function getItemElement(charItem, character, scenario) {
     
     const EQUIPPED_NOTE = '<aside class="ability-item-add-on">(equip? <span class="equip-flip"></span>)</aside>'
     const CONSUME_BUTTON = '<button class="inline-button use-item">use</button>'
+    const CANNOT_CONSUME_BUTTON = '<button disabled="disabled" class="inline-button use-item">use</button>'
     const DROP_BUTTON = '<button class="inline-button drop-item">drop</button>'
 
     const count = (charItem.count > 1) ? COUNT_NOTE : ''
     const equipNote = (scenario.itemsByName[charItem.name].equip && canUseItem(charItem.name, character, scenario)) ? EQUIPPED_NOTE : ''
-    const consume = (scenario.itemsByName[charItem.name].consumable) ? CONSUME_BUTTON : ''
+    const consume = (scenario.itemsByName[charItem.name].consumable && canUseItem(charItem.name, character, scenario)) ? CONSUME_BUTTON : ((scenario.itemsByName[charItem.name].consumable) ? CANNOT_CONSUME_BUTTON : '')
 
     const newElem = $(`<details id='item-${slug}' data-item='${charItem.name}' class='item'>
 <summary><h3>${charItem.name} ${count} ${equipNote} ${consume} ${DROP_BUTTON}</h3></summary>
