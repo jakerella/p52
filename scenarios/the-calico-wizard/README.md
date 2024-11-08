@@ -75,7 +75,7 @@ The Queen is disappointed that the amulet was not in its case, but she understan
 * The character with the lowest current HP receives 1 healing potion (only 1 available, so pick who gets it if tied)
 * All characters are fully healed (and dead players may be resurrected)
 * All characters receive 1 lock pick item
-* All characters receive 1 piece of "good armor" (see items table) from the Queen's armory
+* All characters receive 1 piece of "leather armor" (see items table) from the Queen's armory
     - Each player decides what body part it fits on (but once decided, you cannot change it!)
 * The character currently holding the amulet case receives a coin representing the Queen's favor
 
@@ -208,11 +208,11 @@ You exit the ancient ruins, a hard fought, perilous journey to be sure. But you 
 * The character performing the deciphering gains +1 in Think
 * The character performing the deciphering gains `(Lv x 2 exp)`
 * An assisting character gains `exp = Lv`
-* Although some of the text was unreadable from erosion, on the keys they read: "Fury of the f@#*y sun awaits" and "Prot#$!e% by many, prepare!"
+* Although some of the text was unreadable from erosion, on the keys they read: "Fury of the f@#*y s-n awaits" and "Prot#$!e% by many, prepare!"
 * **If you returned to the castle after the First Quest**, then you cannot read the script in the amulet case, because you left it with the Queen.
     - **If you "pressed on" after the First Quest**, then the character also deciphers the text inside the amulet case. It says: "Stone guar*^ the pr@^~*#!ons you seek"
     - Curious, your party looks around the exit from the ruins and finds a hidden cache near the door.
-    - All characters receive 1 piece of "decent armor" (see items table)
+    - All characters receive 1 piece of "iron armor" (see items table)
     - Each player decides what body part it fits on (but once decided, you cannot change it!)
 
 #### Quest Bonuses
@@ -296,7 +296,7 @@ If a character possesses the **"Queen's favor" coin**, read the following, other
 > 
 > Inside the chest you find a scroll and a pouch. The pouch has a reviving potion and an ice elixir in it. The scroll appears to be instructions for a particular spell.
 > 
-> **The character who held the coin** may choose any character (including themselves) to use the scroll to learn a **new magical ability**. They _do not_ have to meet the pre-requisites to acquire this new ability.
+> **The character who held the coin** may choose any character (including themselves) to use the scroll to learn a **new magical ability**. They _do not_ have to meet the pre-requisites to acquire this new ability, but they must meet the requirements to _use_ the ability when the time comes.
 
 
 ---
@@ -347,7 +347,7 @@ Place a marker on the spot where the apprentice appears (_do not flip a card fro
 
 All other enemies will flee immediately (remove them from the table), and **no new enemies appear** in this room. Any spots revealed that would be enemies are empty spots.
 
-* Calico will always have the highest initiative and immediately take their turn (then resume previous place in the order)
+* Calico will always have the highest initiative and immediately take their turn, then begin turn order from the top.
 * Basic Stats:
     - HP: `(AvgLv * 25)`
     - Move: 2, floating (can go over traps)

@@ -24,7 +24,6 @@ const PAGE_INIT = {
 
 function addSharedControls() {
     $('.show-modal').on('click', (e) => {
-        console.log('showing modal', e.target.getAttribute('data-modal'))
         const selector = e.target.getAttribute('data-modal')
         if (selector) {
             $(`.${selector}`).attr('open', 'open')
@@ -34,6 +33,15 @@ function addSharedControls() {
         const selector = e.target.getAttribute('data-modal')
         if (selector) {
             $(`.${selector}`).attr('open', '')
+        }
+    })
+
+    $('body').on('change', '.card-flip', (e) => {
+        const val = Number(e.target.value) || 0
+        if (val < 1 || val > 13) {
+            $(e.target).attr('aria-invalid', 'true')
+        } else {
+            $(e.target).attr('aria-invalid', false)
         }
     })
 }

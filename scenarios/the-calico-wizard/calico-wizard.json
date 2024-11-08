@@ -756,8 +756,13 @@
             "consumable": true,
             "duration": 1,
             "weight": 0.1,
-            "effects": null,
-            "description": "A simple pick, but does the trick. Use to attempt to [open a locked chest](../../rules/07_chests_and_items.md)."
+            "effects": [{
+                "type": "modifier",
+                "object": "lock picking",
+                "amount": -1,
+                "attribute": "target"
+            }],
+            "description": "A simple pick, but does the trick. Use to attempt to open a locked chest. Can be used to emulate the lock picking ability. May be stacked (up to 3) to increase effects."
         },
         {
             "name": "Medicinal Herbs",
@@ -1262,19 +1267,14 @@
             "description": "Helpful in a pinch. **If dropped on your spot**, no enemies may attack you for 3 turns while you stay on that same spot. **If thrown**, any enemies on that spot lose their next turn (player characters are not affected)."
         },
         {
-            "name": "Better Lock Pick",
+            "name": "Chest Key",
             "requirements": null,
             "equip": false,
             "consumable": true,
             "duration": 1,
             "weight": 0.1,
-            "effects": [{
-                "type": "modifier",
-                "object": "lock pick",
-                "amount": -2,
-                "attribute": "target"
-            }],
-            "description": "A good pick for most locks. Use to attempt to open a locked chest with a -2 target."
+            "effects": null,
+            "description": "Use to open a locked chest. This is automatic and consumes your turn."
         },
         {
             "name": "Exploding Arrows",
@@ -1855,14 +1855,69 @@
                 "attribute": "target"
             }],
             "description": "Did you hear that? Describe what you heard, and the creature you have found. This companion **adds damage to any attack, _successful or not_**. All enemies have a +1 to target you. Cannot be traded. If you receive a new companion, you may keep the current one or describe a new one. New companions will get an additional +1 damage."
+        },
+        {
+            "name": "Key",
+            "requirements": null,
+            "equip": false,
+            "consumable": false,
+            "weight": 0.1,
+            "effects": null,
+            "description": "This is one of the keys used for a door in the ancient hall of Purlion. (You can only use this during a specific quest.)"
+        },
+        {
+            "name": "Queen's Favor",
+            "requirements": null,
+            "equip": false,
+            "consumable": false,
+            "weight": 0.1,
+            "effects": null,
+            "description": "A shiny coin with the face of the Queen on it! (You can only obtain this coin directly from the Queen, and you can only use this during a specific quest.)"
+        },
+        {
+            "name": "Golden Claw",
+            "requirements": null,
+            "equip": true,
+            "consumable": false,
+            "weight": 1,
+            "effects": [{
+                "type": "modifier",
+                "object": "knife",
+                "amount": "+(aLv x 3)",
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": "knife throw",
+                "amount": -1,
+                "attribute": "target"
+            },{
+                "type": "modifier",
+                "object": "parry",
+                "amount": -1,
+                "attribute": "damage"
+            },{
+                "type": "modifier",
+                "object": "parry",
+                "amount": 1,
+                "attribute": "target"
+            }],
+            "description": "This knife may only be obtained from the Queen's armory. If thrown, will automatically return to the player who threw it if any other character enters the spot with the thrown claw."
+        },{
+            "name": "Sapphire Amulet",
+            "requirements": null,
+            "equip": true,
+            "consumable": false,
+            "weight": 1,
+            "effects": null,
+            "description": "This item may only be obtained directly from the Queen. While equipped, the character may cast Ice Storm at ability level 2, regardless of their stats. Also, while equipped, the character may defend against any fire magic with -2 to their defense target."
         }
     ],
     "chests": [
         {
             "sum": 2,
             "color": "red",
-            "items": "Booby Trap",
-            "description": "That looks painful. Flip for damage, it **cannot be defended**.",
+            "item": "Booby Trap",
+            "description": "That looks painful. Flip for damage (divided by 2), it **cannot be defended**.",
             "effects": [{
                 "type": "damage",
                 "object": "player",
@@ -1873,32 +1928,31 @@
         {
             "sum": 2,
             "color": "black",
-            "items": "Bats",
-            "description": "A flurry of bats escape and attack you and anyone **on or adjacent to your spot**. All characters in range take damage and **cannot defend**.",
+            "item": "Bats",
+            "description": "A flurry of bats escape and attack you and anyone **on or adjacent to your spot**. Flip for damage, divided by 3: all characters in range take damage and **cannot defend**.",
             "effects": [{
                 "type": "damage",
                 "object": "player",
-                "amount": "-(F / 2)",
+                "amount": "-(F / 3)",
                 "attribute": "hp"
             }]
         },
         {
             "sum": 2,
             "color": "mixed",
-            "items": "Nothing",
-            "description": "Huh, you were sure there was something here. Oh well.",
-            "effects": null
+            "item": "Nothing",
+            "description": "Huh, you were sure there was something here. Oh well."
         },
         {
             "sum": 3,
             "color": "red",
-            "items": "Torch",
+            "item": "Torch",
             "count": 2
         },
         {
             "sum": 3,
             "color": "black",
-            "items": "Rusted trap",
+            "item": "Rusted Trap",
             "description": "A rusted old trap springs on you, but doesn't do any damage. You are stunned and lose your next turn.",
             "effects": [{
                 "type": "stun",
@@ -1910,359 +1964,358 @@
         {
             "sum": 3,
             "color": "mixed",
-            "items": "Lock Pick",
+            "item": "Lock Pick",
             "count": 2
         },
         {
             "sum": 4,
             "color": "red",
-            "items": "Medicinal Herbs"
+            "item": "Medicinal Herbs"
         },
         {
             "sum": 4,
             "color": "black",
-            "items": "Nice Shoes"
+            "item": "Nice Shoes"
         },
         {
             "sum": 4,
             "color": "mixed",
-            "items": "Smoke Bomb"
+            "item": "Smoke Bomb"
         },
         {
             "sum": 5,
             "color": "red",
-            "items": "Hunting Knife"
+            "item": "Hunting Knife"
         },
         {
             "sum": 5,
             "color": "black",
-            "items": "Light Sword"
+            "item": "Light Sword"
         },
         {
             "sum": 5,
             "color": "mixed",
-            "items": "Long Bow"
+            "item": "Long Bow"
         },
         {
             "sum": 6,
             "color": "red",
-            "items": "Weapon Tuner"
+            "item": "Weapon Tuner"
         },
         {
             "sum": 6,
             "color": "black",
-            "items": "Leather Shield"
+            "item": "Leather Shield"
         },
         {
             "sum": 6,
             "color": "mixed",
-            "items": "Leather Bracers"
+            "item": "Leather Bracers"
         },
         {
             "sum": 7,
             "color": "red",
-            "items": "Leather Cap"
+            "item": "Leather Cap"
         },
         {
             "sum": 7,
             "color": "black",
-            "items": "Leather Greaves"
+            "item": "Leather Greaves"
         },
         {
             "sum": 7,
             "color": "mixed",
-            "items": "Leather Jacket"
+            "item": "Leather Jacket"
         },
         {
             "sum": 8,
             "color": "red",
-            "items": "Sharp Arrows",
+            "item": "Sharp Arrows",
             "count": 10
         },
         {
             "sum": 8,
             "color": "black",
-            "items": "Poison Arrows",
+            "item": "Poison Arrows",
             "count": 5
         },
         {
             "sum": 8,
             "color": "mixed",
-            "items": "Caltrops"
+            "item": "Caltrops"
         },
         {
             "sum": 9,
             "color": "red",
-            "items": "Fire Elixir"
+            "item": "Fire Elixir"
         },
         {
             "sum": 9,
             "color": "black",
-            "items": "Ice Elixir"
+            "item": "Ice Elixir"
         },
         {
             "sum": 9,
             "color": "mixed",
-            "items": "Water Elixir"
+            "item": "Water Elixir"
         },
         {
             "sum": 10,
             "color": "red",
-            "items": "Stiletto Knife"
+            "item": "Stiletto Knife"
         },
         {
             "sum": 10,
             "color": "black",
-            "items": "Long Sword"
+            "item": "Long Sword"
         },
         {
             "sum": 10,
             "color": "mixed",
-            "items": "Recurve Bow"
+            "item": "Recurve Bow"
         },
         {
             "sum": 11,
             "color": "red",
-            "items": "Magic Wand"
+            "item": "Magic Wand"
         },
         {
             "sum": 11,
             "color": "black",
-            "items": "Whip"
+            "item": "Whip"
         },
         {
             "sum": 11,
             "color": "mixed",
-            "items": "Staff"
+            "item": "Staff"
         },
         {
             "sum": 12,
             "color": "red",
-            "items": "Magic Scroll"
+            "item": "Magic Scroll"
         },
         {
             "sum": 12,
             "color": "black",
-            "items": "Training Manual"
+            "item": "Training Manual"
         },
         {
             "sum": 12,
             "color": "mixed",
-            "items": "Resistance Trainers"
+            "item": "Resistance Trainers"
         },
         {
             "sum": 13,
             "color": "red",
-            "items": "Healing Potion"
+            "item": "Healing Potion"
         },
         {
             "sum": 13,
             "color": "black",
-            "items": "Crafty Smoke Bomb"
+            "item": "Crafty Smoke Bomb"
         },
         {
             "sum": 13,
             "color": "mixed",
-            "items": "Better Lock Pick",
-            "count": 2
+            "item": "Chest Key"
         },
         {
             "sum": 14,
             "color": "red",
-            "items": "Exploding Arrows",
+            "item": "Exploding Arrows",
             "count": 5
         },
         {
             "sum": 14,
             "color": "black",
-            "items": "Iron Shield"
+            "item": "Iron Shield"
         },
         {
             "sum": 14,
             "color": "mixed",
-            "items": "Iron Bracers"
+            "item": "Iron Bracers"
         },
         {
             "sum": 15,
             "color": "red",
-            "items": "Iron Helmet"
+            "item": "Iron Helmet"
         },
         {
             "sum": 15,
             "color": "black",
-            "items": "Iron Greaves"
+            "item": "Iron Greaves"
         },
         {
             "sum": 15,
             "color": "mixed",
-            "items": "Iron Chest Plate"
+            "item": "Iron Chest Plate"
         },
         {
             "sum": 16,
             "color": "red",
-            "items": "Weapon Fine Tuner"
+            "item": "Weapon Fine Tuner"
         },
         {
             "sum": 16,
             "color": "black",
-            "items": "Armor Tuner"
+            "item": "Armor Tuner"
         },
         {
             "sum": 16,
             "color": "mixed",
-            "items": "Magic Flute"
+            "item": "Magic Flute"
         },
         {
             "sum": 17,
             "color": "red",
-            "items": "Reviving Potion"
+            "item": "Reviving Potion"
         },
         {
             "sum": 17,
             "color": "black",
-            "items": "Stretching Elixir"
+            "item": "Stretching Elixir"
         },
         {
             "sum": 17,
             "color": "mixed",
-            "items": "Adrenaline Boost"
+            "item": "Adrenaline Boost"
         },
         {
             "sum": 18,
             "color": "red",
-            "items": "Strong Fire Elixir"
+            "item": "Strong Fire Elixir"
             },
         {
             "sum": 18,
             "color": "black",
-            "items": "Strong Ice Elixir"
+            "item": "Strong Ice Elixir"
             },
         {
             "sum": 18,
             "color": "mixed",
-            "items": "Strong Water Elixir"
+            "item": "Strong Water Elixir"
         },
         {
             "sum": 19,
             "color": "red",
-            "items": "Battle Axe"
+            "item": "Battle Axe"
         },
         {
             "sum": 19,
             "color": "black",
-            "items": "Pike"
+            "item": "Pike"
         },
         {
             "sum": 19,
             "color": "mixed",
-            "items": "Enchanted Staff"
+            "item": "Enchanted Staff"
         },
         {
             "sum": 20,
             "color": "red",
-            "items": "Kris Knife"
+            "item": "Kris Knife"
         },
         {
             "sum": 20,
             "color": "black",
-            "items": "Scimitar"
+            "item": "Scimitar"
         },
         {
             "sum": 20,
             "color": "mixed",
-            "items": "Compound Bow"
+            "item": "Compound Bow"
         },
         {
             "sum": 21,
             "color": "red",
-            "items": "Armor Fine Tuner"
+            "item": "Armor Fine Tuner"
         },
         {
             "sum": 21,
             "color": "black",
-            "items": "Enchanted Shield"
+            "item": "Enchanted Shield"
         },
         {
             "sum": 21,
             "color": "mixed",
-            "items": "Enchanted Bracers"
+            "item": "Enchanted Bracers"
         },
         {
             "sum": 22,
             "color": "red",
-            "items": "Enchanted Helmet"
+            "item": "Enchanted Helmet"
         },
         {
             "sum": 22,
             "color": "black",
-            "items": "Enchanted Greaves"
+            "item": "Enchanted Greaves"
         },
         {
             "sum": 22,
             "color": "mixed",
-            "items": "Enchanted Chest Plate"
+            "item": "Enchanted Chest Plate"
         },
         {
             "sum": 23,
             "color": "red",
-            "items": "Dragon's Blood"
+            "item": "Dragon's Blood"
             },
         {
             "sum": 23,
             "color": "black",
-            "items": "Stamina Boost"
+            "item": "Stamina Boost"
         },
         {
             "sum": 23,
             "color": "mixed",
-            "items": "Quickening Elixir"
+            "item": "Quickening Elixir"
         },
         {
             "sum": 24,
             "color": "red",
-            "items": "Acid Bath"
+            "item": "Acid Bath"
         },
         {
             "sum": 24,
             "color": "black",
-            "items": "Quick Shoes"
+            "item": "Quick Shoes"
         },
         {
             "sum": 24,
             "color": "mixed",
-            "items": "Winged Boots"
+            "item": "Winged Boots"
         },
         {
             "sum": 25,
             "color": "red",
-            "items": "Phoenix Feather"
+            "item": "Phoenix Feather"
         },
         {
             "sum": 25,
             "color": "black",
-            "items": "Invisibility Cloak"
+            "item": "Invisibility Cloak"
         },
         {
             "sum": 25,
             "color": "mixed",
-            "items": "Time Elixir"
+            "item": "Time Elixir"
         },
             {
             "sum": 26,
             "color": "red",
-            "items": "Companion"
+            "item": "Companion"
         },
         {
             "sum": 26,
             "color": "black",
-            "items": "Anything",
-            "description": "Pick any item available in this table, **except the companion**."
+            "item": "Anything",
+            "description": "Pick any available chest item, **except the companion** and add it to your inventory. (Note that there are some items that may only be acquired from the Queen, you may not choose one of those.)"
         },
         {
             "sum": 26,
             "color": "mixed",
-            "items": "Anything + 1",
-            "description": "Pick any item **except the companion**, and then flip two more cards to determine another item. You may only do this once, if you happen to get a mixed 26 again, you may pick any item, but do not flip again."
+            "item": "Anything",
+            "description": "You found **another chest** inside this one with the key in it! Pick any available chest item **except the companion**, add it to your inventory, and then immediately open the inner chest per normal rules. You cannot wait, this inner chest will disappear if you do not open it now. (Note that you can add a \"chest key\" to your inventory for the purpose of opening this inner chest.) There will only ever be 1 inner chest, if you happen to get a mixed-color 26 again, you may pick any item, but that's it. (Note that there are some items that may only be acquired from the Queen, you may not choose one of those.)"
         }
     ],
     "enemies": [

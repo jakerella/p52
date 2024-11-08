@@ -296,3 +296,28 @@ export function canUseItem(itemName, character, scenario, showMsg = false) {
     })
     return canUse
 }
+
+export function observe(node, fn, options = {}) {
+    const observer = new MutationObserver(fn)
+    observer.observe(node, options)
+}
+
+function watchModal(selector, fn, checkForOpen) {
+    const node = $(selector)[0]
+    if (!node) { return console.debug(`Unable to watch modal (bad selector): ${selector}`) }
+    observe(node, (records = []) => {
+        for (let i in records) {
+            const openChanged = records[i].type === 'attributes' && records[i].attributeName === 'open'
+            const correctState = checkForOpen ? (node.getAttribute('open') !== null) : (node.getAttribute('open') === null)
+            if (openChanged && correctState && fn?.apply) {
+                fn(node)
+            }
+        }
+    }, { attributes: true })
+}
+export function onModalClose(selector, fn) {
+    watchModal(selector, fn, false)
+}
+export function onModalOpen(selector, fn) {
+    watchModal(selector, fn, true)
+}

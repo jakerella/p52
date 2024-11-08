@@ -11,7 +11,7 @@ Players can get items in a few different ways:
 
 ### Opening Chests
 
-Opening a chest is the most straight forward way to get an item in the middle of a quest. Attempting to open a chest takes a full turn - even if the attempt is unsuccessful. A chest can be opened in three ways: **lock picking**, **breaking it open**, or a key (although this is scenario-specific).
+Opening a chest is the most straight forward way to get an item in the middle of a quest. Attempting to open a chest takes a full turn - even if the attempt is unsuccessful. A chest can be opened in three ways: **lock picking**, **breaking it open**, or a key (although this may be scenario-specific).
 
 To open a chest using the Lock Picking ability, move to the spot with the chest and then take a turn to open it by flipping a card from the Action deck. You will need to meet or exceed your target for the ability (similar to attacking) in order to succeed.
 
@@ -23,7 +23,7 @@ If you flip a King, the chest contains **two items**. Determine what they are in
 
 If a player is not trained in the Lock Picking ability, they can still use this method using a **Lock Pick item**. Attempting to open a chest with a Lock Pick item consumes the lock pick if you _fail_, thus after the attempt - if unsuccessful - remove the item from your inventory. For this method, each lock pick item you use allows you to use a higher level in the Lock Pick ability. In other words, using a single pick is like having level 1 Lock Picking. Using two pick items is like having level 2 in the ability (1 + 1). You **cannot get above level 3** using this method.
 
-> If you are already trained in the Lock Pick ability, using a lock pick item adds +2 to your attempt.
+> If you are already trained in the Lock Pick ability, using a lock pick reduces your ability target by -2 (but you can still only use 3 lock picks at a time).
 
 ### Revealing the Item
 

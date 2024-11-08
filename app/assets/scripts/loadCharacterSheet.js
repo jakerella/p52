@@ -9,6 +9,7 @@ import {
     getCoreAbilitiesTableHtml,
     getItemEffects,
     getScenario,
+    onModalOpen,
     saveCharacter,
     showMessage
 } from './shared.js'
@@ -32,6 +33,12 @@ async function initCharacterSheet() {
     }
     console.log('Loading character:', character)
 
+    if (character.reality.toLowerCase() !== scenario.reality.toLowerCase()) {
+        console.warn(`Mismatched realities: ${character.reality} != ${scenario.reality}`)
+        $('.whoami, .basic-stats, .quirk, .abilities, .items, .character-metadata').hide()
+        return showMessage('Sorry, but this character appears to be from a different scenario. You may need to <a href="/load-scenario">(re)load the correct scenario</a>.', 0, 'error')
+    }
+
     $('.core-abilities').html(getCoreAbilitiesTableHtml(''))
 
     addCharacterDetails(character, scenario)
@@ -41,12 +48,12 @@ async function initCharacterSheet() {
     handleConsumeItem(character, scenario)
     handleDropItem(character, scenario)
     handleAddItem(character, scenario)
+    handleOpenChest(character, scenario)
 
     if (!/debug/.test(window.location.search)) {
         window.addEventListener('beforeunload', async () => { await saveCharacter(character) })
     }
 
-    // TODO: edit items (pick up (any), chests)
     // TODO: edit ability levels
     // TODO: add modal to "use" ability (with calculations)
     // TODO: make use item work on yourself dynamically (versus manually)
@@ -302,22 +309,144 @@ function handleAddItem(character, scenario) {
         if (!itemName) {
             return alert('Please select an item to pick up!')
         }
-        let found = false
+        addItemToCharacter(character, scenario, itemName, count)
+    })
+}
+
+function addItemToCharacter(character, scenario, itemName, count = 1) {
+    let found = false
+    for (let i in character.items) {
+        if (character.items[i].name === itemName) {
+            found = true
+            character.items[i].count += count
+            $(`[data-item="${itemName}"] .item-count`).text(character.items[i].count)
+            doCharacterSave(character)
+            break;
+        }
+    }
+    if (!found) {
+        const item = { name: itemName, equipped: false, count }
+        character.items.push(item)
+        $('.items').append(getItemElement(item, character, scenario))
+        doCharacterSave(character)
+    }
+}
+
+function handleOpenChest(character, scenario) {
+    const modal = $('.open-chest-modal')
+    const pickLock = modal.find('.pick-lock')
+    const useKey = modal.find('.use-key')
+    const flips = modal.find('.card-flip')
+    const flipValue = modal.find('.flip-value')
+
+    onModalOpen('.open-chest-modal', () => {
+        $('.methods').removeClass('hide')
+        $('.determine-item').hide()
+        modal.find('details').show()
+        flips[0].value = ''
+        flips[1].value = ''
+        flipValue.text('0')
+        modal.find('.determine-item').attr('data-item-used', '')
+
+        let canPickLocks = false
+        if (character.items.filter((it) => it.name.toLowerCase() === 'lock pick').length) {
+            canPickLocks = true
+        } else if (character.abilities.filter((ab) => ab.name.toLowerCase() === 'lock picking').length) {
+            canPickLocks = true
+        }
+        if (canPickLocks) {
+            modal.find('.lock-picking .msg-warn').hide()
+            pickLock.attr('disabled', false)
+        } else {
+            modal.find('.lock-picking .msg-warn').show()
+            pickLock.attr('disabled', 'disabled')
+        }
+
+        if (character.items.filter((it) => it.name.toLowerCase() === 'chest key').length) {
+            modal.find('.using-keys .msg-warn').hide()
+            useKey.attr('disabled', false)
+        } else {
+            modal.find('.using-keys .msg-warn').show()
+            useKey.attr('disabled', 'disabled')
+        }
+    })
+
+    useKey.on('click', () => {
+        let hasKey = false
         for (let i in character.items) {
-            if (character.items[i].name === itemName) {
-                found = true
-                character.items[i].count += count
-                $(`[data-item="${itemName}"] .item-count`).text(character.items[i].count)
-                doCharacterSave(character)
-                break;
+            if (character.items[i].name.toLowerCase() === 'chest key') {
+                hasKey = true
             }
         }
-        if (!found) {
-            const item = { name: itemName, equipped: false, count }
-            character.items.push(item)
-            $('.items').append(getItemElement(item, character, scenario))
-            doCharacterSave(character)
+        if (!hasKey) {
+            return alert('Sorry, but you do not have a chest key, please select another method.')
         }
+        modal.find('.methods').addClass('hide')
+        modal.find('details:not(.using-keys)').hide()
+        modal.find('.determine-item')
+            .attr('data-item-used', 'chest key')
+            .attr('data-item-count', '1')
+            .show()
+    })
+
+    flips.on('change', () => {
+        const total = flips.reduce((prev, curr) => { return Number(prev) + Number(curr.value) }, 0)
+        flipValue.text(total)
+    })
+
+
+    modal.find('.do-open-chest').on('click', () => {
+        const card1 = Number($('#chest-flip-1')[0].value)
+        const card2 = Number($('#chest-flip-2')[0].value)
+        if (card1 < 1 || card1 > 13 || card2 < 1 || card2 > 13) {
+            return alert('Please flip two action cards and enter the values here.')
+        }
+
+        const suit1 = $('#chest-suit-1')[0].value
+        const suit2 = $('#chest-suit-2')[0].value
+        const suitResult = suit1 === suit2 ? suit1 : 'mixed'
+        const item = scenario.chests.filter((item) => {
+            return item.sum === (card1 + card2) && item.color === suitResult
+        })[0]
+
+        const itemUsed = (modal.find('.determine-item').attr('data-item-used') || '').trim().toLowerCase()
+        if (itemUsed && scenario.itemsByName[itemUsed]) {
+            const usedItemCount = Number(modal.find('.determine-item').attr('data-item-count')) || 1
+            let itemIndex = null
+            for (let i in character.items) {
+                if (character.items[i].name.toLowerCase() === itemUsed) {
+                    itemIndex = i
+                }
+            }
+            if (itemIndex) {
+                character.items[itemIndex].count -= usedItemCount
+                if (character.items[itemIndex].count > 0) {
+                    $(`[data-item="${itemUsed}"] .item-count`).text(character.items[itemIndex].count)
+                } else {
+                    character.items.splice(itemIndex, 1)
+                    const elem = $(`[data-item="${itemUsed}"]`)[0]
+                    elem?.parentNode.removeChild(elem)
+                }
+                doCharacterSave(character)
+            }
+        }
+        
+        modal.attr('open', false)
+        const itemModal = $('.found-item-modal')
+        itemModal.attr('open', 'open')
+        itemModal.find('.item-name').text(item.item)
+        itemModal.find('.item-count').text((item.count && item.count > 1) ? `(x${item.count})` : '')
+
+        const name = item.item.toLowerCase()
+        let description = item.description || ''
+        if (scenario.itemsByName[name]) {
+            itemModal.find('.auto-add').show()
+            description = scenario.itemsByName[name].description
+            addItemToCharacter(character, scenario, name, item.count || 1)
+        } else {
+            itemModal.find('.auto-add').hide()
+        }
+        itemModal.find('.description').text(description)
     })
 }
 

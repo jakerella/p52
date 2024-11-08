@@ -4,8 +4,8 @@ title: Character Sheet
 page: character-sheet
 ---
 
-<hgroup class='grid'>
-    <h2 class='whoami'>
+<hgroup class='grid whoami'>
+    <h2>
         <span class='char-name'>?</span>, a
         <span class='char-race'>?</span>
         <span class='char-class'>?</span>
@@ -144,10 +144,126 @@ page: character-sheet
 <dialog class='open-chest-modal'>
     <article>
         <header><h3>Open a Chest</h3></header>
-        <p>Open a chest to find an item...</p>
+        
+        <p>
+            You can open a chest in three different ways. You will need to update your 
+            game board (and possibly character sheet) depending on the outcome!
+        </p>
+
+        <details class='lock-picking'>
+            <summary><h3>Lock Picking</h3></summary>
+            <aside>
+                <p class='msg msg-warn'>You are not trained in lock picking, and do not have a lock pick!</p>
+                <p>
+                    You may open a chest using the Lock Picking ability or one or more lock pick items.
+                </p>
+                <p>
+                    If a player is not trained in the Lock Picking ability, they may use a 
+                    <strong>Lock Pick item</strong> to attempt to open the chest. For this method, 
+                    each lock pick item you use allows you to assume a higher level in the Lock Pick 
+                    ability for this turn. In other words, using a single pick is like having 
+                    level 1 Lock Picking. Using two pick items is like having level 2 in the ability 
+                    (1 + 1). <strong>You cannot get above level 3 using this method</strong>.
+                </p>
+                <p>
+                    If you are already trained in the Lock Pick ability, using a lock pick item 
+                    reduces your ability target by -2 (again, a maximum of 3 picks may be used).
+                </p>
+                <p>
+                    A <strong>failed</strong> attempt <em>with a lock pick</em> destroys the lock 
+                    pick. Thus after a failed attempt remove the item from your inventory.
+                </p>
+            </aside>
+        </details>
+
+        <details class='attack-chest'>
+            <summary><h3>Attacking the Chest</h3></summary>
+            <aside>
+                <p>
+                    If the lock on a chest has been broken - or if you simply choose not to use the 
+                    Lock Picking ability or a Lock Pick item - you may attack the chest in order to 
+                    open it. This will <strong>primarily use your <em>Think</em> ability</strong>.
+                </p>
+                <p>
+                    <strong>Warning</strong>: there is a chance you might destroy the chest and any 
+                    item in it! However, you may use Stamina to increase your flip value.
+                </p>
+            </aside>
+        </details>
+
+        <details class='using-keys'>
+            <summary><h3>Using a Chest Key</h3></summary>
+            <aside>
+                <p class='msg msg-warn'>You do not have a chest key!</p>
+                <p>
+                    A chest key will automatically open a chest successfully. Using this item consumes
+                    your turn <strong>and the key</strong>!
+                </p>
+            </aside>
+        </details>
+
+        <aside class='methods' role='group'>
+            <button class='pick-lock'>Pick</button>
+            <button class='attack-chest'>Force</button>
+            <button class='use-key'>Key</button>
+        </aside>
+
+        <section class='determine-item'>
+            <p>Flip two cards to determine what you find!</p>
+            <aside class='card-flips'>
+                <input type='number' class='card-flip' name='chest-flip-1' id='chest-flip-1' list='card-values' placeholder='Flip 1' step='1' min='1' max='13'>
+                <select name='chest-suit-1' id='chest-suit-1'>
+                    <option value='red'>♡</option>
+                    <option value='red'>♢</option>
+                    <option value='black'>♤</option>
+                    <option value='black'>♧</option>
+                </select>
+                <input type='number' class='card-flip' name='chest-flip-2' id='chest-flip-2' list='card-values' placeholder='Flip 2' step='1' min='1' max='13'>
+                <select name='chest-suit-2' id='chest-suit-2'>
+                    <option value='red'>♡</option>
+                    <option value='red'>♢</option>
+                    <option value='black'>♤</option>
+                    <option value='black'>♧</option>
+                </select>
+
+                <datalist id='card-values'>
+                    <option value='1'>A</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                    <option value='5'>5</option>
+                    <option value='6'>6</option>
+                    <option value='7'>7</option>
+                    <option value='8'>8</option>
+                    <option value='9'>9</option>
+                    <option value='10'>10</option>
+                    <option value='11'>J</option>
+                    <option value='12'>Q</option>
+                    <option value='13'>K</option>
+                </datalist>
+            </aside>
+            <aside role='group' class='actions'>
+                <p>Card Value: <span class='flip-value'>0</span></p>
+                <button class='do-open-chest'>Open Chest</button>
+            </aside>
+        </section>
+
         <footer>
             <button class='secondary close-modal' data-modal='open-chest-modal'>Cancel</button>
-            <button class='save-item close-modal' data-modal='open-chest-modal'>Save</button>
+        </footer>
+    </article>
+</dialog>
+
+<dialog class='found-item-modal'>
+    <article>
+        <header><h3>You found a <span class='item-name'>?</span> <span class='item-count'></span></h3></header>
+        
+        <p class='description'></p>
+
+        <p class='auto-add'>(This item has been added to your inventory automatically.)</p>
+
+        <footer>
+            <button class='secondary close-modal' data-modal='found-item-modal'>Okay</button>
         </footer>
     </article>
 </dialog>
