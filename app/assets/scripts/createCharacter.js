@@ -1,7 +1,16 @@
 
 import $ from './jqes6.js'
 import c from './constants.js'
-import { showMessage, getScenario, setupPaging, saveCharacter, getCoreAbilitiesTableHtml, getCharacter, buildAbilityDisplay, getAbilitiesByName, buildItemDisplay } from './shared.js'
+import {
+    showMessage,
+    getScenario,
+    setupPaging,
+    saveCharacter,
+    getCoreAbilitiesTableHtml,
+    getCharacter,
+    buildAbilityDisplay,
+    buildItemDisplay
+} from './shared.js'
 import template from '../data/character_template.js'
 
 async function initCreateCharacter() {
@@ -328,11 +337,10 @@ function setupAbilities(character, scenario) {
 
     setAvailableAbilities(character, scenario)
     
-    const abilitiesByName = getAbilitiesByName(scenario)
     availableSelector.on('change', () => {
         if (!availableSelector[0].value) { return description.html(' ') }
 
-        const ab = abilitiesByName[availableSelector[0].value]
+        const ab = scenario.abilitiesByName[availableSelector[0].value]
         
         const abilities = getRaceAndClassAbilities('given', character, scenario)
         description.html(buildAbilityDisplay(ab))

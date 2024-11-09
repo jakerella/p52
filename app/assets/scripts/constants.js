@@ -6,7 +6,8 @@ const constants = {
     MAX_CHARACTER_HISTORY: 10,
     SCENARIO_KEY: 'loadedScenario',
     SCENARIO_METADATA: 'data/scenarios.js',
-    CORE_ORDER: ['Lift', 'Think', 'Balance', 'Move', 'Lead']
+    CORE_ORDER: ['Lift', 'Think', 'Balance', 'Move', 'Lead'],
+    CORE_MAP: {'lift': 'Lt', 'think': 'Th', 'balance': 'Bc', 'move': 'Mv', 'lead': 'Ld' }
 }
 
 export default constants

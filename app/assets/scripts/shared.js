@@ -44,6 +44,8 @@ export function getScenario() {
         scenario = JSON.parse(localStorage.getItem(c.SCENARIO_KEY) || 'null')
         scenario.itemsByName = {}
         scenario.items.forEach((item) => { scenario.itemsByName[item.name.toLowerCase()] = item })
+        scenario.abilitiesByName = {}
+        scenario.abilities.forEach((ab) => { scenario.abilitiesByName[ab.name.toLowerCase()] = ab })
     } catch(e) {
         console.warn(`Unable to load scenario from localStorage key: ${c.SCENARIO_KEY}`)
     }
@@ -159,20 +161,46 @@ export function getCoreAbilitiesTableHtml(tableClass = 'core-abilities', default
 </table>`
 }
 
-export function getAbilitiesByName(scenario) {
-    const abilitiesByName = {}
-    scenario.abilities.forEach((ab) => abilitiesByName[ab.name.toLowerCase()] = ab)
-    return abilitiesByName
+export function buildAbilityDisplay(ability, charAbility = null, charItems = null, charCore = null) {
+    const abStats = getAbilityTargetAndEffects(ability, charAbility, charItems)
+
+    const effectText = Object.keys(abStats.effects).map((type) => {
+        let text = abStats.effects[type].text.replace('{{amount}}', abStats.effects[type].amount)
+        
+        if (charAbility) {
+            text = text.replace('aLv', `${charAbility.level}<span class='calc-source'>(aLv)</span>`)
+        }
+        if (charCore) {
+            text = text.replace('Lt', `${charCore.lift}<span class='calc-source'>(Lt)</span>`)
+                .replace('Th', `${charCore.think}<span class='calc-source'>(Th)</span>`)
+                .replace('Bc', `${charCore.balance}<span class='calc-source'>(Bc)</span>`)
+                .replace('Mv', `${charCore.move}<span class='calc-source'>(Mv)</span>`)
+                .replace('Ld', `${charCore.lead}<span class='calc-source'>(Ld)</span>`)
+        }
+        return text
+    })
+
+    // TODO: do full calculation of target and effects if we have the info
+
+    return `${(charAbility) ? '' : `<h3>${ability.name} (${ability.type})</h3>`}
+<aside class='ability-details'>
+    <p>${ability.usage}</p>
+    <ul>
+        <li>Target: <strong>${abStats.target}</strong></li>
+        <li>Range: ${ability.range === 0 ? '(not ranged)' : ability.range[1]}</li>
+        <li>Effects: ${effectText.length ? effectText.join('; ') : '(see description)'}</li>
+    </ul>
+</aside>`
 }
 
-export function buildAbilityDisplay(ability, charAbility = null, charItems = null, charCore = null) {
+export function getAbilityTargetAndEffects(ability, charAbility, charItems) {
     let target = ability.target
     if (charAbility) {
-        target = target.replace('aLv', `${charAbility.level}<span class='calc-source'>(aLv)</span>`)
+        target = target.replace('aLv', `${charAbility.level}<sup class='calc-source'>(aLv)</sup>`)
         ;(charAbility.modifiers || []).forEach((mod) => {
             if (mod.attribute === 'target') {
-                const sign = (e.amount < 0) ? '-' : '+'
-                target += ` ${sign} ${mod.amount}(mod)`
+                const sign = (mod.amount < 0) ? '-' : '+'
+                target += ` ${sign} ${Math.abs(mod.amount)}<sup class='calc-source'>(mod)</sup>`
             }
         })
     }
@@ -215,33 +243,69 @@ export function buildAbilityDisplay(ability, charAbility = null, charItems = nul
         })
     }
 
-    const effectText = Object.keys(effects).map((type) => {
-        let text = effects[type].text.replace('{{amount}}', effects[type].amount)
-        
-        if (charAbility) {
-            text = text.replace('aLv', `${charAbility.level}<span class='calc-source'>(aLv)</span>`)
+    return { target, effects }
+}
+
+export function calculateFormula(base, coreStats, abilityName = null, attribute, charItems = [], params = {}, modifiers = []) {
+    // known params: (coreStats), F, R, Over, #, aLv, Lv, avgLv, MaxHP
+
+    let formula = base.replaceAll(' x ', ' * ').replaceAll(/^-\(/g, '-1 * (').replaceAll(/^\+\(/g, '0 + (')
+    for (let key in coreStats) {
+        params[c.CORE_MAP[key.toLowerCase()]] = coreStats[key]
+    }
+    for (let key in params) {
+        formula = formula.replaceAll(key, params[key])
+    }
+    modifiers.forEach((mod) => {
+        if (Number.isInteger(mod)) {
+            const sign = (mod < 0) ? '-' : '+'
+            formula = `(${formula}) ${sign} ${Math.abs(mod)}`
         }
-        if (charCore) {
-            text = text.replace('Lt', `${charCore.lift}<span class='calc-source'>(Lt)</span>`)
-                .replace('Th', `${charCore.think}<span class='calc-source'>(Th)</span>`)
-                .replace('Bc', `${charCore.balance}<span class='calc-source'>(Bc)</span>`)
-                .replace('Mv', `${charCore.move}<span class='calc-source'>(Mv)</span>`)
-                .replace('Ld', `${charCore.lead}<span class='calc-source'>(Ld)</span>`)
-        }
-        return text
     })
 
-    // TODO: do full calculation of target and effects if we have the info
+    if (charItems && charItems.length) {
+        const items = getScenario().itemsByName
+        charItems.forEach((item) => {
+            if (item.equipped && items[item.name] && items[item.name].effects) {
+                items[item.name].effects.forEach((eff) => {
+                    if (eff.object.toLowerCase() === abilityName.toLowerCase() && eff.attribute.toLowerCase() === attribute.toLowerCase()) {
+                        const sign = (eff.amount < 0) ? '-' : '+'
+                        formula = `(${formula}) ${sign} ${Math.abs(mod)}`
+                    }
+                })
+            }
+        })
+    }
 
-    return `${(charAbility) ? '' : `<h3>${ability.name} (${ability.type})</h3>`}
-<aside class='ability-details'>
-    <p>${ability.usage}</p>
-    <ul>
-        <li>Target: <strong>${target}</strong></li>
-        <li>Range: ${ability.range === 0 ? '(not ranged)' : ability.range[1]}</li>
-        <li>Effects: ${effectText.length ? effectText.join('; ') : '(see description)'}</li>
-    </ul>
-</aside>`
+    let result = null
+    const reduced = reduceFormula(formula)
+    if (Number(reduced)) {
+        result = Number(reduced)
+    }
+
+    return { formula, reduced, result }
+}
+
+function reduceFormula(formula) {
+    let modified = formula
+    const matches = formula.match(/\([0-9 \-+*\/]+\)/g)
+    if (matches) {
+        matches.forEach((m) => {
+            try {
+                modified = modified.replace(m, Math.floor(eval(m)))
+            } catch(e) {
+                console.debug('unable to evaluate formula section:', m)
+            }
+        })
+        return reduceFormula(modified)
+    }  if (/^[0-9 \-+*\/]+$/) {
+        try {
+            return eval(formula)
+        } catch(e) {
+            console.debug('unable to evaluate reduced formula:', formula)
+            return formula
+        }
+    }
 }
 
 export function buildItemDisplay(item, charItem = null, charCore = null) {

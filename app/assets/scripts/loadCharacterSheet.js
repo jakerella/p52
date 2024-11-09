@@ -3,8 +3,9 @@ import $ from './jqes6.js'
 import {
     buildAbilityDisplay,
     buildItemDisplay,
+    calculateFormula,
     canUseItem,
-    getAbilitiesByName,
+    getAbilityTargetAndEffects,
     getCharacter,
     getCoreAbilitiesTableHtml,
     getItemEffects,
@@ -119,13 +120,12 @@ function addCharacterDetails(character, scenario) {
 
     const ABILITY_LEVEL_ADD_ON = '<aside class="ability-item-add-on">(Lv <span class="ability-level"></span>)</span></aside>'
 
-    const abilitiesByName = getAbilitiesByName(scenario)
     const abElem = $('.abilities')
     character.abilities.forEach((ability) => {
         const slug = ability.name.toLowerCase().replaceAll(' ', '-')
         abElem.append(`<details id='ability-${slug}' class='ability'>
     <summary><h3>${ability.name} ${ABILITY_LEVEL_ADD_ON}</h3></summary>
-    ${buildAbilityDisplay(abilitiesByName[ability.name], ability, character.items, character.core)}
+    ${buildAbilityDisplay(scenario.abilitiesByName[ability.name], ability, character.items, character.core)}
 </details>`)
         $(`#ability-${slug} .ability-level`).html(ability.level)
     })
@@ -360,6 +360,7 @@ function handleOpenChest(character, scenario) {
         modal.find('details').show()
         $('.methods').removeClass('hide')
         modal.find('.attack-params').hide()
+        modal.find('.lock-pick-attempt').hide()
         $('.determine-item').hide()
         modal.find('input').forEach((n) => n.value = '')
         itemFlipValue.text('?')
@@ -389,9 +390,90 @@ function handleOpenChest(character, scenario) {
         }
     })
 
+    modal.find('.pick-lock').on('click', () => {
+        modal.find('.methods').addClass('hide')
+        modal.find('details:not(.lock-picking)').hide()
+        modal.find('.lock-pick-attempt').show()
+        
+        let charAbility = character.abilities.filter((ab) => ab.name.toLowerCase() === 'lock picking')[0]
 
-    // TODO: open by lock picking
+        // if you don't have the ability, must use a lock pick
+        modal.find('#lock-picks-used')[0].value = charAbility ? '0' : '1'
+        if (!charAbility) {
+            $('.lock-pick-note').show()
+            charAbility = { name: 'lock picking', level: 1, modifiers: [] }
+        } else {
+            $('.lock-pick-note').hide()
+        }
 
+        const target = getAbilityTargetAndEffects(scenario.abilitiesByName['lock picking'], charAbility, character.items).target
+        modal.find('.lock-pick-target').html(target)
+
+        const method = (indexOfItem(character, 'lock pick') < 0) ? 'addClass' : 'removeClass'
+        modal.find('.lock-picks')[method]('hide')
+    })
+    modal.find('#lock-picks-used').on('change', (e) => {
+        let picksUsed = Math.max(0, Number(e.target.value) || 0)
+        const index = indexOfItem(character, 'lock pick')
+        if (character.items[index].count < picksUsed) {
+            e.target.value = character.items[index].count
+            picksUsed = character.items[index].count
+        }
+        if (picksUsed > 3) {
+            alert('You may only use a maximum of 3 lock picks on any attempt')
+            e.target.value = 3
+            picksUsed = 3
+        }
+        
+        const target = getAbilityTargetAndEffects(scenario.abilitiesByName['lock picking'], getLockPickStats(character, picksUsed), character.items).target
+        modal.find('.lock-pick-target').html(target)
+    })
+    modal.find('.do-pick-lock').on('click', () => {
+        const stamina = Number(modal.find('#lock-pick-stamina')[0].value) || 0
+        const flip = Number(modal.find('#lock-pick-flip')[0].value) || 0
+        const picksUsed = Math.max(0, Number(modal.find('#lock-picks-used')[0].value) || 0)
+        const result = flip + stamina + picksUsed
+
+        if (flip === 0 || flip > 13) {
+            return alert('Please flip 1 action card to determine the outcome!')
+        }
+
+        const charAbility = getLockPickStats(character, picksUsed)
+        const params = { aLv: charAbility.level }
+        const modifiers = charAbility.modifiers.map((mod) => (mod.attribute === 'target') ? mod.value : 0)
+
+        const formula = calculateFormula(scenario.abilitiesByName['lock picking'].target, character.core, 'lock picking', 'target', character.items, params, modifiers)
+        if (!formula.result) {
+            return alert(`You'll need to evaluate this one yourself. Follow the rules and see if you succeeded, then determine your item (if sucessful) and add the item to your inventory!\n\nYour target is: ${formula.reduced}`)
+        }
+        
+        if (flip === 1) {
+            alert('You tinker with the lock, twisting and jamming things into it, until you finally hear a grinding metal sound. Looks like you broke the lock\'s inner workings! **You may NOT attempt to pick this lock again, OR use a chest key on it.**')
+            if (picksUsed) {
+                removeItemFromCharacter(character, 'lock pick', picksUsed)
+            }
+            return modal.attr('open', false)
+        }
+        if (result < formula.result) {
+            alert('You tinker with the lock for a while, but give up after a while. You can always try again.')
+            if (picksUsed) {
+                removeItemFromCharacter(character, 'lock pick', picksUsed)
+            }
+            return modal.attr('open', false)
+        }
+        
+        if (flip === 13) {
+            alert('Well done! Your skill is impecible. Not only did you open the lock, but you were able to reveal a hidden slot with a chest key in it! You can save that one for later (it has been added to your inventory).')
+            addItemToCharacter(character, scenario, 'chest key')
+        }
+
+        modal.find('.lock-pick-attempt').hide()
+        // we've already used the lock pick, and they are only consumed on failure
+        modal.find('.determine-item')
+            .attr('data-item-used', false)
+            .attr('data-item-count', false)
+            .show()
+    })
 
     modal.find('.attack-chest').on('click', () => {
         modal.find('.methods').addClass('hide')
@@ -493,6 +575,20 @@ function handleOpenChest(character, scenario) {
         }
         itemModal.find('.description').text(description)
     })
+}
+
+function getLockPickStats(character, picksUsed = 0) {
+    let charAbility = character.abilities.filter((ab) => ab.name.toLowerCase() === 'lock picking')[0] || null
+    if (!charAbility && picksUsed) {
+        charAbility = { name: 'lock picking', level: picksUsed, modifiers: [] }
+    } else if (charAbility && picksUsed) {
+        charAbility = {
+            name: 'lock picking',
+            level: charAbility.level,
+            modifiers: [...charAbility.modifiers, { attribute: 'target', amount: (picksUsed * -1) }]
+        }
+    }
+    return charAbility
 }
 
 

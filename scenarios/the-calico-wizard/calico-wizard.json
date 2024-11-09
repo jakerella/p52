@@ -593,11 +593,11 @@
             "effects": [{
                 "type": "heal",
                 "object": "player",
-                "amount": "1/4 Max HP + Over",
+                "amount": "(MaxHP / 4) + Over",
                 "attribute": "hp"
             }],
             "exp": 13,
-            "usage": "Target a dead player. If successful, the player is revived and HP is healed to (1/4 Max HP + Over)"
+            "usage": "Target a dead player. If successful, the player is revived and HP is healed to 1/4 of Max HP + Over"
         },
         {
             "name": "Magic Shield",
@@ -853,11 +853,11 @@
                 "amount": 1,
                 "attribute": "damage"
             }],
-            "includes": [{ "name": "basic arrow", "count": 10 }],
+            "includes": [{ "name": "basic arrows", "count": 10 }],
             "description": "A lightweight, cheaply made bow used primarily for hunting. **Note**: you must have arrows to shoot! You **gain 10 basic arrows** when you receive this bow (1 damage bonus). These arrows are **single use** and weigh 0.1 each. Although this is a two-handed weapon, you may have a second, one-handed weapon equipped."
         },
         {
-            "name": "Basic Arrow",
+            "name": "Basic Arrows",
             "requirements": null,
             "weight": 0.1,
             "equip": false,
@@ -1136,7 +1136,7 @@
                 "amount": -1,
                 "attribute": "target"
             }],
-            "includes": [{ "name": "basic arrow", "count": 10 }],
+            "includes": [{ "name": "basic arrows", "count": 10 }],
             "description": "A solid bow with decent accuracy. **Note**: you must have arrows to shoot! You **gain 10 basic arrows** when you receive this bow (0 damage bonus). These arrows are **single use** and weigh 0.1 each. Although this is a two-handed weapon, you may have a second, one-handed weapon equipped."
         },
         {
@@ -1164,6 +1164,7 @@
             "equip": true,
             "consumable": false,
             "weight": 1,
+            "target": "12 - Bc",
             "effects": [{
                 "type": "damage",
                 "object": "enemy",
@@ -1412,6 +1413,7 @@
             "equip": false,
             "consumable": false,
             "weight": 0.5,
+            "target": "14 - (Th + Ld)",
             "effects": null,
             "description": "Music is powerful. Once per space, you may attempt to enchant a target enemy with song. Flip a card, your target is `(14 - (Th + Ld))`. On success, your target enemy will attack their nearest other enemy on their next turn as if it was a player character. Defend per usual rules. On an Ace, the enemy gets an immediate, extra turn. On a King, the enemy will do this enemy-on-enemy attack on their following turn as well. **Does not work on bosses**."
         },
@@ -1627,7 +1629,7 @@
                 "amount": -1,
                 "attribute": "target"
             }],
-            "includes": [{ "name": "basic arrow", "count": 10 }],
+            "includes": [{ "name": "basic arrows", "count": 10 }],
             "description": "A very lightweight bow with intricate mechanisms to aid in firing. If your first arrow on an attack fails to deal full damage, you may immediately attack the same target again (only once). **Note**: you must have arrows to shoot! You **gain 10 Sharp Arrows** when you receive this bow (+2 damage bonus). These arrows weigh 0.1 each. Although this is a two-handed weapon, you may have a second, one-handed weapon equipped."
         },
         {
@@ -1735,7 +1737,7 @@
             "effects": [{
                 "type": "heal",
                 "object": "player",
-                "amount": "Max",
+                "amount": "+MaxHP",
                 "attribute": "hp"
             }],
             "description": "This dark red compound smells foul and tastes even worse, but its effects cannot be matched. Restore all HP for you or any character on your spot. If the other character is dead, revive them to 2/3 of their Max HP."
@@ -1773,7 +1775,7 @@
             "duration": 1,
             "weight": 0.6,
             "effects": null,
-            "description": "This highly volatile elixir bubbles and churns in a way that makes you very anxious. When thrown at a target enemy, they dissolve completely. **This can only be defended by dodging**. Flip a card, if you flip a 6 or lower, you get some on you and take `-Lv` HP. **Bosses will always dodge this attack**, but will take `+Lv` damage."
+            "description": "This highly volatile elixir bubbles and churns in a way that makes you very anxious. When thrown at a target enemy, they dissolve completely. **This can only be defended by dodging**. Flip a card, if you flip a 6 or lower, you get some of the acid on you as well and take `-Lv` HP (cannot be defended). **Bosses will always dodge this item successfully**, but will take `+Lv` damage from the splatter."
         },
         {
             "name": "Quick Shoes",
@@ -2325,8 +2327,8 @@
             "name": "Goblin",
             "description": "Goblins are small creatures that generally fear direct contact with other species. Their diminutive stature makes them very good at hiding and climbing, preferring to find a good out of the way spot to fire arrows than directly attacking their opponents. Only found in the mountainous regions, this race of creature is highly impressionable and easily controlled. The goblins your party encounters all appear to be working under a guiding hand. A goblins maximum range with a bow is 2-6 spots. (Goblins do not attack players on adjacent spots.)",
             "hp": "avgLv x 9",
-            "melee": { "name": "Grapple", "target": "12 - avgLv", "damage": "avgLv + O" },
-            "ranged": { "name": "Bow", "target": "9 - avgLv + R", "damage": "(avgLv x 2) + O - R" },
+            "melee": { "name": "Grapple", "target": "12 - avgLv", "damage": "avgLv + Over" },
+            "ranged": { "name": "Bow", "target": "9 - avgLv + R", "damage": "(avgLv x 2) + Over - R" },
             "init": "avgLv + 9",
             "move": 0,
             "defense": { "melee":1, "magic":1, "range": 0 }
@@ -2338,7 +2340,7 @@
             "description": "Goblins are small creatures that generally fear direct contact with other species. Their diminutive stature makes them very good at hiding and climbing, preferring to find a good out of the way spot to fire arrows than directly attacking their opponents. Only found in the mountainous regions, this race of creature is highly impressionable and easily controlled. The goblins your party encounters all appear to be working under a guiding hand. A goblins maximum range with a bow is 2-6 spots. (Goblins do not attack players on adjacent spots.) This Goblin will attack a second time if their first attack fails to deal any damage. They cannot perform a melee attack, but will retreat.",
             "hp": "avgLv x 7",
             "melee": null,
-            "ranged": { "name": "Bow x2", "target": "8 - avgLv + R", "damage": "(avgLv x 2) + O - R" },
+            "ranged": { "name": "Bow x2", "target": "8 - avgLv + R", "damage": "(avgLv x 2) + Over - R" },
             "init": "avgLv + 10",
             "move": 1,
             "defense": { "melee":1, "magic":1, "range": -1 }
@@ -2349,8 +2351,8 @@
             "name": "Goblin",
             "description": "Goblins are small creatures that generally fear direct contact with other species. Their diminutive stature makes them very good at hiding and climbing, preferring to find a good out of the way spot to fire arrows than directly attacking their opponents. Only found in the mountainous regions, this race of creature is highly impressionable and easily controlled. The goblins your party encounters all appear to be working under a guiding hand. A goblins maximum range with a bow is 2-6 spots. (Goblins do not attack players on adjacent spots.)",
             "hp": "avgLv x 6",
-            "melee": { "name": "Grapple", "target": "12 - avgLv", "damage": "avgLv + O" },
-            "ranged": { "name": "Bow", "target": "9 - avgLv + R", "damage": "(avgLv x 3) + O - R" },
+            "melee": { "name": "Grapple", "target": "12 - avgLv", "damage": "avgLv + Over" },
+            "ranged": { "name": "Bow", "target": "9 - avgLv + R", "damage": "(avgLv x 3) + Over - R" },
             "init": "avgLv + 10",
             "move": 0,
             "defense": { "melee":1, "magic":1, "range": -1 }
@@ -2361,7 +2363,7 @@
             "name": "Goblin",
             "description": "Goblins are small creatures that generally fear direct contact with other species. Their diminutive stature makes them very good at hiding and climbing, preferring to find a good out of the way spot to fire arrows than directly attacking their opponents. Only found in the mountainous regions, this race of creature is highly impressionable and easily controlled. The goblins your party encounters all appear to be working under a guiding hand. A goblins maximum range with a bow is 2-6 spots. (Goblins do not attack players on adjacent spots.)",
             "hp": "avgLv x 8",
-            "melee": { "name": "Knife", "target": "10 - avgLv", "damage": "(avgLv x 2) + O" },
+            "melee": { "name": "Knife", "target": "10 - avgLv", "damage": "(avgLv x 2) + Over" },
             "ranged": null,
             "init": "avgLv + 8",
             "move": 2,
@@ -2375,7 +2377,7 @@
             "description": "These people look like normal Miowethians, but with a glazed over look in their eyes. They've clearly been ensnared by some great force. As with most of their kind, they are smart and athletic. The Miowethians you encounter on this journey seem to have a glow about them, clearly imbued with some magical powers. A Miowethian's magic range is 2-5 spots. A Miowethian's Staff and Pike range is 0-1 spots. If the Miowethian's ice magic is not successfully defended, the player is frozen and loses their next turn.",
             "hp": "avgLv x 10",
             "melee": null,
-            "ranged": { "name": "Ice Magic", "target": "9 - avgLv + R", "damage": "(avgLv x 2) + O" },
+            "ranged": { "name": "Ice Magic", "target": "9 - avgLv + R", "damage": "(avgLv x 2) + Over" },
             "init": "avgLv + 8",
             "move": 1,
             "defense": { "melee": -1, "magic": -1, "range":1 }
@@ -2386,8 +2388,8 @@
             "name": "Miowethian",
             "description": "These people look like normal Miowethians, but with a glazed over look in their eyes. They've clearly been ensnared by some great force. As with most of their kind, they are smart and athletic. The Miowethians you encounter on this journey seem to have a glow about them, clearly imbued with some magical powers. A Miowethian's magic range is 2-5 spots. A Miowethian's Staff and Pike range is 0-1 spots. If the Miowethian's attack hits, regardless of the defense, the player is moved one space away from the enemy, if possible.",
             "hp": "avgLv x 8",
-            "melee": { "name": "Staff", "target": "12 - avgLv", "damage": "avgLv + O + 2" },
-            "ranged": { "name": "Water Magic", "target": "8 - avgLv + R", "damage": "(avgLv x 2) + O" },
+            "melee": { "name": "Staff", "target": "12 - avgLv", "damage": "avgLv + Over + 2" },
+            "ranged": { "name": "Water Magic", "target": "8 - avgLv + R", "damage": "(avgLv x 2) + Over" },
             "init": "avgLv + 10",
             "move": 1,
             "defense": { "melee": 0, "magic": -1, "range":1 }
@@ -2398,8 +2400,8 @@
             "name": "Miowethian",
             "description": "These people look like normal Miowethians, but with a glazed over look in their eyes. They've clearly been ensnared by some great force. As with most of their kind, they are smart and athletic. The Miowethians you encounter on this journey seem to have a glow about them, clearly imbued with some magical powers. A Miowethian's magic range is 2-5 spots. A Miowethian's Staff and Pike range is 0-1 spots.",
             "hp": "avgLv x 7",
-            "melee": { "name": "Staff", "target": "12 - avgLv", "damage": "avgLv + O + 2" },
-            "ranged": { "name": "Fire Magic", "target": "9 - avgLv + R", "damage": "(avgLv x 3) + O" },
+            "melee": { "name": "Staff", "target": "12 - avgLv", "damage": "avgLv + Over + 2" },
+            "ranged": { "name": "Fire Magic", "target": "9 - avgLv + R", "damage": "(avgLv x 3) + Over" },
             "init": "avgLv + 10",
             "move": 1,
             "defense": { "melee":1, "magic": -1, "range": 0 }
@@ -2410,7 +2412,7 @@
             "name": "Miowethian",
             "description": "These people look like normal Miowethians, but with a glazed over look in their eyes. They've clearly been ensnared by some great force. As with most of their kind, they are smart and athletic. The Miowethians you encounter on this journey seem to have a glow about them, clearly imbued with some magical powers. A Miowethian's magic range is 2-5 spots. A Miowethian's Staff and Pike range is 0-1 spots.",
             "hp": "avgLv x 6",
-            "melee": { "name": "Pike", "target": "10 - avgLv", "damage": "(avgLv x 2) + O" },
+            "melee": { "name": "Pike", "target": "10 - avgLv", "damage": "(avgLv x 2) + Over" },
             "ranged": null,
             "init": "avgLv + 9",
             "move": 2,
@@ -2422,7 +2424,7 @@
             "name": "Wufanthian",
             "description": "It is rare to see a **Wufanthian** and Miowethian working together. The gruff, brutes are well adapted to close combat and rarely shy away from a fight. These people, much like the Miowethians around here, seem to be enchanted, which might account for their above average skill and strength. A Wufanthian's Pike has range 0-1 and bow has range 2-4, but the Sword has no range (must be on the same spot).",
             "hp": "avgLv x 12",
-            "melee": { "name": "Sword", "target": "10 - avgLv", "damage": "(avgLv x 2) + avgLv + O" },
+            "melee": { "name": "Sword", "target": "10 - avgLv", "damage": "(avgLv x 2) + avgLv + Over" },
             "ranged": null,
             "init": "avgLv + 8",
             "move": 2,
@@ -2434,8 +2436,8 @@
             "name": "Wufanthian",
             "description": "It is rare to see a **Wufanthian** and Miowethian working together. The gruff, brutes are well adapted to close combat and rarely shy away from a fight. These people, much like the Miowethians around here, seem to be enchanted, which might account for their above average skill and strength. A Wufanthian's Pike has range 0-1 and bow has range 2-4, but the Sword has no range (must be on the same spot). A Wufanthian with a bow will only fire once between moves. In other words, they might fire at a player, move, then fire their bow again if not yet in melee range. They will never fire their bow on two consecutive turns.",
             "hp": "avgLv x 9",
-            "melee": { "name": "Sword", "target": "8 - avgLv", "damage": "(avgLv x 2) + O" },
-            "ranged": { "name": "Bow", "target": "9 - avgLv + R", "damage": "(avgLv x 2) + O - R" },
+            "melee": { "name": "Sword", "target": "8 - avgLv", "damage": "(avgLv x 2) + Over" },
+            "ranged": { "name": "Bow", "target": "9 - avgLv + R", "damage": "(avgLv x 2) + Over - R" },
             "init": "avgLv + 9",
             "move": 2,
             "defense": { "melee": -1, "magic":1, "range":1 }
@@ -2446,8 +2448,8 @@
             "name": "Wufanthian",
             "description": "It is rare to see a **Wufanthian** and Miowethian working together. The gruff, brutes are well adapted to close combat and rarely shy away from a fight. These people, much like the Miowethians around here, seem to be enchanted, which might account for their above average skill and strength. A Wufanthian's Pike has range 0-1 and bow has range 2-4, but the Sword has no range (must be on the same spot). A Wufanthian with a bow will only fire once between moves. In other words, they might fire at a player, move, then fire their bow again if not yet in melee range. They will never fire their bow on two consecutive turns.",
             "hp": "avgLv x 8",
-            "melee": { "name": "Staff", "target": "10 - avgLv", "damage": "(avgLv x 3) + O" },
-            "ranged": { "name": "Bow", "target": "10 - avgLv + R", "damage": "(avgLv x 2) + O" },
+            "melee": { "name": "Staff", "target": "10 - avgLv", "damage": "(avgLv x 3) + Over" },
+            "ranged": { "name": "Bow", "target": "10 - avgLv + R", "damage": "(avgLv x 2) + Over" },
             "init": "avgLv + 9",
             "move": 2,
             "defense": { "melee": -1, "magic":1, "range":1 }
@@ -2458,7 +2460,7 @@
             "name": "Wufanthian",
             "description": "It is rare to see a **Wufanthian** and Miowethian working together. The gruff, brutes are well adapted to close combat and rarely shy away from a fight. These people, much like the Miowethians around here, seem to be enchanted, which might account for their above average skill and strength. A Wufanthian's Pike has range 0-1 and bow has range 2-4, but the Sword has no range (must be on the same spot).",
             "hp": "avgLv x 8",
-            "melee": { "name": "Pike", "target": "9 - avgLv", "damage": "(avgLv x 2) + O + 3" },
+            "melee": { "name": "Pike", "target": "9 - avgLv", "damage": "(avgLv x 2) + Over + 3" },
             "ranged": null,
             "init": "avgLv + 11",
             "move": 3,

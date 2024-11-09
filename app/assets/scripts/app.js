@@ -4,7 +4,7 @@ import initCreateCharacter from './createCharacter.js'
 import initCharacterSheet from './loadCharacterSheet.js'
 import initLoadHome from './loadHome.js'
 import initLoadScenario from './loadScenario.js'
-import { indexOfItem, isDebug } from './shared.js'
+import { calculateFormula, indexOfItem, isDebug } from './shared.js'
 
 
 function main(page) {
@@ -73,6 +73,27 @@ function addDebugFunctions() {
         localStorage.setItem('character', JSON.stringify(c))
         if (reload) { window.location.reload() }
     }
+    window.addAbility = function addAbility(name, level = 1, reload = true) {
+        const c = JSON.parse(localStorage.getItem('character'))
+        c.abilities.push({ name, level, modifiers: [] })
+        localStorage.setItem('character', JSON.stringify(c))
+        if (reload) { window.location.reload() }
+    }
+    window.removeAbility = function addAbility(name, reload = true) {
+        const c = JSON.parse(localStorage.getItem('character'))
+        let abi = null
+        for (let i in c.abilities) {
+            if (c.abilities[i].name === name) {
+                abi = i
+            }
+        }
+        if (abi !== null) {
+            c.abilities.splice(abi, 1)
+            localStorage.setItem('character', JSON.stringify(c))
+            if (reload) { window.location.reload() }
+        }
+    }
+    window.calculateFormula = calculateFormula
 }
 
 export default main

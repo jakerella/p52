@@ -93,6 +93,7 @@ table td {
     font-weight: normal;
     vertical-align: super;
     font-size: 0.9rem;
+    top: 0
 }
 main details summary h3, main details summary h4 {
     display: inline;
@@ -227,7 +228,13 @@ body [data-tooltip]:not(a,button,input) {
     color: #666;
     text-align: center;
 }
-#page-character-sheet .attack-params .actions {
+#page-character-sheet .open-chest-modal .actions {
     text-align: right;
+}
+#page-character-sheet #lock-picks-used {
+    width: 6rem;
+}
+#page-character-sheet .lock-pick-note {
+    text-align: center;
 }
 

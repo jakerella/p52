@@ -47,7 +47,7 @@ page: character-sheet
         <form action='#' method='get'>
             <header><h2>Edit Core Values</h2></header>
             <p>
-                You may edit any of these items, but be sure you're following all applicable rules!
+                You may edit any of these stats, but be sure you're following all applicable rules!
                 Once changed, your character will be saved and this page reloaded to reflect the result.
             </p>
             
@@ -122,8 +122,8 @@ page: character-sheet
         
         <p>
             You may pick up any item on your current spot or traded to you by another player on this spot.
-            You might also aquire items from the quest bonuses or from enemy drops. This is the place to 
-            add those items to your inventory!
+            You might also aquire items from enemy drops, trades with other players, or quest bonuses! This 
+            is the place to add those items to your inventory.
         </p>
         <select class='item'>
             <option value=''>Choose an item...</option>
@@ -155,7 +155,7 @@ page: character-sheet
             <aside>
                 <p class='msg msg-warn'>You are not trained in lock picking, and do not have a lock pick!</p>
                 <p>
-                    You may open a chest using the Lock Picking ability or one or more lock pick items.
+                    You may open a chest using the Lock Picking ability and/or one or more lock pick items.
                 </p>
                 <p>
                     If a player is not trained in the Lock Picking ability, they may use a 
@@ -167,11 +167,11 @@ page: character-sheet
                 </p>
                 <p>
                     If you are already trained in the Lock Pick ability, using a lock pick item 
-                    reduces your ability target by -2 (again, a maximum of 3 picks may be used).
+                    reduces your ability target by -1 (again, a maximum of 3 picks may be used).
                 </p>
                 <p>
                     A <strong>failed</strong> attempt <em>with a lock pick</em> destroys the lock 
-                    pick. Thus after a failed attempt remove the item from your inventory.
+                    pick. (The app will remove the correct number from your inventory.)
                 </p>
             </aside>
         </details>
@@ -186,7 +186,8 @@ page: character-sheet
                 </p>
                 <p>
                     <strong>Warning</strong>: there is a chance you might destroy the chest and any 
-                    item in it! However, you may use Stamina to increase your flip value.
+                    item in it! You might also cause yourself damage. However, you may use Stamina 
+                    to increase your flip value.
                 </p>
             </aside>
         </details>
@@ -197,7 +198,8 @@ page: character-sheet
                 <p class='msg msg-warn'>You do not have a chest key!</p>
                 <p>
                     A chest key will automatically open a chest successfully. Using this item consumes
-                    your turn <strong>and the key</strong>!
+                    your turn and <strong>consumes the key</strong>! (The app will automatically remove
+                    the item from your inventory after you open the chest.)
                 </p>
             </aside>
         </details>
@@ -208,13 +210,42 @@ page: character-sheet
             <button class='use-key'>Key</button>
         </aside>
 
+        <section class='lock-pick-attempt'>
+            <p>Your target is <code class='lock-pick-target'></code></p>
+
+            <aside class='lock-picks'>
+                <div role='group'>
+                    <label for='lock-picks-used'>Use Lock Pick(s)?</label>
+                    <input type='number' id='lock-picks-used' placeholder='#' step='1' min='0' max='3' value='0'>
+                </div>
+                <p>
+                    Determine your lock picks <em>before</em> flipping for your attempt!
+                </p>
+                <p class='lock-pick-note'>
+                    (Since you are not trained in Lock Picking, you <strong>must</strong> use at least 1 lock pick item.)
+                </p>
+            </aside>
+
+            <aside class='card-flips'>
+                <input type='number' class='card-flip' name='lock-pick-flip' id='lock-pick-flip' list='card-values' placeholder='Flip' step='1' min='1' max='13'>
+                <input type='number' class='card-flip stamina' name='lock-pick-stamina' id='lock-pick-stamina' list='card-values' placeholder='Stamina*' step='1' min='1' max='13'>
+            </aside>
+            <p>(* Using Stamina is always optional, but must be done <em>before you flip</em> the action card!)</p>
+            
+            <aside class='actions'>
+                <button class='do-pick-lock'>Confirm</button>
+            </aside>
+        </section>
+
         <section class='attack-params'>
             <p>Your result is <code>Flip + (<span class='think'></span><sup>(Think)</sup> / 3)</code> = <strong class='attack-result'>?</strong></p>
+            
             <aside class='card-flips'>
                 <input type='number' class='card-flip' name='chest-attack-flip' id='chest-attack-flip' list='card-values' placeholder='Flip' step='1' min='1' max='13'>
                 <input type='number' class='card-flip stamina' name='chest-attack-stamina' id='chest-attack-stamina' list='card-values' placeholder='Stamina*' step='1' min='1' max='13'>
             </aside>
             <p>(* Using Stamina is always optional, but must be done <em>before you flip</em> the action card!)</p>
+            
             <aside class='actions'>
                 <button class='do-attack'>Confirm</button>
             </aside>
