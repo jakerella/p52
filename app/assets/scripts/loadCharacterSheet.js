@@ -44,6 +44,7 @@ async function initCharacterSheet() {
     addCharacterDetails(character, scenario)
     handleCoreEdits(character)
     handleHPChange(character)
+    handleAbilityLevelIncrease(character)
     handleGearEquipping(character, scenario)
     handleConsumeItem(character, scenario)
     handleDropItem(character, scenario)
@@ -54,10 +55,11 @@ async function initCharacterSheet() {
         window.addEventListener('beforeunload', async () => { await saveCharacter(character) })
     }
 
-    // TODO: edit ability levels
+    // TODO: add new ability (must meet reqs)
+
     // TODO: add modal to "use" ability (with calculations)
     // TODO: make use item work dynamically (versus manually) (similar to using ability)
-    // TODO: level up (use experience, add abilities)
+    // TODO: level up (use experience, update core, add abilities / levels)
     // TODO: revert character sheet to previous save
 }
 
@@ -123,8 +125,8 @@ function addCharacterDetails(character, scenario) {
     const abElem = $('.abilities')
     character.abilities.forEach((ability) => {
         const slug = ability.name.toLowerCase().replaceAll(' ', '-')
-        abElem.append(`<details id='ability-${slug}' class='ability'>
-    <summary><h3>${ability.name} ${ABILITY_LEVEL_ADD_ON}</h3></summary>
+        abElem.append(`<details id='ability-${slug}' data-ability='${ability.name.toLowerCase()}' class='ability'>
+    <summary><h3>${ability.name} ${ABILITY_LEVEL_ADD_ON} <span class='increase-ability-level'>▲</span></h3></summary>
     ${buildAbilityDisplay(scenario.abilitiesByName[ability.name], ability, character.items, character.core)}
 </details>`)
         $(`#ability-${slug} .ability-level`).html(ability.level)
@@ -205,6 +207,24 @@ function handleHPChange(character) {
     $('.action-damage').on('click', () => {
         hpElem.text(--character.hp)
         doCharacterSave(character)
+    })
+}
+
+function handleAbilityLevelIncrease(character) {
+    $('.increase-ability-level').on('click', (e) => {
+        e.preventDefault()
+        const elem =$(e.target)
+        const abilityName = (elem.parents('details.ability').attr('data-ability') || '').toLowerCase()
+        
+        if (confirm(`Are you sure you want to increase your level in ${abilityName}?`)) {
+            character.abilities.forEach((ab) => {
+                if (ab.name === abilityName) {
+                    ab.level++
+                    $(`[data-ability="${abilityName}"] .ability-level`).text(ab.level)
+                    doCharacterSave(character)
+                }
+            })
+        }
     })
 }
 

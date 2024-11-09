@@ -99,9 +99,29 @@ page: character-sheet
 <section class='abilities'>
     <hgroup class='grid'>
         <h2>Abilities...</h2>
-        <aside class='edit-abilities edit-section'>✎</aside>
+        <aside class='show-modal add-ability edit-section' data-tooltip='Learn an ability' data-placement='left' data-modal='add-ability-modal'>✚</aside>
     </hgroup>
 </section>
+
+<dialog class='add-ability-modal'>
+    <article>
+        <header><h3>Learn an Ability</h3></header>
+        
+        <p>
+            WHEN? HOW?
+        </p>
+        <select class='ability'>
+            <option value=''>Choose an ability...</option>
+        </select>
+        <section class='ability-detail'></section>
+
+        <footer>
+            <button class='secondary close-modal' data-modal='add-ability-modal'>Cancel</button>
+            <button class='save-ability close-modal' data-modal='add-ability-modal'>Learn</button>
+        </footer>
+    </article>
+</dialog>
+
 
 <section class='items'>
     <hgroup class='grid'>
