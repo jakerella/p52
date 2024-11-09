@@ -157,6 +157,14 @@ body [data-tooltip]:not(a,button,input) {
     font-size: 1.3rem;
     padding-right: 0.5rem;
 }
+#page-character-sheet .player-basic-updates label {
+    width: 100%;
+    text-align: right;
+}
+#page-character-sheet .player-basic-updates input {
+    width: 5rem;
+    margin-right: 25%;
+}
 #page-character-sheet .basic-stats th {
     text-align: center;
 }

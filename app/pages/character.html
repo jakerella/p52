@@ -51,10 +51,20 @@ page: character-sheet
                 Once changed, your character will be saved and this page reloaded to reflect the result.
             </p>
             
-            <fieldset role='group'>
-                <label for='update-experience'>Experience</label>
-                <input type='number' name='experience' id='update-experience' value='0'>
-            </fieldset>
+            <aside class='player-basic-updates'>
+                <fieldset role='group'>
+                    <label for='update-experience'>Experience</label>
+                    <input type='number' name='experience' id='update-experience' value='0' step='1' min='0'>
+                </fieldset>
+                <fieldset role='group'>
+                    <label for='update-level'>Level</label>
+                    <input type='number' name='level' id='update-level' value='1' step='1' min='1'>
+                </fieldset>
+                <fieldset role='group'>
+                    <label for='update-hp'>HP</label>
+                    <input type='number' name='hp' id='update-hp' value='1' step='1'>
+                </fieldset>
+            </aside>
             <table class='core-value-updates'>
                 <thead><tr>
                     <th>Lift</th>

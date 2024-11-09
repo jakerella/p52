@@ -56,7 +56,7 @@ async function initCharacterSheet() {
 
     // TODO: edit ability levels
     // TODO: add modal to "use" ability (with calculations)
-    // TODO: make use item work on yourself dynamically (versus manually)
+    // TODO: make use item work dynamically (versus manually) (similar to using ability)
     // TODO: level up (use experience, add abilities)
     // TODO: revert character sheet to previous save
 }
@@ -165,8 +165,10 @@ function getItemCountDisplay(charItem) {
 }
 
 function handleCoreEdits(character) {
-    $('.edit-core').on('click', () => {
+    onModalOpen('.edit-core-modal', () => {
         $('#update-experience')[0].value = character.experience
+        $('#update-level')[0].value = character.level
+        $('#update-hp')[0].value = character.hp
         for (let attr in character.core) {
             $(`.core-value-updates [name=core-${attr}]`)[0].value = character.core[attr]
         }
@@ -174,12 +176,16 @@ function handleCoreEdits(character) {
     $('.edit-core-modal form').on('submit', async (e) => {
         e.preventDefault()
         const core = {}
-        const exp = $('#update-experience')[0].value || 0
+        const exp = Number($('#update-experience')[0].value) || 0
+        const level = Number($('#update-level')[0].value) || 1
+        const hp = Number($('#update-hp')[0].value) || 0
         for (let attr in character.core) {
             core[attr] = Number($(`.core-value-updates [name=core-${attr}]`)[0].value) || 1
         }
         character.core = core
         character.experience = exp
+        character.level = level
+        character.hp = hp
         try {
             await saveCharacter(character)
             window.location.reload()
