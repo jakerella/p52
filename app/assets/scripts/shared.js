@@ -2,6 +2,10 @@
 import c from './constants.js'
 import $ from './jqes6.js'
 
+export function isDebug() {
+    return /(\?|&)debug($|&)/.test(window.location.search)
+}
+
 export function showMessage(msg, ttl, type) {
     // CSS-defined types: info, warn, error
     const ts = Date.now()
@@ -320,4 +324,14 @@ export function onModalClose(selector, fn) {
 }
 export function onModalOpen(selector, fn) {
     watchModal(selector, fn, true)
+}
+
+export function indexOfItem(character, itemName) {
+    let itemIndex = -1
+    for (let i in character.items) {
+        if (character.items[i].name.toLowerCase() === itemName.toLowerCase()) {
+            itemIndex = i
+        }
+    }
+    return itemIndex
 }

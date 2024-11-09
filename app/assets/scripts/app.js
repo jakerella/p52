@@ -4,6 +4,7 @@ import initCreateCharacter from './createCharacter.js'
 import initCharacterSheet from './loadCharacterSheet.js'
 import initLoadHome from './loadHome.js'
 import initLoadScenario from './loadScenario.js'
+import { indexOfItem, isDebug } from './shared.js'
 
 
 function main(page) {
@@ -12,6 +13,7 @@ function main(page) {
     if (/\/rules/.test(window.location.href)) { switchRuleLinks() }
 
     addSharedControls()
+    if (isDebug()) { addDebugFunctions() }
 }
 
 const PAGE_INIT = {
@@ -57,6 +59,20 @@ function switchRuleLinks() {
             link.setAttribute('href', '/load-scenario')
         }
     })
+}
+
+function addDebugFunctions() {
+    window.addItem = function addItem(name, count = 1, reload = true) {
+        const c = JSON.parse(localStorage.getItem('character'))
+        const itemIndex = indexOfItem(c, name)
+        if (itemIndex > -1) {
+            c.items[itemIndex].count += count
+        } else {
+            c.items.push({ name, equipped: false, count })
+        }
+        localStorage.setItem('character', JSON.stringify(c))
+        if (reload) { window.location.reload() }
+    }
 }
 
 export default main

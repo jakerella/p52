@@ -9,14 +9,12 @@ import {
     getCoreAbilitiesTableHtml,
     getItemEffects,
     getScenario,
+    indexOfItem,
+    isDebug,
     onModalOpen,
     saveCharacter,
     showMessage
 } from './shared.js'
-
-
-const ABILITY_LEVEL_ADD_ON = '<aside class="ability-item-add-on">(Lv <span class="ability-level"></span>)</span></aside>'
-const COUNT_NOTE = '<aside class="ability-item-add-on">(x<span class="item-count">1</span>)</aside>'
 
 let SAVE_DEBOUNCE = null
 
@@ -51,7 +49,7 @@ async function initCharacterSheet() {
     handleAddItem(character, scenario)
     handleOpenChest(character, scenario)
 
-    if (!/debug/.test(window.location.search)) {
+    if (!isDebug()) {
         window.addEventListener('beforeunload', async () => { await saveCharacter(character) })
     }
 
@@ -119,6 +117,8 @@ function addCharacterDetails(character, scenario) {
         if (elem.length) { elem.html(character.quirk[attr]) }
     })
 
+    const ABILITY_LEVEL_ADD_ON = '<aside class="ability-item-add-on">(Lv <span class="ability-level"></span>)</span></aside>'
+
     const abilitiesByName = getAbilitiesByName(scenario)
     const abElem = $('.abilities')
     character.abilities.forEach((ability) => {
@@ -141,23 +141,27 @@ function addCharacterDetails(character, scenario) {
 function getItemElement(charItem, character, scenario) {
     const slug = charItem.name.toLowerCase().replaceAll(' ', '-')
     
+    const COUNT_NOTE = `<aside class="ability-item-add-on item-count-container">${getItemCountDisplay(charItem)}</aside>`
     const EQUIPPED_NOTE = '<aside class="ability-item-add-on">(equip? <span class="equip-flip"></span>)</aside>'
     const CONSUME_BUTTON = '<button class="inline-button use-item">use</button>'
     const CANNOT_CONSUME_BUTTON = '<button disabled="disabled" class="inline-button use-item">use</button>'
     const DROP_BUTTON = '<button class="inline-button drop-item">drop</button>'
 
-    const count = (charItem.count > 1) ? COUNT_NOTE : ''
     const equipNote = (scenario.itemsByName[charItem.name].equip && canUseItem(charItem.name, character, scenario)) ? EQUIPPED_NOTE : ''
     const consume = (scenario.itemsByName[charItem.name].consumable && canUseItem(charItem.name, character, scenario)) ? CONSUME_BUTTON : ((scenario.itemsByName[charItem.name].consumable) ? CANNOT_CONSUME_BUTTON : '')
 
     const newElem = $(`<details id='item-${slug}' data-item='${charItem.name}' class='item'>
-<summary><h3>${charItem.name} ${count} ${equipNote} ${consume} ${DROP_BUTTON}</h3></summary>
+<summary><h3>${charItem.name} ${COUNT_NOTE} ${equipNote} ${consume} ${DROP_BUTTON}</h3></summary>
 ${buildItemDisplay(scenario.itemsByName[charItem.name], charItem, character.core)}
 </details>`)
     newElem.find(`.item-count`).text(charItem.count)
     newElem.find(`.equip-flip`).text(charItem.equipped ? '☑' : '☐')
 
     return newElem[0]
+}
+
+function getItemCountDisplay(charItem) {
+    return (charItem.count > 1) ? `(x<span class="item-count">${charItem.count}</span>)` : ''
 }
 
 function handleCoreEdits(character) {
@@ -277,29 +281,14 @@ function showItemModal(itemName, character, scenario) {
     modal.attr('open', 'open')
 }
 
-function handleDropItem(character, scenario) {
+function handleDropItem(character) {
     $('.items').on('click', '.drop-item', (e) => {
         e.preventDefault()
-        const parent = $(e.target).parents('details.item')
-        const itemName = (parent.attr('data-item') || '').toLowerCase()
-        character.items.forEach((item, i) => {
-            if (item.name.toLowerCase() === itemName && 
-                item.count > 0 &&
-                confirm(`Are you sure you want to drop 1 ${itemName}?`)) {
-                item.count--
-                if (item.count > 0) {
-                    parent.find('.item-count').text(item.count)
-                } else {
-                    character.items.splice(i, 1)
-                    parent[0]?.parentNode?.removeChild(parent[0])
-                }
-                doCharacterSave(character)
-            } else if (item.name.toLowerCase() === itemName && item.count < 1) {
-                character.items.splice(i, 1)
-                parent[0]?.parentNode?.removeChild(parent[0])
-                doCharacterSave(character)
-            }
-        })
+        const itemName = ($(e.target).parents('details.item').attr('data-item') || '').toLowerCase()
+
+        if (confirm(`Are you sure you want to drop 1 ${itemName}?`)) {
+            removeItemFromCharacter(character, itemName, 1)
+        }
     })
 }
 
@@ -330,20 +319,30 @@ function handleAddItem(character, scenario) {
 }
 
 function addItemToCharacter(character, scenario, itemName, count = 1) {
-    let found = false
-    for (let i in character.items) {
-        if (character.items[i].name === itemName) {
-            found = true
-            character.items[i].count += count
-            $(`[data-item="${itemName}"] .item-count`).text(character.items[i].count)
-            doCharacterSave(character)
-            break;
-        }
-    }
-    if (!found) {
+    const itemIndex = indexOfItem(character, itemName)
+    if (itemIndex > -1) {
+        character.items[itemIndex].count += count
+        $(`[data-item="${itemName}"] .item-count-container`).html(getItemCountDisplay(character.items[itemIndex]))
+        doCharacterSave(character)
+    } else {
         const item = { name: itemName, equipped: false, count }
         character.items.push(item)
         $('.items').append(getItemElement(item, character, scenario))
+        doCharacterSave(character)
+    }
+}
+
+function removeItemFromCharacter(character, itemName, count = 1) {
+    const itemIndex = indexOfItem(character, itemName)
+    if (itemIndex > -1) {
+        character.items[itemIndex].count -= count
+        if (character.items[itemIndex].count > 0) {
+            $(`[data-item="${itemName}"] .item-count-container`).html(getItemCountDisplay(character.items[itemIndex]))
+        } else {
+            character.items.splice(itemIndex, 1)
+            const elem = $(`[data-item="${itemName}"]`)
+            elem[0]?.parentNode?.removeChild(elem[0])
+        }
         doCharacterSave(character)
     }
 }
@@ -390,6 +389,7 @@ function handleOpenChest(character, scenario) {
         }
     })
 
+
     // TODO: open by lock picking
 
 
@@ -411,7 +411,6 @@ function handleOpenChest(character, scenario) {
 
         
         if (flip === 1) {
-            // Ace: chest explodes dealing `(2 x Lv)` damage.
             alert('You deal a voracious blow to the chest, so powerful that the chest explodes and sends wood and metal everywhere. You take (2 x Lv) damage!')
             character.hp -= (character.level * 2)
             doCharacterSave(character)
@@ -422,7 +421,10 @@ function handleOpenChest(character, scenario) {
             return modal.attr('open', false)
         }
         
-        // King reveals two items
+        if (flip === 13) {
+            alert('Well done! By hitting the chest at just the right angle you were able to also reveal a hidden slot with a chest key in it! You can save that one for later (it has been added to your inventory).')
+            addItemToCharacter(character, scenario, 'chest key')
+        }
 
         if (result > 9) {
             modal.find('.attack-params').hide()
@@ -432,18 +434,13 @@ function handleOpenChest(character, scenario) {
                 .show()
             return
         }
+
         alert('Sorry, but you failed to open the chest. You can try again!')
         return modal.attr('open', false)
     })
 
     useKey.on('click', () => {
-        let hasKey = false
-        for (let i in character.items) {
-            if (character.items[i].name.toLowerCase() === 'chest key') {
-                hasKey = true
-            }
-        }
-        if (!hasKey) {
+        if (indexOfItem(character, 'chest key') < 0) {
             return alert('Sorry, but you do not have a chest key, please select another method.')
         }
         modal.find('.methods').addClass('hide')
@@ -474,25 +471,9 @@ function handleOpenChest(character, scenario) {
         })[0]
 
         const itemUsed = (modal.find('.determine-item').attr('data-item-used') || '').trim().toLowerCase()
+        const usedItemCount = Number(modal.find('.determine-item').attr('data-item-count')) || 1
         if (itemUsed && scenario.itemsByName[itemUsed]) {
-            const usedItemCount = Number(modal.find('.determine-item').attr('data-item-count')) || 1
-            let itemIndex = null
-            for (let i in character.items) {
-                if (character.items[i].name.toLowerCase() === itemUsed) {
-                    itemIndex = i
-                }
-            }
-            if (itemIndex) {
-                character.items[itemIndex].count -= usedItemCount
-                if (character.items[itemIndex].count > 0) {
-                    $(`[data-item="${itemUsed}"] .item-count`).text(character.items[itemIndex].count)
-                } else {
-                    character.items.splice(itemIndex, 1)
-                    const elem = $(`[data-item="${itemUsed}"]`)[0]
-                    elem?.parentNode.removeChild(elem)
-                }
-                doCharacterSave(character)
-            }
+            removeItemFromCharacter(character, itemUsed, usedItemCount)
         }
         
         modal.attr('open', false)
