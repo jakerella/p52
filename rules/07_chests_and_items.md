@@ -17,7 +17,7 @@ To open a chest using the Lock Picking ability, move to the spot with the chest 
 
 Flipping an Ace results in a **broken lock**, regardless of your level in the ability. When a lock is broken, the chest can only be opened by attacking it (see below). You may attempt to open a chest as many times as you wish, but keep in mind that it takes a full turn each time.
 
-If you flip a King, the chest contains **two items**. Determine what they are individually, but in the same manner described below.
+If you flip a King, the chest contains two items. Determine what they are individually, but in the same manner described below.
 
 ### Untrained Lock Picking
 
@@ -33,7 +33,7 @@ Once a chest is open, you flip two cards from the Action deck and use the card t
 
 ### Attacking a Chest
 
-If the lock on a chest has been broken - or if you simply choose not to use the Lock Picking ability or a Lock Pick item - you may attack the chest in order to open it. Flip a card from the Action deck, then add that value to: `(Think / 3)`. A **10 or greater** value opens the chest, a **4 or less** destroys the chest and any item in it. A King will still reveal a chest with two items in it. On a flip of an Ace, the chest explodes and you take `(2 x avgLv)` HP of damage.
+If the lock on a chest has been broken - or if you simply choose not to use the Lock Picking ability or a Lock Pick item - you may attack the chest in order to open it. Flip a card from the Action deck, then add that value to: `(Think / 3)`. A **10 or greater** value opens the chest, a **4 or less** destroys the chest and any item in it. A flip of a King will reveal a chest with two items in it. On a flip of an Ace, the chest explodes and you take `(2 x Lv)` HP of damage.
 
 > You may use Stamina to increase your flip value when attacking a chest!
 

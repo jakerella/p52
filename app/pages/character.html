@@ -176,7 +176,7 @@ page: character-sheet
             </aside>
         </details>
 
-        <details class='attack-chest'>
+        <details class='attacking-chests'>
             <summary><h3>Attacking the Chest</h3></summary>
             <aside>
                 <p>
@@ -208,8 +208,21 @@ page: character-sheet
             <button class='use-key'>Key</button>
         </aside>
 
+        <section class='attack-params'>
+            <p>Your result is <code>Flip + (<span class='think'></span><sup>(Think)</sup> / 3)</code> = <strong class='attack-result'>?</strong></p>
+            <aside class='card-flips'>
+                <input type='number' class='card-flip' name='chest-attack-flip' id='chest-attack-flip' list='card-values' placeholder='Flip' step='1' min='1' max='13'>
+                <input type='number' class='card-flip stamina' name='chest-attack-stamina' id='chest-attack-stamina' list='card-values' placeholder='Stamina*' step='1' min='1' max='13'>
+            </aside>
+            <p>(* Using Stamina is always optional, but must be done <em>before you flip</em> the action card!)</p>
+            <aside class='actions'>
+                <button class='do-attack'>Confirm</button>
+            </aside>
+        </section>
+
         <section class='determine-item'>
-            <p>Flip two cards to determine what you find!</p>
+            <p><strong>You opened the chest!</strong></p>
+            <p>Flip two cards to determine what you find...</p>
             <aside class='card-flips'>
                 <input type='number' class='card-flip' name='chest-flip-1' id='chest-flip-1' list='card-values' placeholder='Flip 1' step='1' min='1' max='13'>
                 <select name='chest-suit-1' id='chest-suit-1'>

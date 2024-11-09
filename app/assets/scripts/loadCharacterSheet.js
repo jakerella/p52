@@ -26,11 +26,12 @@ async function initCharacterSheet() {
         window.location.replace('/')
         return
     }
-    const character = getCharacter()
-    if (!character) {
+    const savedCharacter = getCharacter()
+    if (!savedCharacter) {
         window.location.replace('/create-character')
         return
     }
+    const character = new Proxy(savedCharacter, watchCharacter)
     console.log('Loading character:', character)
 
     if (character.reality.toLowerCase() !== scenario.reality.toLowerCase()) {
@@ -59,6 +60,20 @@ async function initCharacterSheet() {
     // TODO: make use item work on yourself dynamically (versus manually)
     // TODO: level up (use experience, add abilities)
     // TODO: revert character sheet to previous save
+}
+
+const watchCharacter = {
+    set(c, prop, value) {
+        c[prop] = value
+        if (prop === 'hp') {
+            if (!Number.isInteger(value)) {
+                throw new TypeError('Attempted to store non-integer HP value')
+            }
+            $('.char-hp').text(value)
+            // TODO: check for dead character?
+        }
+        return true
+    }
 }
 
 
@@ -337,17 +352,20 @@ function handleOpenChest(character, scenario) {
     const modal = $('.open-chest-modal')
     const pickLock = modal.find('.pick-lock')
     const useKey = modal.find('.use-key')
-    const flips = modal.find('.card-flip')
-    const flipValue = modal.find('.flip-value')
+    const itemFlips = modal.find('.determine-item .card-flip')
+    const itemFlipValue = modal.find('.flip-value')
+
+    modal.find('.think').text(character.core.think)
 
     onModalOpen('.open-chest-modal', () => {
-        $('.methods').removeClass('hide')
-        $('.determine-item').hide()
         modal.find('details').show()
-        flips[0].value = ''
-        flips[1].value = ''
-        flipValue.text('0')
+        $('.methods').removeClass('hide')
+        modal.find('.attack-params').hide()
+        $('.determine-item').hide()
+        modal.find('input').forEach((n) => n.value = '')
+        itemFlipValue.text('?')
         modal.find('.determine-item').attr('data-item-used', '')
+        modal.find('.attack-result').text('?')
 
         let canPickLocks = false
         if (character.items.filter((it) => it.name.toLowerCase() === 'lock pick').length) {
@@ -372,6 +390,52 @@ function handleOpenChest(character, scenario) {
         }
     })
 
+    // TODO: open by lock picking
+
+
+    modal.find('.attack-chest').on('click', () => {
+        modal.find('.methods').addClass('hide')
+        modal.find('details:not(.attacking-chests)').hide()
+        modal.find('.attack-params').show()
+    })
+    modal.find('.attack-params input').on('change', () => {
+        const stamina = Number(modal.find('#chest-attack-stamina')[0].value) || 0
+        const flip = Number(modal.find('#chest-attack-flip')[0].value) || 0
+        const result = Math.floor(character.core.think / 3) + flip + stamina
+        modal.find('.attack-result').text(result)
+    })
+    modal.find('.do-attack').on('click', () => {
+        const stamina = Number(modal.find('#chest-attack-stamina')[0].value) || 0
+        const flip = Number(modal.find('#chest-attack-flip')[0].value) || 0
+        const result = Math.floor(character.core.think / 3) + flip + stamina
+
+        
+        if (flip === 1) {
+            // Ace: chest explodes dealing `(2 x Lv)` damage.
+            alert('You deal a voracious blow to the chest, so powerful that the chest explodes and sends wood and metal everywhere. You take (2 x Lv) damage!')
+            character.hp -= (character.level * 2)
+            doCharacterSave(character)
+            return modal.attr('open', false)
+        }
+        if (result < 5) {
+            alert('You aim for the chest and deal a mighty blow... that destroys the chest and everything in it.')
+            return modal.attr('open', false)
+        }
+        
+        // King reveals two items
+
+        if (result > 9) {
+            modal.find('.attack-params').hide()
+            modal.find('.determine-item')
+                .attr('data-item-used', false)
+                .attr('data-item-count', false)
+                .show()
+            return
+        }
+        alert('Sorry, but you failed to open the chest. You can try again!')
+        return modal.attr('open', false)
+    })
+
     useKey.on('click', () => {
         let hasKey = false
         for (let i in character.items) {
@@ -390,11 +454,10 @@ function handleOpenChest(character, scenario) {
             .show()
     })
 
-    flips.on('change', () => {
-        const total = flips.reduce((prev, curr) => { return Number(prev) + Number(curr.value) }, 0)
-        flipValue.text(total)
+    itemFlips.on('change', () => {
+        const total = itemFlips.reduce((prev, curr) => { return Number(prev) + Number(curr.value) }, 0)
+        itemFlipValue.text(total)
     })
-
 
     modal.find('.do-open-chest').on('click', () => {
         const card1 = Number($('#chest-flip-1')[0].value)

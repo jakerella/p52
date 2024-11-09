@@ -108,8 +108,11 @@ main details summary::after {
     display: flex;
     justify-content: space-around;
 }
-.card-flips input.card-flip {
+input.card-flip {
     width: 6rem;
+}
+input.card-flip.stamina {
+    width: 7.5rem;
 }
 [role=group] {
     align-items: center;
@@ -208,7 +211,7 @@ body [data-tooltip]:not(a,button,input) {
 #page-character-sheet .chest-method {
     display: none;
 }
-#page-character-sheet .determine-item {
+#page-character-sheet .determine-item, #page-character-sheet .attack-params {
     display: none;
 }
 #page-character-sheet .determine-item select {
@@ -223,5 +226,8 @@ body [data-tooltip]:not(a,button,input) {
     font-size: 0.9rem;
     color: #666;
     text-align: center;
+}
+#page-character-sheet .attack-params .actions {
+    text-align: right;
 }
 
