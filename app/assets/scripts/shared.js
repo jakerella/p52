@@ -180,8 +180,6 @@ export function buildAbilityDisplay(ability, charAbility = null, charItems = nul
         return text
     })
 
-    // TODO: do full calculation of target and effects if we have the info
-
     return `${(charAbility) ? '' : `<h3>${ability.name} (${ability.type})</h3>`}
 <aside class='ability-details'>
     <p>${ability.usage}</p>

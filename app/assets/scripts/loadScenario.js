@@ -1,7 +1,7 @@
 
 import c from './constants.js'
 import $ from './jqes6.js'
-import { showMessage, parseQuery } from './shared.js'
+import { showMessage, parseQuery, generateHash } from './shared.js'
 import metadata from '../data/scenarios.js'
 
 async function initLoadScenario() {
@@ -33,7 +33,9 @@ async function initLoadScenario() {
 
 async function setScenario(file) {
     const scenario = await (await fetch(`/scenarios/${file}`)).json()
+    const hash = generateHash(JSON.stringify(scenario))
     localStorage.setItem(c.SCENARIO_KEY, JSON.stringify(scenario))
+    localStorage.setItem(c.SCENARIO_HASH_KEY, hash)
 }
 
 export default initLoadScenario

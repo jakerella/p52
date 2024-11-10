@@ -46,6 +46,7 @@ async function initCharacterSheet() {
     handleHPChange(character)
     handleAbilityLevelIncrease(character, scenario)
     handleAddAbility(character, scenario)
+    handleUseAbility(character, scenario)
     handleGearEquipping(character, scenario)
     handleConsumeItem(character, scenario)
     handleDropItem(character, scenario)
@@ -56,9 +57,7 @@ async function initCharacterSheet() {
         window.addEventListener('beforeunload', async () => { await saveCharacter(character) })
     }
 
-    // TODO: add modal to "use" ability (with calculations)
-    // TODO: make use item work dynamically (versus manually) (similar to using ability)
-    // TODO: level up (use experience, update core, add abilities / levels)
+    // TODO: level up walk through (use experience, update core, add abilities / levels)
     // TODO: revert character sheet to previous save
 }
 
@@ -123,6 +122,7 @@ function addCharacterDetails(character, scenario) {
     character.abilities.forEach((ability) => {
         abElem.append(getAbilityElement(character, scenario, ability))
     })
+    checkAbilityUseConditions(character, scenario)
 
     const itemElem = $('.items')
     character.items.forEach((item) => {
@@ -133,13 +133,51 @@ function addCharacterDetails(character, scenario) {
 }
 
 function getAbilityElement(character, scenario, ability) {
-    const ABILITY_LEVEL_ADD_ON = `<aside class="ability-item-add-on">(Lv <span class="ability-level">${ability.level}</span>)</span></aside>`
+    const ABILITY_LEVEL = `<aside class="ability-item-add-on">(Lv <span class="ability-level">${ability.level}</span>)</span></aside>`
+    const ABILITY_LEVEL_BUMP = '<span class="increase-ability-level">▲</span>'
+    const USE_BUTTON = '<button class="inline-button use-ability">use</button>'
     const slug = ability.name.toLowerCase().replaceAll(' ', '-')
+
     const elem = `<details id='ability-${slug}' data-ability='${ability.name.toLowerCase()}' class='ability'>
-    <summary><h3>${scenario.abilitiesByName[ability.name].name} ${ABILITY_LEVEL_ADD_ON} <span class='increase-ability-level'>▲</span></h3></summary>
+    <summary><h3>${scenario.abilitiesByName[ability.name].name} ${ABILITY_LEVEL} ${ABILITY_LEVEL_BUMP} ${USE_BUTTON}</h3></summary>
     ${buildAbilityDisplay(scenario.abilitiesByName[ability.name], ability, character.items, character.core)}
 </details>`
     return elem
+}
+
+function checkAbilityUseConditions(character, scenario) {
+    const equippedTypesAndNames = []
+    character.items.forEach((item) => {
+        if (item.equipped && scenario.itemsByName[item.name.toLowerCase()]) {
+            equippedTypesAndNames.push(item.name.toLowerCase(), ...scenario.itemsByName[item.name.toLowerCase()].gearTypes)
+        }
+    })
+
+    character.abilities.forEach((ab) => {
+        const ability = scenario.abilitiesByName[ab.name.toLowerCase()]
+        if (!ability) {
+            return console.warn('Found unknown ability in character sheet:', ab.name)
+        }
+
+        const allRequired = (ability.gearRequired?.all || [])
+        let hasAll = true
+        for (let i in allRequired) {
+            if (!equippedTypesAndNames.includes(allRequired[i])) {
+                hasAll = false
+                break
+            }
+        }
+        const oneRequired = (ability.gearRequired?.one || [])
+        let hasOne = oneRequired.length ? false : true
+        for (let i in oneRequired) {
+            if (equippedTypesAndNames.includes(oneRequired[i])) {
+                hasOne = true
+                break
+            }
+        }
+
+        $(`.abilities [data-ability="${ab.name.toLowerCase()}"] .use-ability`).attr('disabled', (hasAll && hasOne) ? false : 'disabled')
+    })
 }
 
 function getItemElement(charItem, character, scenario) {
@@ -285,6 +323,25 @@ function handleAddAbility(character, scenario) {
     })
 }
 
+function handleUseAbility(character, scenario) {
+    const modal = $('.use-ability-modal')
+
+    $('.abilities').on('click', '.use-ability', (e) => {
+        e.preventDefault()
+        const elem = $(e.target)
+        const parent = elem.parents('details.ability')
+        const abilityName = (parent.attr('data-ability') || '').toLowerCase()
+        character.abilities.forEach((charAbility) => {
+            if (charAbility.name.toLowerCase() === abilityName) {
+                const ability = scenario.abilitiesByName[abilityName]
+                modal.find('.ability-name').text(ability.name)
+                modal.find('.ability-description').html(buildAbilityDisplay(ability, charAbility, character.items, character.core))
+                modal.attr('open', 'open')
+            }
+        })
+    })
+}
+
 function handleGearEquipping(character, scenario) {
     $('.items').on('click', '.equip-flip', (e) => {
         e.preventDefault()
@@ -303,6 +360,7 @@ function handleGearEquipping(character, scenario) {
                 elem.text(item.equipped ? '☑' : '☐')
             }
         })
+        checkAbilityUseConditions(character, scenario)
 
         return false
     })
@@ -311,7 +369,7 @@ function handleGearEquipping(character, scenario) {
 function handleConsumeItem(character, scenario) {
     $('.items').on('click', '.use-item', (e) => {
         e.preventDefault()
-        const elem =$(e.target)
+        const elem = $(e.target)
         const parent = elem.parents('details.item')
         const itemName = (parent.attr('data-item') || '').toLowerCase()
         character.items.forEach((item, i) => {

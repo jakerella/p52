@@ -3,7 +3,7 @@
     "name": "The Calico Wizard",
     "reality": "Animalia",
     "quests": {
-        "TODO:": "wut...  ALSO, generate a UUID for the id"
+        "TODO:": "What to do here..."
     },
     "races": {
         "Miowethian": {
@@ -132,6 +132,7 @@
         {
             "name": "Knife",
             "requirements": [ {"ability": "Balance", "value": 3}, {"ability": "Move", "value": 2} ],
+            "gearRequired": { "all": [], "one": [ "knife" ] },
             "type": "melee",
             "range": 0,
             "target": "8 - aLv",
@@ -147,6 +148,7 @@
         {
             "name": "Bow",
             "requirements": [ {"ability": "Think", "value": 2}, {"ability": "Balance", "value": 3} ],
+            "gearRequired": { "all": [], "one": [ "bow" ] },
             "type": "ranged",
             "range": [2,10],
             "target": "6 + R - aLv",
@@ -162,6 +164,7 @@
         {
             "name": "Sword",
             "requirements": [ {"ability": "Lift", "value": 5}, {"ability": "Balance", "value": 2} ],
+            "gearRequired": { "all": [], "one": [ "sword" ] },
             "type": "melee",
             "range": 0,
             "target": "9 - aLv",
@@ -177,6 +180,7 @@
         {
             "name": "Two-handed",
             "requirements": [ {"ability": "Lift", "value": 4}, {"ability": "Think", "value": 2} ],
+            "gearRequired": { "all": [], "one": [ "two-handed" ] },
             "type": "melee",
             "range": [0,1],
             "target": "10 - aLv",
@@ -192,6 +196,7 @@
         {
             "name": "Knife Throw",
             "requirements": [ {"ability": "Lift", "value": 2}, {"ability": "Balance", "value": 4} ],
+            "gearRequired": { "all": [], "one": [ "knife" ] },
             "type": "ranged",
             "range": [1,2],
             "target": "9 - aLv + R",
@@ -282,6 +287,7 @@
         {
             "name": "Shield Block",
             "requirements": [ {"ability": "Lift", "value": 5}, {"ability": "Balance", "value": 2} ],
+            "gearRequired": { "all": [], "one": [ "shield" ] },
             "type": "defense",
             "range": 0,
             "target": "8 - aLv",
@@ -297,6 +303,7 @@
         {
             "name": "Parry",
             "requirements": [ {"ability": "Lift", "value": 4}, {"ability": "Think", "value": 3} ],
+            "gearRequired": { "all": [], "one": [ "sword", "bracers", "staff", "knife" ] },
             "type": "defense",
             "range": 0,
             "target": "10 - aLv",
@@ -342,6 +349,7 @@
         {
             "name": "Poison tip",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Lead", "value": 3} ],
+            "gearRequired": { "all": [], "one": [ "bow", "knife", "sword" ] },
             "type": "action",
             "range": 0,
             "target": "11 - aLv",
@@ -402,6 +410,7 @@
         {
             "name": "Power Thrust",
             "requirements": [ {"ability": "Lift", "value": 6}, {"ability": "Balance", "value": 3} ],
+            "gearRequired": { "all": [], "one": [ "melee" ] },
             "type": "melee",
             "range": 0,
             "target": "8 + # - aLv",
@@ -782,6 +791,7 @@
         {
             "name": "Nice Shoes",
             "requirements": null,
+            "gearTypes": [ "shoes" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -811,6 +821,7 @@
         {
             "name": "Hunting Knife",
             "requirements": null,
+            "gearTypes": [ "knife", "melee" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -825,6 +836,7 @@
         {
             "name": "Light Sword",
             "requirements": [ {"ability": "Lift", "value": 2} ],
+            "gearTypes": [ "sword", "melee" ],
             "equip": true,
             "consumable": false,
             "weight": 2,
@@ -844,6 +856,7 @@
         {
             "name": "Long Bow",
             "requirements": [ {"ability": "Balance", "value": 2} ],
+            "gearTypes": [ "bow", "ranged" ],
             "equip": true,
             "consumable": false,
             "weight": 3,
@@ -894,6 +907,7 @@
         {
             "name": "Leather Shield",
             "requirements": [ {"ability": "Lift", "value": 2}, {"ability": "Balance", "value": 2} ],
+            "gearTypes": [ "shield" ],
             "equip": true,
             "consumable": false,
             "weight": 2,
@@ -908,6 +922,7 @@
         {
             "name": "Leather Bracers",
             "requirements": [ {"ability": "Balance", "value": 3} ],
+            "gearTypes": [ "bracers", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -932,6 +947,7 @@
         {
             "name": "Leather Cap",
             "requirements": [ {"ability": "Think", "value": 2} ],
+            "gearTypes": [ "helmet", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -946,6 +962,7 @@
         {
             "name": "Leather Greaves",
             "requirements": [ {"ability": "Lift", "value": 2} ],
+            "gearTypes": [ "greaves", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -960,6 +977,7 @@
         {
             "name": "Leather Jacket",
             "requirements": [ {"ability": "Lead", "value": 2} ],
+            "gearTypes": [ "torso", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 2,
@@ -1074,6 +1092,7 @@
         {
             "name": "Stiletto Knife",
             "requirements": [ {"ability": "Balance", "value": 3} ],
+            "gearTypes": [ "knife", "melee" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1098,6 +1117,7 @@
         {
             "name": "Long Sword",
             "requirements": [ {"ability": "Lift", "value": 4} ],
+            "gearTypes": [ "sword", "melee" ],
             "equip": true,
             "consumable": false,
             "weight": 3,
@@ -1122,6 +1142,7 @@
         {
             "name": "Recurve Bow",
             "requirements": [ {"ability": "Balance", "value": 3}, {"ability": "Think", "value": 2} ],
+            "gearTypes": [ "bow", "ranged" ],
             "equip": true,
             "consumable": false,
             "weight": 2,
@@ -1142,6 +1163,7 @@
         {
             "name": "Magic Wand",
             "requirements": [ {"ability": "Think", "value": 4} ],
+            "gearTypes": [ "wand", "magic" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1161,6 +1183,7 @@
         {
             "name": "Whip",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Balance", "value": 4} ],
+            "gearTypes": [ "whip", "melee" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1176,6 +1199,7 @@
         {
             "name": "Staff",
             "requirements": [ {"ability": "Lift", "value": 3}, {"ability": "Balance", "value": 2} ],
+            "gearTypes": [ "staff", "melee", "two-handed" ],
             "equip": true,
             "consumable": false,
             "weight": 3,
@@ -1295,6 +1319,7 @@
         {
             "name": "Iron Shield",
             "requirements": [ {"ability": "Lift", "value": 4}, {"ability": "Balance", "value": 3} ],
+            "gearTypes": [ "shield" ],
             "equip": true,
             "consumable": false,
             "weight": 4,
@@ -1309,6 +1334,7 @@
         {
             "name": "Iron Bracers",
             "requirements": [ {"ability": "Balance", "value": 4} ],
+            "gearTypes": [ "bracers", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1333,6 +1359,7 @@
         {
             "name": "Iron Helmet",
             "requirements": [ {"ability": "Think", "value": 3} ],
+            "gearTypes": [ "helmet", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 2,
@@ -1347,6 +1374,7 @@
         {
             "name": "Iron Greaves",
             "requirements": [ {"ability": "Lift", "value": 3} ],
+            "gearTypes": [ "greaves", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 2,
@@ -1361,6 +1389,7 @@
         {
             "name": "Iron Chest Plate",
             "requirements": [ {"ability": "Lead", "value": 3} ],
+            "gearTypes": [ "torso", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 3,
@@ -1510,6 +1539,7 @@
         {
             "name": "Battle Axe",
             "requirements": [ {"ability": "Lift", "value": 4} ],
+            "gearTypes": [ "axe", "melee", "two-handed" ],
             "equip": true,
             "consumable": false,
             "weight": 4,
@@ -1524,6 +1554,7 @@
         {
             "name": "Pike",
             "requirements": [ {"ability": "Lift", "value": 4}, {"ability": "Balance", "value": 2} ],
+            "gearTypes": [ "staff", "melee", "two-handed" ],
             "equip": true,
             "consumable": false,
             "weight": 3,
@@ -1543,6 +1574,7 @@
         {
             "name": "Enchanted Staff",
             "requirements": [ {"ability": "Think", "value": 5}, {"ability": "Lead", "value": 3} ],
+            "gearTypes": [ "staff", "magic", "melee", "two-handed" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1561,12 +1593,18 @@
                 "object": "magical ability",
                 "amount": -2,
                 "attribute": "target"
+            },{
+                "type": "modifier",
+                "object": "parry",
+                "amount": -1,
+                "attribute": "damage"
             }],
             "description": "An artfully crafted, two-handed staff of some rare wood that is light as a feather, with inlaid gems and intricate carvings. Player may choose to use as a melee weapon (Two-handed ability) or to effect magical abilities. When used as a melee weapon, only the damage bonus is in effect. When used to enhance magical abilities, both the target and damage effects apply."
         },
         {
             "name": "Kris Knife",
             "requirements": [ {"ability": "Balance", "value": 4}, {"ability": "Move", "value": 2} ],
+            "gearTypes": [ "knife", "melee" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1591,6 +1629,7 @@
         {
             "name": "Scimitar",
             "requirements": [ {"ability": "Lift", "value": 3}, {"ability": "Balance", "value": 2} ],
+            "gearTypes": [ "sword", "melee" ],
             "equip": true,
             "consumable": false,
             "weight": 2,
@@ -1615,6 +1654,7 @@
         {
             "name": "Compound Bow",
             "requirements": [ {"ability": "Balance", "value": 4}, {"ability": "Think", "value": 2} ],
+            "gearTypes": [ "bow", "ranged" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1650,6 +1690,7 @@
         {
             "name": "Enchanted Shield",
             "requirements": [ {"ability": "Think", "value": 5}, {"ability": "Balance", "value": 2} ],
+            "gearTypes": [ "shield", "magic" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1664,6 +1705,7 @@
         {
             "name": "Enchanted Bracers",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Balance", "value": 4} ],
+            "gearTypes": [ "bracers", "magic", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 0,
@@ -1688,6 +1730,7 @@
         {
             "name": "Enchanted Helmet",
             "requirements": [ {"ability": "Think", "value": 4} ],
+            "gearTypes": [ "helmet", "magic", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1702,6 +1745,7 @@
         {
             "name": "Enchanted Greaves",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Lift", "value": 3} ],
+            "gearTypes": [ "greaves", "magic", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1716,6 +1760,7 @@
         {
             "name": "Enchanted Chest Plate",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Lead", "value": 3} ],
+            "gearTypes": [ "torso", "magic", "armor" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1780,6 +1825,7 @@
         {
             "name": "Quick Shoes",
             "requirements": [ {"ability": "Lead", "value": 3} ],
+            "gearTypes": [ "shoes" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1794,6 +1840,7 @@
         {
             "name": "Winged Boots",
             "requirements": [ {"ability": "Think", "value": 3}, {"ability": "Move", "value": 3} ],
+            "gearTypes": [ "shoes", "magic" ],
             "equip": true,
             "consumable": false,
             "weight": 0,
@@ -1822,6 +1869,7 @@
         },
         {
             "name": "Invisibility Cloak",
+            "gearTypes": [ "cloak", "magic" ],
             "requirements": null,
             "equip": true,
             "consumable": false,
@@ -1879,6 +1927,7 @@
         {
             "name": "Golden Claw",
             "requirements": null,
+            "gearTypes": [ "knife", "magic", "melee" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1907,6 +1956,7 @@
         },{
             "name": "Sapphire Amulet",
             "requirements": null,
+            "gearTypes": [ "necklace", "magic" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
