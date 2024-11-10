@@ -44,7 +44,8 @@ async function initCharacterSheet() {
     addCharacterDetails(character, scenario)
     handleCoreEdits(character)
     handleHPChange(character)
-    handleAbilityLevelIncrease(character)
+    handleAbilityLevelIncrease(character, scenario)
+    handleAddAbility(character, scenario)
     handleGearEquipping(character, scenario)
     handleConsumeItem(character, scenario)
     handleDropItem(character, scenario)
@@ -54,8 +55,6 @@ async function initCharacterSheet() {
     if (!isDebug()) {
         window.addEventListener('beforeunload', async () => { await saveCharacter(character) })
     }
-
-    // TODO: add new ability (must meet reqs)
 
     // TODO: add modal to "use" ability (with calculations)
     // TODO: make use item work dynamically (versus manually) (similar to using ability)
@@ -120,16 +119,9 @@ function addCharacterDetails(character, scenario) {
         if (elem.length) { elem.html(character.quirk[attr]) }
     })
 
-    const ABILITY_LEVEL_ADD_ON = '<aside class="ability-item-add-on">(Lv <span class="ability-level"></span>)</span></aside>'
-
     const abElem = $('.abilities')
     character.abilities.forEach((ability) => {
-        const slug = ability.name.toLowerCase().replaceAll(' ', '-')
-        abElem.append(`<details id='ability-${slug}' data-ability='${ability.name.toLowerCase()}' class='ability'>
-    <summary><h3>${ability.name} ${ABILITY_LEVEL_ADD_ON} <span class='increase-ability-level'>▲</span></h3></summary>
-    ${buildAbilityDisplay(scenario.abilitiesByName[ability.name], ability, character.items, character.core)}
-</details>`)
-        $(`#ability-${slug} .ability-level`).html(ability.level)
+        abElem.append(getAbilityElement(character, scenario, ability))
     })
 
     const itemElem = $('.items')
@@ -138,6 +130,16 @@ function addCharacterDetails(character, scenario) {
     })
     
     $('.character-metadata .last-save').html((new Date(character.last_save)).toLocaleString())
+}
+
+function getAbilityElement(character, scenario, ability) {
+    const ABILITY_LEVEL_ADD_ON = `<aside class="ability-item-add-on">(Lv <span class="ability-level">${ability.level}</span>)</span></aside>`
+    const slug = ability.name.toLowerCase().replaceAll(' ', '-')
+    const elem = `<details id='ability-${slug}' data-ability='${ability.name.toLowerCase()}' class='ability'>
+    <summary><h3>${scenario.abilitiesByName[ability.name].name} ${ABILITY_LEVEL_ADD_ON} <span class='increase-ability-level'>▲</span></h3></summary>
+    ${buildAbilityDisplay(scenario.abilitiesByName[ability.name], ability, character.items, character.core)}
+</details>`
+    return elem
 }
 
 function getItemElement(charItem, character, scenario) {
@@ -153,7 +155,7 @@ function getItemElement(charItem, character, scenario) {
     const consume = (scenario.itemsByName[charItem.name].consumable && canUseItem(charItem.name, character, scenario)) ? CONSUME_BUTTON : ((scenario.itemsByName[charItem.name].consumable) ? CANNOT_CONSUME_BUTTON : '')
 
     const newElem = $(`<details id='item-${slug}' data-item='${charItem.name}' class='item'>
-<summary><h3>${charItem.name} ${COUNT_NOTE} ${equipNote} ${consume} ${DROP_BUTTON}</h3></summary>
+<summary><h3>${scenario.itemsByName[charItem.name].name} ${COUNT_NOTE} ${equipNote} ${consume} ${DROP_BUTTON}</h3></summary>
 ${buildItemDisplay(scenario.itemsByName[charItem.name], charItem, character.core)}
 </details>`)
     newElem.find(`.item-count`).text(charItem.count)
@@ -210,8 +212,8 @@ function handleHPChange(character) {
     })
 }
 
-function handleAbilityLevelIncrease(character) {
-    $('.increase-ability-level').on('click', (e) => {
+function handleAbilityLevelIncrease(character, scenario) {
+    $('.abilities').on('click', '.increase-ability-level', (e) => {
         e.preventDefault()
         const elem =$(e.target)
         const abilityName = (elem.parents('details.ability').attr('data-ability') || '').toLowerCase()
@@ -220,11 +222,66 @@ function handleAbilityLevelIncrease(character) {
             character.abilities.forEach((ab) => {
                 if (ab.name === abilityName) {
                     ab.level++
-                    $(`[data-ability="${abilityName}"] .ability-level`).text(ab.level)
+                    const abilityElem = $(`[data-ability="${abilityName}"]`)
+                    abilityElem.find('.ability-level').text(ab.level)
+                    const details = abilityElem.find('.ability-details')
+                    details[0]?.parentNode.removeChild(details[0])
+                    abilityElem.append(buildAbilityDisplay(scenario.abilitiesByName[ab.name], ab, character.items, character.core))
                     doCharacterSave(character)
                 }
             })
         }
+    })
+}
+
+function handleAddAbility(character, scenario) {
+    const modal = $('.add-ability-modal')
+    const select = modal.find('.new-ability')
+    const detail = modal.find('.ability-detail')
+
+    let availableAbilities = []
+    onModalOpen('.add-ability-modal', () => {
+        detail.html(' ')
+
+        availableAbilities = scenario.abilities.filter((ab) => {
+            let match = true
+            ab.requirements.forEach((req) => {
+                if (character.core[req.ability.toLowerCase()] < req.value) {
+                    match = false
+                }
+            })
+            const alreadyTrained = !!character.abilities.filter((charAb) => charAb.name.toLowerCase() === ab.name.toLowerCase()).length
+            return match && !alreadyTrained
+        })
+        
+        select.html('<option value="">Choose an ability...</option>')
+        if (!availableAbilities.length) {
+            select.attr('disabled', 'disabled')
+        } else {
+            select.attr('disabled', false)
+        }
+        availableAbilities.forEach((ab) => {
+            select.append(`<option value='${ab.name.toLowerCase()}'>${ab.name} (${ab.type})</option>`)
+        })
+    })
+
+    select.on('change', () => {
+        if (scenario.abilitiesByName[select[0].value]) {
+            detail.html(buildAbilityDisplay(scenario.abilitiesByName[select[0].value], null, null, character.core))
+        } else {
+            detail.html(' ')
+        }
+    })
+
+    modal.find('.save-ability').on('click', () => {
+        if (!scenario.abilitiesByName[select[0].value]) {
+            return alert('Please select an available ability!')
+        }
+        const ability = { name: select[0].value, level: 1, modifiers: [] }
+        character.abilities.push(ability)
+        modal.attr('open', false)
+        $('.abilities').append(getAbilityElement(character, scenario, ability))
+        doCharacterSave(character)
     })
 }
 

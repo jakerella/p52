@@ -108,16 +108,19 @@ page: character-sheet
         <header><h3>Learn an Ability</h3></header>
         
         <p>
-            WHEN? HOW?
+            Learning new abilities can usually only be done when leveling up on **odd levels**, 
+            through a special item, or sometimes at the end of quests. Be sure you are adding 
+            this new ability at the right time!
         </p>
-        <select class='ability'>
-            <option value=''>Choose an ability...</option>
-        </select>
+        <p>Only abilities which you meet the requirements for are included here.</p>
+        <p>(If you're learning this ability by using an item, be sure to consume that item!)</p>
+
+        <select class='new-ability'></select>
         <section class='ability-detail'></section>
 
         <footer>
             <button class='secondary close-modal' data-modal='add-ability-modal'>Cancel</button>
-            <button class='save-ability close-modal' data-modal='add-ability-modal'>Learn</button>
+            <button class='save-ability'>Learn</button>
         </footer>
     </article>
 </dialog>
