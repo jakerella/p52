@@ -79,7 +79,7 @@ export async function saveCharacter(character) {
 
     const oldCharacter = getCharacter()
 
-    if (oldCharacter.id !== character.id) {
+    if (oldCharacter && oldCharacter.id !== character.id) {
         if (!confirm('You are about to replace your currently loaded character!\n\nAre you sure you want to do this?')) {
             return window.location.reload()
         }
