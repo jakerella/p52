@@ -129,6 +129,9 @@ input.card-flip.stamina {
 body [data-tooltip]:not(a,button,input) {
     border-bottom: none;
 }
+select option.disabled {
+    color: #999;
+}
 
 
 /* Page-specific */

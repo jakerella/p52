@@ -8,7 +8,6 @@
     "recurse_pages": true,
     "static_copy": [
         { "source": "app/assets/", "dest": "" },
-        { "source": "scenarios/the-calico-wizard/calico-wizard.json", "dest": "scenarios/calico-wizard.json" },
         { "source": "node_modules/@picocss/pico/css/pico.blue.min.css", "dest": "css/pico.blue.min.css" },
         { "source": "node_modules/jqes6/jqes6.js", "dest": "scripts/jqes6.js" }
     ]

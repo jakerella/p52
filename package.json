@@ -5,22 +5,28 @@
   "description": "Companion app for the P52 Role Playing Game system.",
   "main": "build/index.html",
   "scripts": {
-    "build": "npm run buildapp && npm run buildrules",
-    "buildapp": "npx builder build.json",
+    "build": "npm run buildapp && npm run buildrules && npm run buildscenarios",
+    "buildapp": "npx builder build_app.json",
     "buildrules": "npx builder build_rules.json",
-    "debug": "DEBUG_LEVEL=DEBUG npm run build",
+    "buildscenarios": "npx builder build_scenarios.json",
+    "debug": "DEBUG_LEVEL=DEBUG npm run buildapp",
     "serve": "npx http-server -p 3000 app/build/",
-    "watch": "npm-watch debug"
+    "watch": "npm-watch"
   },
   "watch": {
     "debug": {
       "patterns": [
         "app/assets/**/*.*",
         "app/layouts/**/*.*",
-        "app/pages/**/*.*",
-        "rules/**/*.*"
+        "app/pages/**/*.*"
       ],
       "delay": 1000
+    },
+    "buildrules": {
+      "patterns": [ "rules/**/*.*" ], "delay": 1000
+    },
+    "buildscenarios": {
+      "patterns": [ "scenarios/**/*.*" ], "delay": 1000
     }
   },
   "devDependencies": {

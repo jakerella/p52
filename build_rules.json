@@ -1,6 +1,6 @@
 {
     "destination": "app/build/rules",
-    "clean": false,
+    "clean": true,
     "default_layout": "basic",
     "layouts_loc": "app/layouts/",
     "partials_loc": "app/layouts/partials/",

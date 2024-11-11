@@ -32,7 +32,7 @@ async function initLoadScenario() {
 }
 
 async function setScenario(file) {
-    const scenario = await (await fetch(`/scenarios/${file}`)).json()
+    const scenario = await (await fetch(file)).json()
     const hash = generateHash(JSON.stringify(scenario))
     localStorage.setItem(c.SCENARIO_KEY, JSON.stringify(scenario))
     localStorage.setItem(c.SCENARIO_HASH_KEY, hash)

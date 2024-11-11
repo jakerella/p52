@@ -2,9 +2,26 @@
     "id": "1",
     "name": "The Calico Wizard",
     "reality": "Animalia",
-    "quests": {
-        "TODO:": "What to do here..."
-    },
+    "introductionFilePath": "scenarios/the-calico-wizard/README", 
+    "referenceTablesFilePath": "scenarios/the-calico-wizard/reference_tables",
+    "quests": [
+        {
+            "name": "An Intriguing Proposition",
+            "filepath": "scenarios/the-calico-wizard/quests/an-intriguiging-proposition"
+        },
+        {
+            "name": "The Halls of Purlion",
+            "filepath": "scenarios/the-calico-wizard/quests/the-halls-of-purlion"
+        },
+        {
+            "name": "Battle for the Mountain Pass",
+            "filepath": "scenarios/the-calico-wizard/quests/battle-for-the-mountain-pass"
+        },
+        {
+            "name": "The Calico Wizard",
+            "filepath": "scenarios/the-calico-wizard/quests/the-calico-wizard"
+        }
+    ],
     "races": {
         "Miowethian": {
             "core": [0, 1,  2,  0,  -1], "abilities": {}, "items": {},

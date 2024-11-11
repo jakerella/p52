@@ -62,12 +62,32 @@ export function getCharacter() {
     return character
 }
 
+export function getQuestTracker() {
+    let tracker = null
+    try {
+        tracker = JSON.parse(localStorage.getItem(c.QUEST_TRACKER_KEY) || 'null')
+    } catch(e) {
+        console.warn(`Unable to load quest tracker from localStorage key: ${c.QUEST_TRACKER_KEY}`)
+    }
+    return tracker
+}
+
 export async function saveCharacter(character) {
     if (!character) {
         return console.warn(`No character provided to save`)
     }
 
     const oldCharacter = getCharacter()
+
+    if (oldCharacter.id !== character.id) {
+        if (!confirm('You are about to replace your currently loaded character!\n\nAre you sure you want to do this?')) {
+            return window.location.reload()
+        }
+    }
+
+    if (!/^[a-f0-9]+$/.test(character.id)) {
+        character.id = await generateHash(`${Date.now()} ${character.name} ${character.race} ${character.class} ${character.reality}`)
+    }
 
     delete character.last_save
     delete character.hash_check
@@ -116,6 +136,23 @@ function addToCharacterHistory(character) {
     } catch(e) {
         console.warn(`Unable to save character history to localStorage key '${c.CHARACTER_HISTORY_KEY}': ${e.message}`)
     }
+}
+
+export function saveQuestTracker(tracker) {
+    if (!tracker) {
+        return console.warn(`No quest tracker data provided to save`)
+    }
+
+    tracker.last_save = Date.now()
+
+    try {
+        console.debug(`Saving quest data at ${tracker.last_save}`)
+        localStorage.setItem(c.QUEST_TRACKER_KEY, JSON.stringify(tracker))
+    } catch(e) {
+        console.warn(`Unable to save quest data to localStorage key '${c.QUEST_TRACKER_KEY}': ${e.message}`)
+        throw new Error('Sorry, we were unable to save the quest data.')
+    }
+    return true
 }
 
 export function setupPaging(parent, checks = {}, onshow = {}) {

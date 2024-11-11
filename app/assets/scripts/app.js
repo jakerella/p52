@@ -5,6 +5,7 @@ import initCreateCharacter from './createCharacter.js'
 import initCharacterSheet from './loadCharacterSheet.js'
 import initLoadHome from './loadHome.js'
 import initLoadScenario from './loadScenario.js'
+import initQuestWalkthrough from './loadQuest.js'
 import metadata from '../data/scenarios.js'
 import { calculateFormula, generateHash, getScenario, indexOfItem, isDebug } from './shared.js'
 
@@ -12,7 +13,8 @@ const PAGE_INIT = {
     'home': initLoadHome,
     'load-scenario': initLoadScenario,
     'create-character': initCreateCharacter,
-    'character-sheet': initCharacterSheet
+    'character-sheet': initCharacterSheet,
+    'quest': initQuestWalkthrough
 }
 
 async function main(page) {
@@ -32,7 +34,7 @@ async function reloadScenario() {
     if (loadedScenario) {
         const scenarioMetadata = metadata.filter((s) => s.id === loadedScenario.id)[0]
         if (scenarioMetadata) {
-            const fileScenario = await (await fetch(`/scenarios/${scenarioMetadata.file}`)).json()
+            const fileScenario = await (await fetch(scenarioMetadata.file)).json()
             const fileHash = await generateHash(JSON.stringify(fileScenario))
             if (loadedScenarioHash !== fileHash) {
                 console.debug(`Reloading scenario data as the hases do not match`)

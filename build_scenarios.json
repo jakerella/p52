@@ -1,0 +1,12 @@
+{
+    "destination": "app/build/scenarios",
+    "clean": true,
+    "default_layout": "module",
+    "layouts_loc": "app/layouts/",
+    "partials_loc": "app/layouts/partials/",
+    "pages_loc": "scenarios/",
+    "recurse_pages": true,
+    "static_copy": [
+        { "source": "scenarios/the-calico-wizard/calico-wizard.json", "dest": "the-calico-wizard/calico-wizard.json" }
+    ]
+}

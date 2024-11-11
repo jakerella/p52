@@ -58,6 +58,7 @@ async function initCharacterSheet() {
     }
 
     // TODO: level up walk through (use experience, update core, add abilities / levels)
+    // TODO: save character to file & load from file
     // TODO: revert character sheet to previous save
 }
 

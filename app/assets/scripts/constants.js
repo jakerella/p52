@@ -7,6 +7,7 @@ const constants = {
     SCENARIO_KEY: 'loadedScenario',
     SCENARIO_HASH_KEY: 'loadedScenarioHash',
     SCENARIO_METADATA: 'data/scenarios.js',
+    QUEST_TRACKER_KEY: 'questTracker',
     CORE_ORDER: ['Lift', 'Think', 'Balance', 'Move', 'Lead'],
     CORE_MAP: {'lift': 'Lt', 'think': 'Th', 'balance': 'Bc', 'move': 'Mv', 'lead': 'Ld' }
 }
