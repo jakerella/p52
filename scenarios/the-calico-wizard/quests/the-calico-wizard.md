@@ -2,6 +2,8 @@
 
 The entrance to the glowing lair at the top of the mountain is before you. You can hear the shrieking of beasts inside, but also a faint, low hum, almost like deep growl, but with a cadence that is almost... like a chorus. Regardless, this is your quest, and your party enters the lair to find and defeat the wizard Calico and retrieve the amulet.
 
+---
+
 ### Quest Rules
 
 The rooms of the lair follow standard [space layout rules](../../rules/05_space_layout.md). The Lair is all interior, and players should flip to see if any one room is lit or dark.
@@ -20,7 +22,21 @@ The rooms of the lair follow standard [space layout rules](../../rules/05_space_
     - Enemies will avoid this spot as if it were blocked
 * A three of spades or clubs is a secret passage (see [space layout rules](../../rules/05_space_layout.md))
 
-#### The Apprentice
+---
+
+### Starting Items
+
+Before starting your quest, each player should receive 1 healing potion and 1 [random starting item](reference_tables.md#starting-items).
+
+---
+
+### PAUSE HERE AND PLAY YOUR QUEST!
+
+When you encounter the first Ace, read on to see how the Apprentice fights.
+
+---
+
+### The Apprentice
 
 Place a marker on the spot where the apprentice appears (_do not flip a card from the Enemy deck_).
 
@@ -38,7 +54,15 @@ All _currently revealed_ enemies will still move and attack as usual, but **no n
     - At R>5: no attack (but will move)
 * Will never retreat as they fear reprisal from Calico, ignore any instructions for enemies under 1/4 HP to flee
 
-#### Calico the Wizard
+---
+
+### PAUSE HERE AND CONTINUE YOUR QUEST!
+
+When you encounter the second Ace, read on to see how Calico the Wizard fights.
+
+---
+
+### Calico the Wizard
 
 Place a marker on the spot where the apprentice appears (_do not flip a card from the Enemy deck_).
 
@@ -67,10 +91,6 @@ All other enemies will flee immediately (remove them from the table), and **no n
     - if the card is 2-5, Calico heals to 1/8 HP and moves two spots in a direction taking him away from characters
     - on any other value, Calico is defeated
 
-> **PAUSE HERE AND PLAY YOUR QUEST!**
-> 
-> (The following section is for the end of the quest!)
-
 ---
 
 Calico hisses in pain as he crumples to the cave floor. You all approach him slowly, still on guard. He doesn't move, but you hold your weapon ready as you reach for the amulet held in his hand. It appears he had been using it to summon those creatures and cast the fire ball spell. You nudge him slightly and he flinches! You all jump back, but realize that it was just final muscle spasm of an old man.
@@ -83,7 +103,9 @@ After another day of walking you arrive at the castle of Queen Katya of Mioweth 
 
 "You are truly heroes!" She exclaims. "Thank you for saving my people. Please, rest here, use any of the castle resources you need, and don't go far... there are other troubles I could use your help with!"
 
-#### Quest Bonuses
+---
+
+### Quest Bonuses
 
 * Each character receives `(5 x Lv)` experience + [standard quest experience](../../rules/10_experience_and_leveling.md)
 * Each character heals fully

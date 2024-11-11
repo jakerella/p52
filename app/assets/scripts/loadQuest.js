@@ -1,6 +1,6 @@
 
 import $ from './jqes6.js'
-import { getCharacter, getQuestTracker, getScenario, saveQuestTracker } from './shared.js'
+import { getCharacter, getQuestTracker, getScenario, saveQuestTracker, showMessage } from './shared.js'
 
 
 async function initQuestWalkthrough() {
@@ -17,6 +17,7 @@ async function initQuestWalkthrough() {
             scenario: scenario.id,
             character: character.id,
             active: null,
+            currentStep: 0,
             completed: []
         }
         saveQuestTracker(tracker)
@@ -25,6 +26,8 @@ async function initQuestWalkthrough() {
 
     if (!tracker.active) {
         return chooseQuest(scenario, tracker)
+    } else {
+        showMessage('It looks like you were already in a quest, we\'ve resumed from where you were last.', 7)
     }
 
     await showActiveQuest(tracker)
@@ -37,9 +40,9 @@ function chooseQuest(scenario, tracker) {
     modal.attr('open', 'open')
 
     const questOptions = ['<option value="">Select a New Quest</option>']
-    questOptions.push(...scenario.quests.map((q) => {
+    questOptions.push(...scenario.quests.map((q, i) => {
         let complete = tracker.completed.includes(q.name.toLowerCase())
-        return `<option class='${complete ? 'disabled' : ''}' value='${q.name}'>${q.name}${complete ? ' (completed)' : ''}</option>`
+        return `<option class='${complete ? 'disabled' : ''}' value='${q.name}'>${i+1}. ${q.name}${complete ? ' (completed)' : ''}</option>`
     }))
     modal.find('.quest-selector').html(questOptions.join(''))
 
@@ -58,11 +61,64 @@ function chooseQuest(scenario, tracker) {
 }
 
 async function showActiveQuest(tracker) {
-    const questText = await (await fetch(`/${tracker.active.filepath}`)).text()
-    $('.active-quest').html(questText)
+    let questText = null
+    try {
+        questText = await (await fetch(`/${tracker.active.filepath}`)).text()
+        if (!questText) {
+            throw new Error(`No quest text available for: ${tracker.active.name} (${tracker.active.filepath})`)
+        }
+    } catch(e) {
+        showMessage('Sorry, but there was a problem reading the quest information.', 0, 'error')
+        console.warn(e.message)
+        return
+    }
 
-    // TODO: okay... now how do we chunk this up to walkthrough?
-    
+    $('.quest-title').text(tracker.active.name)
+    const steps = questText.split('<hr>')
+
+    $('.current-step').html(steps[tracker.currentStep])
+
+    $('.prev-step').on('click', () => {
+        if (tracker.currentStep > 0) {
+            tracker.currentStep--
+            saveQuestTracker(tracker)
+            showStep(steps, tracker)
+            if (tracker.currentStep < 1) {
+                $('.prev-step').attr('disabled', 'disabled')
+                $('.next-step').removeClass('hide')
+                $('.complete-quest').addClass('hide')
+            }
+        }
+    })
+    $('.next-step').on('click', () => {
+        if (tracker.currentStep < (steps.length - 1)) {
+            tracker.currentStep++
+            saveQuestTracker(tracker)
+            showStep(steps, tracker)
+        }
+    })
+    $('.complete-quest').on('click', () => {
+        if (tracker.currentStep >= (steps.length - 1)) {
+            console.log('completing the quest!')
+        }
+    })
+}
+
+function showStep(steps, tracker) {
+    $('.current-step').html(steps[tracker.currentStep])
+    if (tracker.currentStep < 1) {
+        $('.prev-step').attr('disabled', 'disabled')
+        $('.next-step').removeClass('hide')
+        $('.complete-quest').addClass('hide')
+    } else if (tracker.currentStep >= (steps.length - 1)) {
+        $('.prev-step').attr('disabled', false)
+        $('.next-step').addClass('hide')
+        $('.complete-quest').removeClass('hide')
+    } else {
+        $('.prev-step').attr('disabled', false)
+        $('.next-step').removeClass('hide')
+        $('.complete-quest').addClass('hide')
+    }
 }
 
 

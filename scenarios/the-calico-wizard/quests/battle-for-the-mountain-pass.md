@@ -10,8 +10,7 @@ The raven begins to flap its wings to fly away and says, "these may help you con
 
 A flurry of ravens arrives as the first disappears down the mountain. Each one carrying a parcel, one for each character.
 
-> Each player receives 1 healing potion and 1 [random starting item](reference_tables.md#starting-items).
-
+---
 
 ### Quest Rules
 
@@ -35,15 +34,21 @@ Once that last expansion is complete, and **all enemies are defeated**, your par
 * Any two is an enemy, and respawns for each wave
 * Any three is an enemy, and respawns for each wave
 
-> **PAUSE HERE AND PLAY YOUR QUEST!**
-> 
-> (The following section is for the end of the quest!)
+### Starting Items
+
+Each player receives 1 healing potion and 1 [random starting item](reference_tables.md#starting-items).
+
+---
+
+### PAUSE HERE AND PLAY YOUR QUEST!
 
 ---
 
 You are able to defeat the last few enemies that were blocking the way and continue up the mountainside. It's been a tough battle, but you prevailed. You noticed a number of ravens circling overhead at various points during the skirmish and assume that the Queen has been watching. She'll be aware that you are nearing the summit now. You can even start to see the faint orange glow the Queen spoke of.
 
-#### Quest Bonuses
+---
+
+### Quest Bonuses
 
 * Each character receives `(4 x Lv)` experience + [standard quest experience](../../rules/10_experience_and_leveling.md)
 * Each character receives +2 levels in Lift

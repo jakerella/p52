@@ -79,6 +79,12 @@ hgroup.grid {
     justify-content: space-between;
     align-items: center;
 }
+aside li {
+    display: list-item;
+}
+ul li {
+    list-style: inherit;
+}
 table td {
     text-align: center;
 }
@@ -247,5 +253,13 @@ select option.disabled {
 }
 #page-character-sheet .lock-pick-note {
     text-align: center;
+}
+
+#page-quest .current-step h2 {
+    display: none;
+}
+#page-quest .actions {
+    margin: 1rem;
+    text-align: right;
 }
 

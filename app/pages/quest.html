@@ -9,7 +9,10 @@ page: quest
         <header><h3>Start a Quest</h3></header>
         
         <p>
-            This is the first step to starting a quest!
+            Are you ready to begin a quest? Select from the list below. These are in 
+            the order that the scenario dictates, but if you want to jump around (or
+            if you had previously completed a quest in this list) then you may select
+            any of the quests.
         </p>
 
         <select class='quest-selector'></select>
@@ -21,4 +24,12 @@ page: quest
     </article>
 </dialog>
 
-<section class='active-quest'></section>
+<section class='active-quest'>
+    <h2 class='quest-title'></h2>
+    <aside class='current-step'></aside>
+    <aside class='actions'>
+        <button disabled='disabled' class='secondary prev-step'>Previous</button>
+        <button class='next-step'>Next</button>
+        <button class='complete-quest hide'>Complete</button>
+    </aside>
+</section>

@@ -9,7 +9,7 @@
     "buildapp": "npx builder build_app.json",
     "buildrules": "npx builder build_rules.json",
     "buildscenarios": "npx builder build_scenarios.json",
-    "debug": "DEBUG_LEVEL=DEBUG npm run buildapp",
+    "debug": "DEBUG_LEVEL=DEBUG npm run build",
     "serve": "npx http-server -p 3000 app/build/",
     "watch": "npm-watch"
   },
@@ -18,15 +18,11 @@
       "patterns": [
         "app/assets/**/*.*",
         "app/layouts/**/*.*",
-        "app/pages/**/*.*"
+        "app/pages/**/*.*",
+        "rules/**/*.*",
+        "scenarios/**/*.*"
       ],
       "delay": 1000
-    },
-    "buildrules": {
-      "patterns": [ "rules/**/*.*" ], "delay": 1000
-    },
-    "buildscenarios": {
-      "patterns": [ "scenarios/**/*.*" ], "delay": 1000
     }
   },
   "devDependencies": {

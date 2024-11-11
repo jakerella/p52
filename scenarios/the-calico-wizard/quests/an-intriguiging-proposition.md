@@ -7,6 +7,8 @@ Thought lost to time over a hundred years ago, the amulet is said to have great 
 
 You will start this quest outside, in the forest leading to the mountain, and then into one of the lower caves where the eerie glow was first noticed.
 
+---
+
 ### Quest Rules
 
 The first 2 spaces will be exterior, in the forest. You may begin at any time of day you wish (or flip to randomize it). Don't forget that the time of day (or night) will change in the second space! The third space will be the cave, and it will be **dark**, be sure you have something to light the way!
@@ -26,13 +28,15 @@ The amulet may be in one of many hidden chests in the caverns (it will not appea
     - Any character entering this spot for any reason will fall and must flip and lose a turn
     - Enemies will avoid this spot as if it were blocked
 
-#### Starting Items
+---
+
+### Starting Items
 
 Before starting your quest, each player should receive 1 healing potion and 1 [random starting item](reference_tables.md#starting-items).
 
-> **PAUSE HERE AND PLAY YOUR QUEST!**
-> 
-> (The following section is for the end of the quest!)
+---
+
+### PAUSE HERE AND PLAY YOUR QUEST!
 
 ---
 
@@ -42,10 +46,9 @@ Sadly, the case was empty. Inside of it is strange script that you can't underst
 
 ---
 
-#### Quest Bonuses
+### Quest Bonuses
 
 Regardless of your choice, this is the end of the current quest (and game session). Each character receives [standard quest experience](../../rules/10_experience_and_leveling.md), then read your chosen option below!
-
 
 #### **If you choose to return...**
 

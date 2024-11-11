@@ -4,6 +4,8 @@ Word of your first success has impressed the Queen. You believe the Queen will k
 
 That's when you hear the rocks outside the door begin to crumble and fall, blocking the door behind you. I suppose there's no way to go but forward now! You've heard of the ancient hall before, in stories. Supposedly, there is a second entrance - your exit - through the hall and up the mountain. Others have found that exit, but it has been locked for centuries. You will need to find the set of two keys that will unlock it!
 
+---
+
 ### Quest Rules
 
 This is a fully interior quest, and every space begins completely dark. All spaces are predefined (see below), and follow the pattern: hall, corridor, and then great room. The pattern then repeats until you find both keys. Once you have both keys, you have one more room: the stairs (the final exit for the quest is at the end of those stairs). Both keys must be on the exit space for the stairs in order to exit (and complete the quest).
@@ -16,7 +18,9 @@ This is a fully interior quest, and every space begins completely dark. All spac
     - flip an action card: on an 8 or less, the exit is now blocked, reveal the entire space and kill all enemies to allow time to dig it out
     - Regardless of your flip, an enemy drops down from the ceiling, place them on the spot adjacent to the three, toward the exit and add them to the initiative order
 
-#### Starting Items
+---
+
+### Starting Items
 
 Before starting your quest:
 
@@ -25,7 +29,9 @@ Before starting your quest:
 * If you pressed on after the First Quest...
     - each player finds 1 healing potion in the cave (and that's it)
 
-#### Space Layouts
+---
+
+### Space Layouts
 
 For the layouts below, a `[]` represents a card in the layout, while a `XX` represents an empty spot. The `^` at the bottom is the entrance. The exit is always determined by a flip, see [Space Layout rules](../../rules/05_space_layout.md) **except** for the stairs, where the exit is always at the far end (see diagram).
 
@@ -86,9 +92,9 @@ XX [] [] [] XX
 ^
 ```
 
-> **PAUSE HERE AND PLAY YOUR QUEST!**
-> 
-> (The following section is for the end of the quest!)
+---
+
+### PAUSE HERE AND PLAY YOUR QUEST!
 
 ---
 
@@ -97,6 +103,8 @@ You exit the ancient ruins, a hard fought, perilous journey to be sure. But you 
 **Choose a character to attempt to decipher the text**. If that character has the "Scholar" ability they may use it, if not, they may use "Think" with +2 to the target (making it more difficult). The target for success is `(avgLv x 4)`, but the character may use Stamina, and 1 other character may assist them with a Stamina card of their own.
 
 > **PAUSE HERE AND ATTEMPT TO DECIPHER!**
+
+---
 
 **On failure:**
 
@@ -117,7 +125,9 @@ You exit the ancient ruins, a hard fought, perilous journey to be sure. But you 
     - All characters receive 1 piece of "iron armor" (see items table)
     - Each player decides what body part it fits on (but once decided, you cannot change it!)
 
-#### Quest Bonuses
+---
+
+### Quest Bonuses
 
 * Each character receives `(4 x Lv)` experience + [standard quest experience](../../rules/10_experience_and_leveling.md)
 * Each character receives +2 levels in Move
