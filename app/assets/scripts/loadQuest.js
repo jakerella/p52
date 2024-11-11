@@ -26,7 +26,7 @@ async function initQuestWalkthrough() {
 
     if (!tracker.active) {
         return chooseQuest(scenario, tracker)
-    } else {
+    } else if (tracker.currentStep > 0) {
         showMessage('It looks like you were already in a quest, we\'ve resumed from where you were last.', 7)
     }
 
@@ -75,8 +75,9 @@ async function showActiveQuest(tracker) {
 
     $('.quest-title').text(tracker.active.name)
     const steps = questText.split('<hr>')
+    $('.quest-bonuses').html(steps[steps.length-1])
 
-    $('.current-step').html(steps[tracker.currentStep])
+    showStep(steps, tracker)
 
     $('.prev-step').on('click', () => {
         if (tracker.currentStep > 0) {
@@ -91,16 +92,26 @@ async function showActiveQuest(tracker) {
         }
     })
     $('.next-step').on('click', () => {
-        if (tracker.currentStep < (steps.length - 1)) {
+        if (tracker.currentStep < (steps.length - 2)) {
             tracker.currentStep++
             saveQuestTracker(tracker)
             showStep(steps, tracker)
         }
     })
     $('.complete-quest').on('click', () => {
-        if (tracker.currentStep >= (steps.length - 1)) {
-            console.log('completing the quest!')
+        if (tracker.currentStep >= (steps.length - 2)) {
+            $('.quest-bonus-modal').attr('open', 'open')
         }
+    })
+    $('.close-quest').on('click', () => {
+        if (!tracker.completed.includes(tracker.active.name.toLowerCase())) {
+            tracker.completed.push(tracker.active.name.toLowerCase())
+        }
+        tracker.active = null
+        tracker.currentStep = 0
+        saveQuestTracker(tracker)
+        alert('We\'ve saved your progress, good luck on the next quest!')
+        window.location.reload()
     })
 }
 
@@ -110,7 +121,7 @@ function showStep(steps, tracker) {
         $('.prev-step').attr('disabled', 'disabled')
         $('.next-step').removeClass('hide')
         $('.complete-quest').addClass('hide')
-    } else if (tracker.currentStep >= (steps.length - 1)) {
+    } else if (tracker.currentStep >= (steps.length - 2)) {
         $('.prev-step').attr('disabled', false)
         $('.next-step').addClass('hide')
         $('.complete-quest').removeClass('hide')

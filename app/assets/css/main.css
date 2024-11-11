@@ -262,4 +262,6 @@ select option.disabled {
     margin: 1rem;
     text-align: right;
 }
-
+#page-quest .quest-bonus-modal .quest-bonuses h3 {
+    display: none;
+}
