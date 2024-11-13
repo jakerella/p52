@@ -24,7 +24,7 @@ body>header nav li {
     --pico-nav-element-spacing-horizontal: 0.5rem;
 }
 body>header nav li {
-    font-size: 1.7rem;
+    width: 3rem;
 }
 #messages {
     padding: 0 1rem;
