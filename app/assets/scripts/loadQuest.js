@@ -32,6 +32,7 @@ async function initQuestWalkthrough() {
 
     await showActiveQuest(tracker)
 
+    // TODO: figure out decision points, see if we can show user options and then result?
     // TODO: save scenario progress to file (and load from file)
 }
 

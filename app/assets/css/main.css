@@ -192,9 +192,6 @@ select option.disabled {
     padding-top: 1rem;
     border-top: 1px solid #666;
 }
-#page-character-sheet .character-metadata {
-    border-top: 1px solid #666;
-}
 #page-character-sheet .add-item-icon {
     margin-right: 0.5rem;
 }
@@ -202,13 +199,6 @@ select option.disabled {
     display: inline;
     font-weight: normal;
     font-size: 1.1rem;
-}
-#page-character-sheet .character-metadata {
-    padding: 0.5rem;
-}
-#page-character-sheet .character-metadata p {
-    margin: 0;
-    color: #888;
 }
 #page-character-sheet .core-value-updates td {
     padding: 0.5rem 0;
@@ -253,6 +243,21 @@ select option.disabled {
 }
 #page-character-sheet .lock-pick-note {
     text-align: center;
+}
+#page-character-sheet .character-metadata {
+    padding: 0.5rem;
+    border-top: 1px solid #666;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#page-character-sheet .character-metadata p {
+    margin: 0;
+    color: #888;
+}
+#page-character-sheet .download {
+    width: 2.5rem;
+    padding: 0.1rem 0.3rem;
 }
 
 #page-quest .current-step h2 {

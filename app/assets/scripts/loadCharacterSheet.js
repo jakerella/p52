@@ -52,13 +52,14 @@ async function initCharacterSheet() {
     handleDropItem(character, scenario)
     handleAddItem(character, scenario)
     handleOpenChest(character, scenario)
+    handleDownloadCharacter(character)
 
     if (!isDebug()) {
         window.addEventListener('beforeunload', async () => { await saveCharacter(character) })
     }
 
     // TODO: level up walk through (use experience, update core, add abilities / levels)
-    // TODO: save character to file & load from file
+    // TODO: upload character data to reload
     // TODO: revert character sheet to previous save
 }
 
@@ -130,7 +131,8 @@ function addCharacterDetails(character, scenario) {
         itemElem.append(getItemElement(item, character, scenario))
     })
     
-    $('.character-metadata .last-save').html((new Date(character.last_save)).toLocaleString())
+    const saved = (new Date(character.last_save)).toLocaleString().replace(/:[0-9]{2} /, ' ').toLowerCase()
+    $('.character-metadata .last-save').html(saved)
 }
 
 function getAbilityElement(character, scenario, ability) {
@@ -731,6 +733,14 @@ function getLockPickStats(character, picksUsed = 0) {
         }
     }
     return charAbility
+}
+
+function handleDownloadCharacter(character) {
+    $('.do-download').on('click', (e) => {
+        e.target.download = `p52-character-${character.name.toLowerCase().replace(' ', '-').replaceAll(/[^a-z0-9\-\.]/g, '')}.json`
+        e.target.href = `data:text/json,${JSON.stringify(character)}`
+        $('.download-character-modal').attr('open', false)
+    })
 }
 
 

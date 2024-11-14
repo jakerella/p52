@@ -356,4 +356,28 @@ page: character-sheet
 
 <aside class='character-metadata'>
     <p>Character saved locally <span class='last-save'>?</span></p>
+    <button class='outline secondary download'>
+        <img src='/images/download-icon.svg' alt='download icon' class='show-modal' data-modal='download-character-modal'>
+    </button>
 </aside>
+
+<dialog class='download-character-modal'>
+    <article>
+        <header><h3>Download Character Data</h3></header>
+        
+        <p>
+            You may download your character data by using the button below. This will save a 
+            <code>.json</code> file to your device which you can then send to any other device
+            or just save for later.
+        </p>
+        <p>
+            You can then reload this character data at a later time from the character creation
+            page.
+        </p>
+
+        <footer>
+            <button class='secondary close-modal' data-modal='download-character-modal'>Cancel</button>
+            <a href='#' type='text/json' download='p52-character.json' role='button' class='do-download'>Download</a>
+        </footer>
+    </article>
+</dialog>

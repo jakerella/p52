@@ -46,16 +46,18 @@ async function reloadScenario() {
 }
 
 function addSharedControls() {
-    $('.show-modal').on('click', (e) => {
+    $('body').on('click', '.show-modal', (e) => {
         const selector = e.target.getAttribute('data-modal')
         if (selector) {
             $(`.${selector}`).attr('open', 'open')
+            e.preventDefault()
         }
     })
-    $('.close-modal').on('click', (e) => {
+    $('body').on('click', '.close-modal', (e) => {
         const selector = e.target.getAttribute('data-modal')
         if (selector) {
             $(`.${selector}`).attr('open', '')
+            e.preventDefault()
         }
     })
 
