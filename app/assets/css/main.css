@@ -19,12 +19,25 @@ body>header h1 a {
 body>header nav {
     overflow: hidden;
 }
-body>header nav li {
-    --pico-nav-element-spacing-vertical: 0.2rem;
-    --pico-nav-element-spacing-horizontal: 0.5rem;
-}
-body>header nav li {
+.nav-menu-trigger {
     width: 3rem;
+}
+.nav-menu-modal header {
+    height: 2rem;
+}
+.nav-menu-modal nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+.nav-menu-modal nav li {
+    width: 100%;
+}
+.nav-menu-modal nav a {
+    width: 100%;
+}
+.nav-menu-modal nav img {
+    width: 2rem;
 }
 #messages {
     padding: 0 1rem;
