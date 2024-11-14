@@ -6,6 +6,7 @@ import initCharacterSheet from './loadCharacterSheet.js'
 import initLoadHome from './loadHome.js'
 import initLoadScenario from './loadScenario.js'
 import initQuestWalkthrough from './loadQuest.js'
+import initRulesPage from './loadRules.js'
 import metadata from '../data/scenarios.js'
 import { calculateFormula, generateHash, getScenario, indexOfItem, isDebug } from './shared.js'
 
@@ -14,7 +15,8 @@ const PAGE_INIT = {
     'load-scenario': initLoadScenario,
     'create-character': initCreateCharacter,
     'character-sheet': initCharacterSheet,
-    'quest': initQuestWalkthrough
+    'quest': initQuestWalkthrough,
+    'rules': initRulesPage
 }
 
 async function main(page) {

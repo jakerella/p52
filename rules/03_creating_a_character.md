@@ -1,7 +1,5 @@
 ## Creating a Character
 
-> Use should use a [Character Sheet](guides/P52-character-sheet.pdf) to track your stats!
-
 As with most Role Playing Games (RPGs), you will be creating the character that you play with. This character will be unique to you, and will "live on" past the end of any one game session - that is, you will use this same character each time you play, improving their skills and building them up. Of course, you can always create a new character and start over, or play as more than one!
 
 > If you already have a character from a previous session - and **in the same reality** - then you can use that character again, and continue to level them up. Of course, you can always choose to create a new character.
@@ -9,6 +7,8 @@ As with most Role Playing Games (RPGs), you will be creating the character that 
 When creating your character you should know that the actions your character takes in the game are based almost entirely on "Abilities" which you gain through this creation process (and through Leveling Up during the course of the game). You should refer to the Abilities table later in this document when creating your character so that you can make informed decisions.
 
 These instructions are the basic rules and mechanics. The actual races, classes, abilities, etc. you can choose from will be in the specific scenario/reality that you choose!
+
+> You should use the companion app or a [Character Sheet](guides/P52-character-sheet.pdf) to track your stats!
 
 ### Character Basics
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang='en' data-theme='light'>
+    <head>
+        <meta charset='utf-8'>
+        <meta name='content-type' content='text/html; charset=utf-8'>
+        <title>{{#if title}}{{title}}{{else}}P52 RPG Rules{{/if}}</title>
+        <meta name='description' content='Companion app for the P52 Role Playing Game system.'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link href='/css/pico.blue.min.css' rel='stylesheet'>
+        <link href='/rules__pagefind/pagefind-ui.css' rel='stylesheet'>
+        <link href='/css/main.css' rel='stylesheet'>
+        <script src='/rules__pagefind/pagefind-ui.js'></script>
+    </head>
+
+    <body id='page-rules'>
+        {{> rules_header}}
+
+        <main data-pagefind-body>
+            {{{contents}}}
+        </main>
+
+        {{> footer}}
+
+        <script type='module'>
+            import main from '/scripts/app.js'
+            main('rules')
+        </script>
+    </body>
+</html>

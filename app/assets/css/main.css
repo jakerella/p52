@@ -39,6 +39,9 @@ body>header nav {
 .nav-menu-modal nav img {
     width: 2rem;
 }
+.rules-search [role="search"] {
+    display: inherit;
+}
 #messages {
     padding: 0 1rem;
 }
@@ -281,5 +284,12 @@ select option.disabled {
     text-align: right;
 }
 #page-quest .quest-bonus-modal .quest-bonuses h3 {
+    display: none;
+}
+
+#page-rules main {
+    padding-top: 1rem;
+}
+#page-rules h2 {
     display: none;
 }
