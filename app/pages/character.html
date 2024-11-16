@@ -355,8 +355,13 @@ page: character-sheet
 </dialog>
 
 <aside class='character-metadata'>
-    <p>Character saved locally <span class='last-save'>?</span></p>
-    <button class='outline secondary download'>
+    <p>
+        <button class='outline secondary'>
+            <img src='/images/undo-icon.svg' alt='revert icon' class='revert-character'>
+        </button>
+        Last saved <span class='last-save'>?</span>
+    </p>
+    <button class='outline secondary'>
         <img src='/images/download-icon.svg' alt='download icon' class='show-modal' data-modal='download-character-modal'>
     </button>
 </aside>

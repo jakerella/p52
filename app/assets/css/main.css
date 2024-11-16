@@ -271,7 +271,7 @@ select option.disabled {
     margin: 0;
     color: #888;
 }
-#page-character-sheet .download {
+#page-character-sheet .character-metadata button {
     width: 2.5rem;
     padding: 0.1rem 0.3rem;
 }

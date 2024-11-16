@@ -1,4 +1,5 @@
 
+import c from './constants.js'
 import $ from './jqes6.js'
 import {
     buildAbilityDisplay,
@@ -7,6 +8,7 @@ import {
     canUseItem,
     getAbilityTargetAndEffects,
     getCharacter,
+    getCharacterHistory,
     getCoreAbilitiesTableHtml,
     getItemEffects,
     getScenario,
@@ -18,6 +20,7 @@ import {
 } from './shared.js'
 
 let SAVE_DEBOUNCE = null
+let DO_UNLOAD_SAVE = true
 
 async function initCharacterSheet() {
     const scenario = getScenario()
@@ -52,15 +55,15 @@ async function initCharacterSheet() {
     handleDropItem(character, scenario)
     handleAddItem(character, scenario)
     handleOpenChest(character, scenario)
+    handleRevertCharacter()
     handleDownloadCharacter(character)
 
     if (!isDebug()) {
-        window.addEventListener('beforeunload', async () => { await saveCharacter(character) })
+        window.addEventListener('beforeunload', async () => { if (DO_UNLOAD_SAVE) { await saveCharacter(character) } })
     }
 
     // TODO: level up walk through (use experience, update core, add abilities / levels)
     // TODO: upload character data to reload
-    // TODO: revert character sheet to previous save
 }
 
 const watchCharacter = {
@@ -733,6 +736,19 @@ function getLockPickStats(character, picksUsed = 0) {
         }
     }
     return charAbility
+}
+
+function handleRevertCharacter() {
+    $('.revert-character').on('click', () => {
+        const history = getCharacterHistory()
+        if (history?.length && confirm('Are you sure you want to undo your most recent change?')) {
+            const previousSave = history.pop()
+            localStorage.setItem(c.CHARACTER_KEY, JSON.stringify(previousSave))
+            localStorage.setItem(c.CHARACTER_HISTORY_KEY, JSON.stringify(history))
+            DO_UNLOAD_SAVE = false
+            window.location.reload()
+        }
+    })
 }
 
 function handleDownloadCharacter(character) {
