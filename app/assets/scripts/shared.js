@@ -38,6 +38,45 @@ export function parseQuery() {
     return params
 }
 
+export async function getAllScenarioMetadata() {
+    const scenarioMetadata = []
+    let files = []
+    try {
+        files = await (await fetch('/data/scenarios.json')).json()
+        if (!files) {
+            console.warn('No scenario files available to load')
+            files = []
+        }
+    } catch(err) {
+        console.warn('Unable to retrieve scenario file list:', err.message)
+    }
+
+    for (let i in files) {
+        try {
+            const data = await (await fetch(`/${files[i]}`)).json()
+            if (!data) {
+                console.warn(`No scenario data found at: ${files[i]}`)
+            }
+            const metadata = {
+                id: data.id,
+                file: files[i], 
+                name: data.name,
+                reality: data.reality,
+                description: ''
+            }
+            if (data.introductionFilePath) {
+                metadata.description = await (await fetch(`/${data.introductionFilePath}`)).text()
+            }
+            
+            scenarioMetadata.push(metadata)
+        } catch(err) {
+            console.warn(`Unable to retrieve scenario data from: ${files[i]}`, err.message)
+        }
+    }
+
+    return scenarioMetadata
+}
+
 export function getScenario() {
     let scenario = null
     try {

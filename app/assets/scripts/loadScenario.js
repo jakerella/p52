@@ -1,18 +1,23 @@
 
 import c from './constants.js'
 import $ from './jqes6.js'
-import { showMessage, parseQuery, generateHash } from './shared.js'
-import metadata from '../data/scenarios.js'
+import { showMessage, parseQuery, generateHash, getAllScenarioMetadata } from './shared.js'
 
 async function initLoadScenario() {
+    const metadata = await getAllScenarioMetadata()
+    console.log('Displaying scenario choices:', metadata)
+
     const chooser = $('select#scenario')
     metadata.forEach(s => {
         chooser.append(`<option value='${s.id}'>${s.name}</value>`)
     })
     chooser.on('change', (e) => {
         const scenario = metadata.filter(s=>s.id===e.target.value)[0]
-        console.log(e.target.value, scenario)
-        $('.description').html(scenario?.description.join('<br><br>') || ' ')
+        if (!scenario) {
+            $('.description').html('')
+        } else {
+            $('.description').html(scenario.description)
+        }
     })
 
     const params = parseQuery()

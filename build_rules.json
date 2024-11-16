@@ -8,6 +8,7 @@
     "recurse_pages": false,
     "build_index": true,
     "title_element": "h2",
+    "header_anchors": true,
     "static_copy": [
         { "source": "rules/images/", "dest": "images/" },
         { "source": "rules/guides/", "dest": "guides/" }

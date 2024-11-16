@@ -2,7 +2,7 @@
     "id": "1",
     "name": "The Calico Wizard",
     "reality": "Animalia",
-    "introductionFilePath": "scenarios/the-calico-wizard/README", 
+    "introductionFilePath": "scenarios/the-calico-wizard/README",
     "referenceTablesFilePath": "scenarios/the-calico-wizard/reference_tables",
     "quests": [
         {

@@ -8,6 +8,7 @@
     "recurse_pages": true,
     "build_index": false,
     "title_element": null,
+    "header_anchors": false,
     "static_copy": [
         { "source": "app/assets/", "dest": "" },
         { "source": "node_modules/@picocss/pico/css/pico.blue.min.css", "dest": "css/pico.blue.min.css" },

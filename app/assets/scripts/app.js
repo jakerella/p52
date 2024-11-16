@@ -7,8 +7,7 @@ import initLoadHome from './loadHome.js'
 import initLoadScenario from './loadScenario.js'
 import initQuestWalkthrough from './loadQuest.js'
 import initRulesPage from './loadRules.js'
-import metadata from '../data/scenarios.js'
-import { calculateFormula, generateHash, getScenario, indexOfItem, isDebug } from './shared.js'
+import { calculateFormula, generateHash, getAllScenarioMetadata, getScenario, indexOfItem, isDebug } from './shared.js'
 
 const PAGE_INIT = {
     'home': initLoadHome,
@@ -34,6 +33,7 @@ async function reloadScenario() {
     const loadedScenario = getScenario()
     const loadedScenarioHash = localStorage.getItem(c.SCENARIO_HASH_KEY)
     if (loadedScenario) {
+        const metadata = await getAllScenarioMetadata()
         const scenarioMetadata = metadata.filter((s) => s.id === loadedScenario.id)[0]
         if (scenarioMetadata) {
             const fileScenario = await (await fetch(scenarioMetadata.file)).json()

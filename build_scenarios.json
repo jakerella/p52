@@ -8,6 +8,7 @@
     "recurse_pages": true,
     "build_index": false,
     "title_element": null,
+    "header_anchors": false,
     "static_copy": [
         { "source": "scenarios/the-calico-wizard/calico-wizard.json", "dest": "the-calico-wizard/calico-wizard.json" }
     ]
