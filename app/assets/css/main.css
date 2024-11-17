@@ -104,8 +104,10 @@ ul li {
 table td {
     text-align: center;
 }
-.wide {
+button.wide {
     width: 100%;
+    display: block;
+    margin: 0.5rem 0;
 }
 .center {
     text-align: center;

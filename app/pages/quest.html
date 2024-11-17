@@ -24,7 +24,8 @@ page: quest
     </article>
 </dialog>
 
-<!-- Need Quest navigation to: flip back to character sheet, show enemy stats, session log, ...? -->
+<!-- TODO: Need Quest navigation to: reference tables, flip back to character sheet, show enemy stats, session log, ...? -->
+<!-- TODO: need a way to CANCEL an active quest -->
 
 <section class='active-quest'>
     <h2 class='quest-title'></h2>
@@ -36,24 +37,20 @@ page: quest
     </aside>
 </section>
 
-<dialog class='quest-bonus-modal'>
+<dialog class='quest-finish-modal'>
     <article>
-        <header><h3>Quest Bonuses</h3></header>
+        <header><h3>Quest Complete</h3></header>
         
         <p>
             Congratulations on completing the <strong class='quest-title'></strong> quest!
         </p>
         <p>
-            Once you take the quest bonuses below, don't forget to <strong>level up your 
+            Once you've taken your quest bonuses, don't forget to <strong>level up your 
             character</strong> if possible!
         </p>
 
-        <hr>
-
-        <aside class='quest-bonuses'></aside>
-
         <footer>
-            <button class='secondary close-modal' data-modal='quest-bonus-modal'>Go back</button>
+            <button class='secondary close-modal' data-modal='quest-finish-modal'>Go back</button>
             <button class='close-quest'>Close this Quest</button>
         </footer>
     </article>
@@ -91,6 +88,18 @@ page: quest
 
         <footer>
             <button class='secondary close-modal' data-modal='starting-item-modal'>Close</button>
+        </footer>
+    </article>
+</dialog>
+
+<dialog class='quest-choice-modal'>
+    <article>
+        <header><h3>Decision Point</h3></header>
+        
+        <aside class='choice-description'></aside>
+
+        <footer>
+            <button class='close-choice'>Okay</button>
         </footer>
     </article>
 </dialog>

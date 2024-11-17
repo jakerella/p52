@@ -31,8 +31,6 @@ async function initQuestWalkthrough() {
     await showActiveQuest(tracker, scenario)
 
     // TODO: allow user to show enemy stats
-
-    // TODO: figure out decision points, see if we can show user options and then result?
 }
 
 function chooseQuest(scenario, tracker) {
@@ -73,39 +71,61 @@ async function showActiveQuest(tracker, scenario) {
         return
     }
 
-    const steps = questText.split('<hr>').map((step) => {
-        let text = ''+step
-        text = buildStartingItems(text, scenario)
-        return text
-    })
+    const steps = questText.split('<hr>')
+        .filter((step) => { return !step.includes('<!-- OPTION ') })
+        .map((step) => {
+            let html = ''+step
+            html = buildStartingItems(html, scenario)
+            html = buildQuestChoices(html)
+            return html
+        })
+    
+    const questOptions = {}
+    questText.split('<hr>')
+        .filter((step) => { return step.includes('<!-- OPTION ') })
+        .forEach((step) => {
+            // <!-- OPTION "Return to the Queen" -->
+            const optionText = step.match(/\<\!--\s+OPTION\s+"([^"]+)"\s+--\>/)
+            if (!optionText) {
+                return console.warn('Unable to determine option text!')
+            }
+            questOptions[optionText[1].toLowerCase()] = step
+        })
 
     $('.quest-title').text(tracker.active.name)
-    $('.quest-bonuses').html(steps[steps.length-1])
-
     showStep(steps, tracker)
+
+    const choiceModal = $('.quest-choice-modal')
+    $('.current-step').on('click', '.quest-choice button', (e) => {
+        const choice = $(e.target).attr('data-option')
+        choiceModal.attr('open', 'open')
+            .find('.choice-description').html(questOptions[choice])
+    })
+    $('.close-choice').on('click', () => {
+        choiceModal.attr('open', false)
+            .find('.choice-description').html('')
+        tracker.currentStep++
+        saveQuestTracker(tracker)
+        showStep(steps, tracker)
+    })
 
     $('.prev-step').on('click', () => {
         if (tracker.currentStep > 0) {
             tracker.currentStep--
             saveQuestTracker(tracker)
             showStep(steps, tracker)
-            if (tracker.currentStep < 1) {
-                $('.prev-step').attr('disabled', 'disabled')
-                $('.next-step').removeClass('hide')
-                $('.complete-quest').addClass('hide')
-            }
         }
     })
     $('.next-step').on('click', () => {
-        if (tracker.currentStep < (steps.length - 2)) {
+        if (tracker.currentStep < (steps.length - 1)) {
             tracker.currentStep++
             saveQuestTracker(tracker)
             showStep(steps, tracker)
         }
     })
     $('.complete-quest').on('click', () => {
-        if (tracker.currentStep >= (steps.length - 2)) {
-            $('.quest-bonus-modal').attr('open', 'open')
+        if (tracker.currentStep >= (steps.length - 1)) {
+            $('.quest-finish-modal').attr('open', 'open')
         }
     })
     $('.close-quest').on('click', () => {
@@ -122,11 +142,13 @@ async function showActiveQuest(tracker, scenario) {
 
 function showStep(steps, tracker) {
     $('.current-step').html(steps[tracker.currentStep])
+
+    $('.prev-step').removeClass('hide')
     if (tracker.currentStep < 1) {
         $('.prev-step').attr('disabled', 'disabled')
         $('.next-step').removeClass('hide')
         $('.complete-quest').addClass('hide')
-    } else if (tracker.currentStep >= (steps.length - 2)) {
+    } else if (tracker.currentStep >= (steps.length - 1)) {
         $('.prev-step').attr('disabled', false)
         $('.next-step').addClass('hide')
         $('.complete-quest').removeClass('hide')
@@ -135,14 +157,20 @@ function showStep(steps, tracker) {
         $('.next-step').removeClass('hide')
         $('.complete-quest').addClass('hide')
     }
+
+    if ($('.current-step .quest-choice').length) {
+        // This step has a player choice, so don't let them proceed until chosen
+        $('.next-step').addClass('hide')
+        $('.complete-quest').addClass('hide')
+    }
 }
 
-function buildStartingItems(text, scenario) {
-    if (!text.includes('<!-- determineStartingItem -->')) {
-        return text
+function buildStartingItems(stepHtml, scenario) {
+    if (!stepHtml.includes('<!-- determineStartingItem -->')) {
+        return stepHtml
     }
 
-    const newText = text.replace(
+    const newHtml = stepHtml.replace(
         '<!-- determineStartingItem -->',
         '<aside class="center"><button class="show-modal" data-modal="starting-item-modal">Determine Item</button></aside>'
     )
@@ -167,7 +195,6 @@ function buildStartingItems(text, scenario) {
             return alert('Sorry, but that was not a valid value. Can you try again?')
         }
         const item = scenario.startingItems.filter((item) => {
-            // console.log(`comparing flip (${flip}) to [${item.sum[0]}, ${item.sum[1]}]`)
             return flip >= item.sum[0] && flip <= item.sum[1]
         })[0]
         if (!item) {
@@ -179,7 +206,33 @@ function buildStartingItems(text, scenario) {
         $('.starting-item-modal').attr('open', false)
     })
 
-    return newText
+    return newHtml
+}
+
+function buildQuestChoices(stepHtml) {
+    if (!stepHtml.includes('<!-- CHOICE ')) {
+        return stepHtml
+    }
+
+    let newHtml = ''+stepHtml
+    const optionMatch = stepHtml.match(/\<\!--\s+CHOICE\s+(\[[^\]]+\])\s+--\>/)
+    if (optionMatch) {
+        try {
+            const options = JSON.parse(optionMatch[1])
+            if (!Array.isArray(options)) {
+                throw new Error('Quest options are not an array')
+            }
+            const optionHtml = ['<aside class="quest-choice">']
+            optionHtml.push(...options.map((option, i) => { return `<button class='wide' data-option='${option.toLowerCase()}'>${option}</button>` }))
+            optionHtml.push('</aside>')
+            newHtml += optionHtml.join('')
+            
+        } catch(err) {
+            console.warn('Unable to parse options for quest section:', err.message)
+        }
+    }
+
+    return newHtml
 }
 
 

@@ -1,12 +1,19 @@
-## The Calico Wizard
+
+### Introduction
 
 The entrance to the glowing lair at the top of the mountain is before you. You can hear the shrieking of beasts inside, but also a faint, low hum, almost like deep growl, but with a cadence that is almost... like a chorus. Regardless, this is your quest, and your party enters the lair to find and defeat the wizard Calico and retrieve the amulet.
 
 ---
 
-### Quest Rules
+### Starting Items
 
-The rooms of the lair follow standard [space layout rules](../../rules/05_space_layout.md). The Lair is all interior, and players should flip to see if any one room is lit or dark.
+Before starting this quest, each character should receive **1 healing potion** and **1 random starting item**.
+
+<!-- determineStartingItem -->
+
+---
+
+### Quest Rules
 
 * The **first** Ace you reveal will be the wizard's apprentice (see below). The exit to the room you are in when this card is revealed is locked until you defeat the apprentice.
     - Any additional Aces in the _same room_ as the apprentice will be a trap.
@@ -24,15 +31,11 @@ The rooms of the lair follow standard [space layout rules](../../rules/05_space_
 
 ---
 
-### Starting Items
+### Proceed
 
-Before starting your quest, each player should receive 1 healing potion and 1 [random starting item](reference_tables.md#starting-items).
+The rooms of the lair follow standard [space layout rules](../../rules/05_space_layout.md). The Lair is all **interior**, and players should flip to see if any one room is lit or dark.
 
----
-
-### PAUSE HERE AND PLAY YOUR QUEST!
-
-When you encounter the first Ace, read on to see how the Apprentice fights.
+When you encounter the **first Ace**, read on to see how the Apprentice fights. (You should wait until you encounter them!)
 
 ---
 
@@ -54,11 +57,15 @@ All _currently revealed_ enemies will still move and attack as usual, but **no n
     - At R>5: no attack (but will move)
 * Will never retreat as they fear reprisal from Calico, ignore any instructions for enemies under 1/4 HP to flee
 
+> **Proceed once you defeat the Apprentice!**
+
 ---
 
-### PAUSE HERE AND CONTINUE YOUR QUEST!
+### Proceed
 
-When you encounter the second Ace, read on to see how Calico the Wizard fights.
+Keeping going through the lair looking for Calico the Wizard. The rooms of the lair follow standard [space layout rules](../../rules/05_space_layout.md). The Lair is all **interior**, and players should flip to see if any one room is lit or dark.
+
+When you encounter the **second Ace**, read on to see how Calico fights. (You should wait until you encounter them!)
 
 ---
 
@@ -92,6 +99,8 @@ All other enemies will flee immediately (remove them from the table), and **no n
     - on any other value, Calico is defeated
 
 ---
+
+### Conclusion
 
 Calico hisses in pain as he crumples to the cave floor. You all approach him slowly, still on guard. He doesn't move, but you hold your weapon ready as you reach for the amulet held in his hand. It appears he had been using it to summon those creatures and cast the fire ball spell. You nudge him slightly and he flinches! You all jump back, but realize that it was just final muscle spasm of an old man.
 
