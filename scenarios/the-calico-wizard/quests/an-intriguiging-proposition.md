@@ -1,27 +1,31 @@
 
-## An Intriguing Proposition
+### Introduction
 
 The shrouded woman in the tavern explains that she has a mission for your group, direct from the Queen. She applauds your recent work in Wufanthia, having heard of your triumph over the goblins that had infested the sewers under their capitol city. The praise was clearly meant to stroke your egos, but you don't mind so much. She then describes the recent attacks and says that the Queen believes the creatures are trying to find the Scarlet Amulet of Lasoor.
 
 Thought lost to time over a hundred years ago, the amulet is said to have great power, giving those who possess it unmatched magical prowess. The Queen has had visions of the amulet in her dreams, being held by a withered hand on a makeshift throne. The dream, she admits, could be the present or the future, but regardless, she needs you to find the amulet and return it safely to the castle. Of course, you will be rewarded handsomely upon success.
 
-You will start this quest outside, in the forest leading to the mountain, and then into one of the lower caves where the eerie glow was first noticed.
+You begin your quest in the forest leading to the mountain, and must then venture into one of the lower caves where the eerie glow was first noticed. Hopefully you can find the amulet in one of the many treasure chests believed to be hidden in the caves.
+
+---
+
+### Starting Items
+
+Before starting this quest, each character should receive **1 healing potion** and **1 random starting item**.
+
+<!-- determineStartingItem -->
 
 ---
 
 ### Quest Rules
 
-The first 2 spaces will be exterior, in the forest. You may begin at any time of day you wish (or flip to randomize it). Don't forget that the time of day (or night) will change in the second space! The third space will be the cave, and it will be **dark**, be sure you have something to light the way!
-
-The amulet may be in one of many hidden chests in the caverns (it will not appear in the forest), your party should start their search there.
-
 * An Ace in the forest is a simple chest (no chance for the amulet)
 * An Ace in a cavernous room is a special chest and an **enemy is always defending it** (so draw one for this spot).
-    - After successfully opening the chest (just like normal), you must see if what you seek is in it: flip one card from the Action deck, if the card is 6 or lower this chest only contains a normal item (flip as you would normally).
-    - If the flip is a 7 or greater, **you have found the amulet case**!
-* A two of hearts or diamonds is a double enemy
+    - After successfully opening the chest (just like normal), you must see if what you seek is in it. Flip one card from the Action deck: if the card is **6 or lower** this chest only contains a normal item (flip as you would normally).
+    - If the flip is a 7 or greater, **you have found the amulet case**! Complete this space and exit it to complete the quest.
+* A two of hearts or diamonds is a **double enemy**
 * A two of spades or clubs is a hidden spot
-* A three is always a spike pit
+* A three is always a spike pit:
     - when revealed, if the player is _adjacent_ to the pit, they fall in
     - flip an action card: on a 4 or less, you take avgLv damage from the spikes
     - Regardless of your flip, you lose your next turn climbing out (you are now on the pit spot)
@@ -30,17 +34,19 @@ The amulet may be in one of many hidden chests in the caverns (it will not appea
 
 ---
 
-### Starting Items
+### Proceed
 
-Before starting your quest, each player should receive 1 healing potion and 1 [random starting item](reference_tables.md#starting-items).
+The first 2 spaces will be exterior, in the forest. You begin your quest in the evening, making the first space dark, but the time will change by the second space and it will be daytime (light)! The third space (and beyond) will be the caves, and it will be **dark** to begin each space.
 
----
-
-### PAUSE HERE AND PLAY YOUR QUEST!
+<!-- spaceLayouts  -->
 
 ---
+
+### Conclusion
 
 Sadly, the case was empty. Inside of it is strange script that you can't understand, and on the underside you notice scratches that look like claw marks. The case was clearly pried open and the amulet taken. Your party must decide: do they return to the Queen with an empty case and tell her what you've found? Or do they press on into the mountain to search for the amulet itself?
+
+<!-- TODO: how can we make decision points and direct user to the correct result? -->
 
 > **PAUSE HERE AND DECIDE BEFORE READING ON!**
 

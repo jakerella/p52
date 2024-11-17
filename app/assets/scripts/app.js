@@ -7,7 +7,7 @@ import initLoadHome from './loadHome.js'
 import initLoadScenario from './loadScenario.js'
 import initQuestWalkthrough from './loadQuest.js'
 import initRulesPage from './loadRules.js'
-import { calculateFormula, generateHash, getAllScenarioMetadata, getScenario, indexOfItem, isDebug } from './shared.js'
+import { indexOfItem, isDebug } from './shared.js'
 
 const PAGE_INIT = {
     'home': initLoadHome,
@@ -19,32 +19,12 @@ const PAGE_INIT = {
 }
 
 async function main(page) {
-    await reloadScenario()
-
     console.info(`Loading page: ${page}`)
     if (PAGE_INIT[page]) { PAGE_INIT[page]() }
     if (/\/rules/.test(window.location.href)) { switchRuleLinks() }
 
     addSharedControls()
     if (isDebug()) { addDebugFunctions() }
-}
-
-async function reloadScenario() {
-    const loadedScenario = getScenario()
-    const loadedScenarioHash = localStorage.getItem(c.SCENARIO_HASH_KEY)
-    if (loadedScenario) {
-        const metadata = await getAllScenarioMetadata()
-        const scenarioMetadata = metadata.filter((s) => s.id === loadedScenario.id)[0]
-        if (scenarioMetadata) {
-            const fileScenario = await (await fetch(scenarioMetadata.file)).json()
-            const fileHash = await generateHash(JSON.stringify(fileScenario))
-            if (loadedScenarioHash !== fileHash) {
-                console.debug(`Reloading scenario data as the hases do not match`)
-                localStorage.setItem(c.SCENARIO_KEY, JSON.stringify(fileScenario))
-                localStorage.setItem(c.SCENARIO_HASH_KEY, fileHash)
-            }
-        }
-    }
 }
 
 function addSharedControls() {
@@ -118,7 +98,6 @@ function addDebugFunctions() {
             if (reload) { window.location.reload() }
         }
     }
-    window.calculateFormula = calculateFormula
 }
 
 export default main

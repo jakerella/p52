@@ -140,7 +140,7 @@ You absolutely do _not_ have to use these, but they are good representative exam
 
 ### Starting Items
 
-At the **start of this scenario**, before beginning any quests, players will receive one item per their class:
+When creating your character for this scenario, before beginning any quests, players will receive one item per their class:
 
 * Fighter: Light Sword or Staff
 * Rogue: Long Bow (+10 basic arrows) or Hunting Knife
@@ -152,12 +152,12 @@ At the **start of each quest**, unless the quest says otherwise, all players sta
 
 | Card Sum |       Item       | Description |
 |:--------:| ---------------- | ----------- |
-|   2      | 2 Torches        | It's a torch. |
-|   3-5    | 2 Lock Picks     | Helpful when you need more items |
-|   6-7    | Leather Armor    | Player chooses what body location |
-|   8-10   | Weapon           | Player gets to choose a basic weapon (lowest level) or Magic Wand |
-|  11-13   | Leather shield   | Helpful in a scrape |
-|  14-16   | Armor Tuner      | Keep that armor strong |
+|   2-3    | 2 Torches        | It's a torch. |
+|   4-5    | 2 Lock Picks     | Helpful when you need more items |
+|   6-9    | Leather Armor    | Player chooses what body location |
+|  10-12   | Weapon           | Player gets to choose one of: Long Bow, Hunting Knife, Light Sword, or Magic Wand |
+|  13-14   | Leather shield   | Helpful in a scrape |
+|  15-16   | Armor Tuner      | Keep that armor strong |
 |  17-18   | Weapon Tuner     | Keep those weapons sharp |
 |  19-20   | Reading Material | Player gets to choose a Magic Scroll or Training Manual |
 |  21-22   | Elixir           | Player gets to choose a Fire, Ice or Water Elixir |

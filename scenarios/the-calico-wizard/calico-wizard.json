@@ -1,5 +1,5 @@
 {
-    "id": "1",
+    "id": "03b0fffa-6841-4931-9185-b195491abd86",
     "name": "The Calico Wizard",
     "reality": "Animalia",
     "introductionFilePath": "scenarios/the-calico-wizard/README",
@@ -688,42 +688,42 @@
     ],
     "startingItems": [
         {
-            "sum": [0, 2],
+            "sum": [2, 3],
             "item": "Torch",
             "count": 2,
             "options": [],
             "description": "It's a torch."
         },
         {
-            "sum": [3, 5],
+            "sum": [4, 5],
             "item": "Lock Pick",
             "count": 2,
             "options": [],
             "description": "Helpful when you need more items"
         },
         {
-            "sum": [6, 7],
+            "sum": [6, 9],
             "item": "Leather Armor",
             "count": 1,
             "options": ["Leather Cap", "Leather Jacket", "Leather Bracers", "Leather Greaves"],
             "description": "Player chooses what body location"
         },
         {
-            "sum": [8, 10],
+            "sum": [10, 12],
             "item": "Basic Weapon",
             "count": 1,
             "options": ["Long Bow", "Light Sword", "Hunting Knife", "Magic Wand"],
             "description": "Player gets to choose a basic weapon (lowest level) or Magic Wand"
         },
         {
-            "sum": [11, 13],
+            "sum": [13, 14],
             "item": "Leather shield",
             "count": 1,
             "options": [],
             "description": "Helpful in a scrape"
         },
         {
-            "sum": [14, 18],
+            "sum": [15, 16],
             "item": "Armor Tuner",
             "count": 1,
             "options": [],

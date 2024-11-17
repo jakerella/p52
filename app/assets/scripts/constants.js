@@ -5,7 +5,6 @@ const constants = {
     CHARACTER_HISTORY_KEY: 'charHistory',
     MAX_CHARACTER_HISTORY: 10,
     SCENARIO_KEY: 'loadedScenario',
-    SCENARIO_HASH_KEY: 'loadedScenarioHash',
     SCENARIO_METADATA: 'data/scenarios.js',
     QUEST_TRACKER_KEY: 'questTracker',
     CORE_ORDER: ['Lift', 'Think', 'Balance', 'Move', 'Lead'],

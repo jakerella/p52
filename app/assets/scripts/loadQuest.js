@@ -1,10 +1,10 @@
 
 import $ from './jqes6.js'
-import { getCharacter, getQuestTracker, getScenario, saveQuestTracker, showMessage } from './shared.js'
+import { getCharacter, getQuestTracker, getScenario, onModalOpen, saveQuestTracker, showMessage } from './shared.js'
 
 
 async function initQuestWalkthrough() {
-    const scenario = getScenario()
+    const scenario = await getScenario()
     const character = getCharacter()    
     if (!scenario || !character) {
         alert('Please load a scenario and create a character before starting a quest!')
@@ -26,14 +26,13 @@ async function initQuestWalkthrough() {
 
     if (!tracker.active) {
         return chooseQuest(scenario, tracker)
-    } else if (tracker.currentStep > 0) {
-        showMessage('It looks like you were already in a quest, we\'ve resumed from where you were last.', 7)
     }
 
-    await showActiveQuest(tracker)
+    await showActiveQuest(tracker, scenario)
+
+    // TODO: allow user to show enemy stats
 
     // TODO: figure out decision points, see if we can show user options and then result?
-    // TODO: save scenario progress to file (and load from file)
 }
 
 function chooseQuest(scenario, tracker) {
@@ -61,7 +60,7 @@ function chooseQuest(scenario, tracker) {
     })
 }
 
-async function showActiveQuest(tracker) {
+async function showActiveQuest(tracker, scenario) {
     let questText = null
     try {
         questText = await (await fetch(`/${tracker.active.filepath}`)).text()
@@ -74,8 +73,13 @@ async function showActiveQuest(tracker) {
         return
     }
 
+    const steps = questText.split('<hr>').map((step) => {
+        let text = ''+step
+        text = buildStartingItems(text, scenario)
+        return text
+    })
+
     $('.quest-title').text(tracker.active.name)
-    const steps = questText.split('<hr>')
     $('.quest-bonuses').html(steps[steps.length-1])
 
     showStep(steps, tracker)
@@ -131,6 +135,51 @@ function showStep(steps, tracker) {
         $('.next-step').removeClass('hide')
         $('.complete-quest').addClass('hide')
     }
+}
+
+function buildStartingItems(text, scenario) {
+    if (!text.includes('<!-- determineStartingItem -->')) {
+        return text
+    }
+
+    const newText = text.replace(
+        '<!-- determineStartingItem -->',
+        '<aside class="center"><button class="show-modal" data-modal="starting-item-modal">Determine Item</button></aside>'
+    )
+
+    const flips = $('.starting-item-modal .card-flip')
+    const flipValue = $('.starting-item-modal .flip-value')
+    onModalOpen('.starting-item-modal', () => {
+        flips.forEach((input) => { input.value = '' })
+        flipValue[0].value = ''
+    })
+
+    flips.on('change', () => {
+        let flip = 0
+        flips.forEach((input) => { flip += Number(input.value) || 0 })
+        flipValue.text(flip)
+    })
+
+    $('.reveal-starting-item').on('click', () => {
+        let flip = 0
+        flips.forEach((input) => { flip += Number(input.value) || 0 })
+        if (flip < 2 || flip > 26) {
+            return alert('Sorry, but that was not a valid value. Can you try again?')
+        }
+        const item = scenario.startingItems.filter((item) => {
+            // console.log(`comparing flip (${flip}) to [${item.sum[0]}, ${item.sum[1]}]`)
+            return flip >= item.sum[0] && flip <= item.sum[1]
+        })[0]
+        if (!item) {
+            return alert('Sorry, no item was found. Can you try again?')
+        }
+        const count = (item.count > 1) ? ` (x${item.count})` : ''
+        const options = (item.options.length) ? `\n\nYou may pick one of: ${item.options.join(', ')}` : ''
+        alert(`You found a ${item.item}${count}!${options}\n\n${item.description}\n\nRemember to add the item(s) to your inventory!!`)
+        $('.starting-item-modal').attr('open', false)
+    })
+
+    return newText
 }
 
 

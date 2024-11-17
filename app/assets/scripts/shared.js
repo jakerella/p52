@@ -21,23 +21,6 @@ export function showMessage(msg, ttl, type) {
     window.scrollTo(0,0)
 }
 
-export function parseQuery() {
-    const params = {}
-    window.location.search.substring(1).split('&')
-        .forEach(p => {
-            const parts = p.split('=')
-            if (params[parts[0]]) {
-                if (!Array.isArray(params[parts[0]])) { params[parts[0]] = [params[parts[0]]] }
-                params[parts[0]].push(parts[1] || true)
-            } else if (parts.length === 1) {
-                params[parts[0]] = true
-            } else {
-                params[parts[0]] = parts[1]
-            }
-        })
-    return params
-}
-
 export async function getAllScenarioMetadata() {
     const scenarioMetadata = []
     let files = []
@@ -77,16 +60,27 @@ export async function getAllScenarioMetadata() {
     return scenarioMetadata
 }
 
-export function getScenario() {
+export async function getScenario() {
     let scenario = null
+    
     try {
-        scenario = JSON.parse(localStorage.getItem(c.SCENARIO_KEY) || 'null')
+        const scenarioMeta = JSON.parse(localStorage.getItem(c.SCENARIO_KEY) || 'null')
+        if (!scenarioMeta) { return null }
+
+        // { id, file: scenario.file }
+        scenario = await (await fetch(`/${scenarioMeta.file}`)).json()
+        if (!scenario) {
+            console.warn(`No scenario data found at: ${scenarioMeta.file}`)
+            return null
+        }
+
         scenario.itemsByName = {}
         scenario.items.forEach((item) => { scenario.itemsByName[item.name.toLowerCase()] = item })
         scenario.abilitiesByName = {}
         scenario.abilities.forEach((ab) => { scenario.abilitiesByName[ab.name.toLowerCase()] = ab })
-    } catch(e) {
-        console.warn(`Unable to load scenario from localStorage key: ${c.SCENARIO_KEY}`)
+
+    } catch(err) {
+        console.warn(`Unable to load scenario from localStorage key: ${c.SCENARIO_KEY} (${err.message})`)
     }
     return scenario
 }
@@ -237,8 +231,8 @@ export function getCoreAbilitiesTableHtml(tableClass = 'core-abilities', default
 </table>`
 }
 
-export function buildAbilityDisplay(ability, charAbility = null, charItems = null, charCore = null) {
-    const abStats = getAbilityTargetAndEffects(ability, charAbility, charItems)
+export function buildAbilityDisplay(scenario, ability, charAbility = null, charItems = null, charCore = null) {
+    const abStats = getAbilityTargetAndEffects(scenario, ability, charAbility, charItems)
 
     const effectText = Object.keys(abStats.effects).map((type) => {
         let text = abStats.effects[type].text.replace('{{amount}}', abStats.effects[type].amount)
@@ -267,7 +261,7 @@ export function buildAbilityDisplay(ability, charAbility = null, charItems = nul
 </aside>`
 }
 
-export function getAbilityTargetAndEffects(ability, charAbility, charItems) {
+export function getAbilityTargetAndEffects(scenario, ability, charAbility, charItems) {
     let target = ability.target
     if (charAbility) {
         target = target.replace('aLv', `${charAbility.level}<sup class='calc-source'>(aLv)</sup>`)
@@ -300,7 +294,7 @@ export function getAbilityTargetAndEffects(ability, charAbility, charItems) {
     })
 
     if (charItems && charItems.length) {
-        const items = getScenario().itemsByName
+        const items = scenario.itemsByName
         charItems.forEach((item) => {
             if (item.equipped && items[item.name] && items[item.name].effects) {
                 items[item.name].effects.forEach((e) => {
@@ -320,7 +314,7 @@ export function getAbilityTargetAndEffects(ability, charAbility, charItems) {
     return { target, effects }
 }
 
-export function calculateFormula(base, coreStats, abilityName = null, attribute, charItems = [], params = {}, modifiers = []) {
+export function calculateFormula(scenario, base, coreStats, abilityName = null, attribute, charItems = [], params = {}, modifiers = []) {
     // known params: (coreStats), F, R, Over, #, aLv, Lv, avgLv, MaxHP
 
     let formula = base.replaceAll(' x ', ' * ').replaceAll(/^-\(/g, '-1 * (').replaceAll(/^\+\(/g, '0 + (')
@@ -338,7 +332,7 @@ export function calculateFormula(base, coreStats, abilityName = null, attribute,
     })
 
     if (charItems && charItems.length) {
-        const items = getScenario().itemsByName
+        const items = scenario.itemsByName
         charItems.forEach((item) => {
             if (item.equipped && items[item.name] && items[item.name].effects) {
                 items[item.name].effects.forEach((eff) => {

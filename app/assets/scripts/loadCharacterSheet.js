@@ -23,7 +23,7 @@ let SAVE_DEBOUNCE = null
 let DO_UNLOAD_SAVE = true
 
 async function initCharacterSheet() {
-    const scenario = getScenario()
+    const scenario = await getScenario()
     if (!scenario) {
         window.location.replace('/')
         return
@@ -146,7 +146,7 @@ function getAbilityElement(character, scenario, ability) {
 
     const elem = `<details id='ability-${slug}' data-ability='${ability.name.toLowerCase()}' class='ability'>
     <summary><h3>${scenario.abilitiesByName[ability.name].name} ${ABILITY_LEVEL} ${ABILITY_LEVEL_BUMP} ${USE_BUTTON}</h3></summary>
-    ${buildAbilityDisplay(scenario.abilitiesByName[ability.name], ability, character.items, character.core)}
+    ${buildAbilityDisplay(scenario, scenario.abilitiesByName[ability.name], ability, character.items, character.core)}
 </details>`
     return elem
 }
@@ -270,7 +270,7 @@ function handleAbilityLevelIncrease(character, scenario) {
                     abilityElem.find('.ability-level').text(ab.level)
                     const details = abilityElem.find('.ability-details')
                     details[0]?.parentNode.removeChild(details[0])
-                    abilityElem.append(buildAbilityDisplay(scenario.abilitiesByName[ab.name], ab, character.items, character.core))
+                    abilityElem.append(buildAbilityDisplay(scenario, scenario.abilitiesByName[ab.name], ab, character.items, character.core))
                     doCharacterSave(character)
                 }
             })
@@ -311,7 +311,7 @@ function handleAddAbility(character, scenario) {
 
     select.on('change', () => {
         if (scenario.abilitiesByName[select[0].value]) {
-            detail.html(buildAbilityDisplay(scenario.abilitiesByName[select[0].value], null, null, character.core))
+            detail.html(buildAbilityDisplay(scenario, scenario.abilitiesByName[select[0].value], null, null, character.core))
         } else {
             detail.html(' ')
         }
@@ -341,7 +341,7 @@ function handleUseAbility(character, scenario) {
             if (charAbility.name.toLowerCase() === abilityName) {
                 const ability = scenario.abilitiesByName[abilityName]
                 modal.find('.ability-name').text(ability.name)
-                modal.find('.ability-description').html(buildAbilityDisplay(ability, charAbility, character.items, character.core))
+                modal.find('.ability-description').html(buildAbilityDisplay(scenario, ability, charAbility, character.items, character.core))
                 modal.attr('open', 'open')
             }
         })
@@ -553,7 +553,7 @@ function handleOpenChest(character, scenario) {
             $('.lock-pick-note').hide()
         }
 
-        const target = getAbilityTargetAndEffects(scenario.abilitiesByName['lock picking'], charAbility, character.items).target
+        const target = getAbilityTargetAndEffects(scenario, scenario.abilitiesByName['lock picking'], charAbility, character.items).target
         modal.find('.lock-pick-target').html(target)
 
         const method = (indexOfItem(character, 'lock pick') < 0) ? 'addClass' : 'removeClass'
@@ -572,7 +572,7 @@ function handleOpenChest(character, scenario) {
             picksUsed = 3
         }
         
-        const target = getAbilityTargetAndEffects(scenario.abilitiesByName['lock picking'], getLockPickStats(character, picksUsed), character.items).target
+        const target = getAbilityTargetAndEffects(scenario, scenario.abilitiesByName['lock picking'], getLockPickStats(character, picksUsed), character.items).target
         modal.find('.lock-pick-target').html(target)
     })
     modal.find('.do-pick-lock').on('click', () => {
@@ -589,7 +589,7 @@ function handleOpenChest(character, scenario) {
         const params = { aLv: charAbility.level }
         const modifiers = charAbility.modifiers.map((mod) => (mod.attribute === 'target') ? mod.value : 0)
 
-        const formula = calculateFormula(scenario.abilitiesByName['lock picking'].target, character.core, 'lock picking', 'target', character.items, params, modifiers)
+        const formula = calculateFormula(scenario, scenario.abilitiesByName['lock picking'].target, character.core, 'lock picking', 'target', character.items, params, modifiers)
         if (!formula.result) {
             return alert(`You'll need to evaluate this one yourself. Follow the rules and see if you succeeded, then determine your item (if sucessful) and add the item to your inventory!\n\nYour target is: ${formula.reduced}`)
         }

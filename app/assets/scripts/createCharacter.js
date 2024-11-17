@@ -14,7 +14,7 @@ import {
 import template from '../data/character_template.js'
 
 async function initCreateCharacter() {
-    const scenario = getScenario()
+    const scenario = await getScenario()
     if (!scenario) {
         showMessage(`Sorry, but you need to <a href='/load-scenario'>load a scenario</a> first!`, null, 'error')
         $('form.create-character').hide()
@@ -27,6 +27,8 @@ async function initCreateCharacter() {
         setupReset()
         return
     }
+
+    console.debug('Building character for scenario:', scenario)
 
     const inProgressCharacter = JSON.parse(localStorage.getItem(c.IN_PROGRESS_CHARACTER_KEY) || 'null')
     let character = null
@@ -343,7 +345,7 @@ function setupAbilities(character, scenario) {
         const ab = scenario.abilitiesByName[availableSelector[0].value]
         
         const abilities = getRaceAndClassAbilities('given', character, scenario)
-        description.html(buildAbilityDisplay(ab))
+        description.html(buildAbilityDisplay(scenario, ab))
         $('.in-progress-abilities').html([...abilities, ab.name.toLowerCase()].join(', '))
     })
 }

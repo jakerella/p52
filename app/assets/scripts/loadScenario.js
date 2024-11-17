@@ -1,7 +1,7 @@
 
 import c from './constants.js'
 import $ from './jqes6.js'
-import { showMessage, parseQuery, generateHash, getAllScenarioMetadata } from './shared.js'
+import { getCharacter, showMessage, generateHash, getAllScenarioMetadata } from './shared.js'
 
 async function initLoadScenario() {
     const metadata = await getAllScenarioMetadata()
@@ -20,27 +20,36 @@ async function initLoadScenario() {
         }
     })
 
-    const params = parseQuery()
-    if (params.scenario) {
-        const scenario = metadata.filter(s=>s.id===params.scenario)[0]
+    $('.load-scenario').on('click', () => {
+        const id = chooser[0].value
+        const scenario = metadata.filter((s) => s.id === id)[0]
         if (!scenario) {
-            showMessage(`Sorry, but that's not a valid Scenario. Did you intend to upload a custom scenario?`, 7, 'error')
+            showMessage(`Sorry, but that's not a valid Scenario. Please select a valid scenario!`, 5, 'error')
         } else {
-            console.log(`Loading scenario ${params.scenario}`)
-            await setScenario(scenario.file)
+            let character = getCharacter()
+            if (character && character.reality !== scenario.reality &&
+                !confirm('Loading this scenario will remove your current character (they are not compatible).\n\nAre you sure you want to do this?')
+                ) {
+                return
+            }
+            if (character && character.reality !== scenario.reality) {
+                console.debug('Removing previous character and character history')
+                localStorage.removeItem(c.CHARACTER_KEY)
+                localStorage.removeItem(c.CHARACTER_HISTORY_KEY)
+            }
 
-            // TODO: check for character in that scenario?
+            console.debug(`Loading scenario ${id}`, scenario)
+            localStorage.setItem(c.SCENARIO_KEY, JSON.stringify({ id, file: scenario.file }))
+            chooser.attr('disabled', 'disabled')
 
-            showMessage(`Loaded new scenario: ${scenario.name}! Head over to the '<a href='/create-character'>Create Character</a>' page to get started on your new adventure.`)
+            const nextAction = 'Head over to the <a href="/create-character">Create Character</a> page to start building out your character.'
+            character = getCharacter()
+            if (character) {
+                nextAction = 'It looks like you already have a character suitable for this scenario. You can <a href="/quest">Start a Quest</a> now!'
+            }
+            showMessage(`Your scenario is loaded! ${nextAction}`)
         }
-    }
-}
-
-async function setScenario(file) {
-    const scenario = await (await fetch(file)).json()
-    const hash = generateHash(JSON.stringify(scenario))
-    localStorage.setItem(c.SCENARIO_KEY, JSON.stringify(scenario))
-    localStorage.setItem(c.SCENARIO_HASH_KEY, hash)
+    })
 }
 
 export default initLoadScenario

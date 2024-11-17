@@ -24,6 +24,8 @@ page: quest
     </article>
 </dialog>
 
+<!-- Need Quest navigation to: flip back to character sheet, show enemy stats, session log, ...? -->
+
 <section class='active-quest'>
     <h2 class='quest-title'></h2>
     <aside class='current-step'></aside>
@@ -53,6 +55,42 @@ page: quest
         <footer>
             <button class='secondary close-modal' data-modal='quest-bonus-modal'>Go back</button>
             <button class='close-quest'>Close this Quest</button>
+        </footer>
+    </article>
+</dialog>
+
+<dialog class='starting-item-modal'>
+    <article>
+        <header><h3>Determine Starting Item</h3></header>
+        
+        <p>Flip two cards to determine what you find...</p>
+        <aside class='card-flips'>
+            <input type='number' class='card-flip' name='starting-flip-1' id='starting-flip-1' list='card-values' placeholder='Flip 1' step='1' min='1' max='13'>
+            <input type='number' class='card-flip' name='starting-flip-2' id='starting-flip-2' list='card-values' placeholder='Flip 2' step='1' min='1' max='13'>
+
+            <datalist id='card-values'>
+                <option value='1'>A</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                <option value='5'>5</option>
+                <option value='6'>6</option>
+                <option value='7'>7</option>
+                <option value='8'>8</option>
+                <option value='9'>9</option>
+                <option value='10'>10</option>
+                <option value='11'>J</option>
+                <option value='12'>Q</option>
+                <option value='13'>K</option>
+            </datalist>
+        </aside>
+        <p>Card Value: <span class='flip-value'>0</span></p>
+        <aside class='center'>
+            <button class='reveal-starting-item'>Reveal Item</button>
+        </aside>
+
+        <footer>
+            <button class='secondary close-modal' data-modal='starting-item-modal'>Close</button>
         </footer>
     </article>
 </dialog>

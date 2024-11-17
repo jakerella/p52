@@ -3,7 +3,7 @@ import $ from './jqes6.js'
 
 
 async function initLoadHome() {
-    const scenario = getScenario()
+    const scenario = await getScenario()
     const character = getCharacter()
     if (scenario && !character) {
         $('#page-home .no-character').show()

@@ -8,12 +8,14 @@ page: load-scenario
 
 <p>Choose one of the scenarios below, then a description will appear before you choose to load the scenario.</p>
 
-<form action='' method='get'>
+<section>
     <select name='scenario' id='scenario'>
         <option value=''>Choose a scenario...</value>
     </select>
-    <!-- TODO: allow uploading of scenario data file -->
-    <input type='submit' value='Load'>
+    
+    <button class='load-scenario wide'>Load</button>
+
+    <!-- TODO: allow uploading of custom scenario data -->
 
     <p class='description'></p>
-</form>
+</section>
