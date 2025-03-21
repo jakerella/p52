@@ -27,9 +27,9 @@ If a player is not trained in the Lock Picking ability, they can still use this 
 
 ### Revealing the Item
 
-Once a chest is open, you flip two cards from the Action deck and use the card total to determine what item you get. Each scenario will have its own "Chest Items" table. Place any item received in your character's inventory. Note that you do not have to take the item, and if you do not it remains on that spot. There is no limit to the number of items you can hold, unless your scenario or quest says otherwise.
+There are two options when revealing the item inside a chest. Either you can take the lowest level healing item in your scenario, or you can flip to reveal a random item. If choosing to flip for a random item, you flip two cards from the Action deck and use the card total to determine what item you get. Each scenario will have its own "Chest Items" table.
 
-> If both of the cards are the **same suit** in your flips to reveal the item, then you also gain 1 Lock Pick item. (Note that if you used a lock pick to open this chest, that one was consumed, so you stay at the same number in your inventory.)
+Place any item received in your character's inventory. Note that you do not have to take the item, and if you do not it remains on that spot. There is no limit to the number of items you can hold, unless your scenario or quest says otherwise.
 
 ### Attacking a Chest
 
