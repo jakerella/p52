@@ -39,6 +39,15 @@ body>header nav {
 .nav-menu-modal nav img {
     width: 2rem;
 }
+
+header nav ul {
+    width: 55%;
+    justify-content: flex-end;
+}
+header nav img {
+    width: 2rem;
+}
+
 .rules-search [role="search"] {
     display: inherit;
 }
@@ -182,7 +191,7 @@ select option.disabled {
     display: block;
 }
 #page-create-character .core-bonus {
-    width: 3rem;
+    width: 5rem;
 }
 
 
