@@ -76,6 +76,7 @@ async function showActiveQuest(tracker, scenario) {
         .map((step) => {
             let html = ''+step
             html = buildStartingItems(html, scenario)
+            html = buildNextConfirmations(html)
             html = buildQuestChoices(html)
             return html
         })
@@ -84,7 +85,6 @@ async function showActiveQuest(tracker, scenario) {
     questText.split('<hr>')
         .filter((step) => { return step.includes('<!-- OPTION ') })
         .forEach((step) => {
-            // <!-- OPTION "Return to the Queen" -->
             const optionText = step.match(/\<\!--\s+OPTION\s+"([^"]+)"\s+--\>/)
             if (!optionText) {
                 return console.warn('Unable to determine option text!')
@@ -117,6 +117,23 @@ async function showActiveQuest(tracker, scenario) {
         }
     })
     $('.next-step').on('click', () => {
+        const confirm = $('.current-step .next-confirmation-modal')
+        if (confirm.attr('data-has-handler') !== 'true') {
+            confirm.find('.next-confirmation').on('click', () => {
+                confirm.attr('open', '')
+                if (tracker.currentStep < (steps.length - 1)) {
+                    tracker.currentStep++
+                    saveQuestTracker(tracker)
+                    showStep(steps, tracker)
+                }
+            })
+            confirm.attr('data-has-handler', 'true')
+        }
+        if (confirm.length) {
+            confirm.attr('open', 'open')
+            return
+        }
+
         if (tracker.currentStep < (steps.length - 1)) {
             tracker.currentStep++
             saveQuestTracker(tracker)
@@ -205,6 +222,30 @@ function buildStartingItems(stepHtml, scenario) {
         alert(`You found a ${item.item}${count}!${options}\n\n${item.description}\n\nRemember to add the item(s) to your inventory!!`)
         $('.starting-item-modal').attr('open', false)
     })
+
+    return newHtml
+}
+
+function buildNextConfirmations(stepHtml) {
+    if (!stepHtml.includes('<!-- CONFIRM-NEXT ')) {
+        return stepHtml
+    }
+
+    let newHtml = ''+stepHtml
+    const confirmationMatch = stepHtml.match(/\<\!--\s+CONFIRM-NEXT\s+\"([^\"]+)\"\s+--\>/)
+    if (confirmationMatch) {
+        newHtml += `
+<dialog class='next-confirmation-modal'>
+    <article>
+        <header><h3>Are you sure?</h2></header>
+        ${confirmationMatch[1]}
+        <footer>
+            <input type='button' class='next-cancel secondary close-modal' data-modal='next-confirmation-modal' value='Cancel'>
+            <input type='button' class='next-confirmation' value='Yes'>
+        </footer>
+    </article>
+</dialog>`
+    }
 
     return newHtml
 }

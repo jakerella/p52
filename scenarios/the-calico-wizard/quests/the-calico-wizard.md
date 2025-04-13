@@ -31,11 +31,13 @@ Before starting this quest, each character should receive **1 healing potion** a
 
 ---
 
-### Proceed
+### Defeat the Wizard's Apprentice!
 
 The rooms of the lair follow standard [space layout rules](../../rules/05_space_layout.md). The Lair is all **interior**, and players should flip to see if any one room is lit or dark.
 
 When you encounter the **first Ace**, read on to see how the Apprentice fights. (You should wait until you encounter them!)
+
+<!-- CONFIRM-NEXT "Only proceed if you have found the apprentice..." -->
 
 ---
 
@@ -59,13 +61,17 @@ All _currently revealed_ enemies will still move and attack as usual, but **no n
 
 > **Proceed once you defeat the Apprentice!**
 
+<!-- CONFIRM-NEXT "Only proceed if you have defeated the apprentice..." -->
+
 ---
 
-### Proceed
+### Defeat the Calico Wizard!
 
 Keeping going through the lair looking for Calico the Wizard. The rooms of the lair follow standard [space layout rules](../../rules/05_space_layout.md). The Lair is all **interior**, and players should flip to see if any one room is lit or dark.
 
 When you encounter the **second Ace**, read on to see how Calico fights. (You should wait until you encounter them!)
+
+<!-- CONFIRM-NEXT "Only proceed if you have found the wizard..." -->
 
 ---
 
@@ -97,6 +103,8 @@ All other enemies will flee immediately (remove them from the table), and **no n
     - if the card is an Ace, Calico vanishes and reappears either at the entrance or exit, whichever is furthest from the nearest character, and heals to 1/4 HP
     - if the card is 2-5, Calico heals to 1/8 HP and moves two spots in a direction taking him away from characters
     - on any other value, Calico is defeated
+
+<!-- CONFIRM-NEXT "Only proceed if you are done with this quest, there are spoilers ahead!" -->
 
 ---
 

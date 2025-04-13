@@ -34,11 +34,13 @@ Before starting this quest, each character should receive **1 healing potion** a
 
 ---
 
-### Proceed
+### Find the Amulet!
 
 The first 2 spaces will be exterior, in the forest. You begin your quest in the evening, making the first space dark, but the time will change by the second space and it will be daytime (light)! The third space (and beyond) will be the caves, and it will be **dark** to begin each space.
 
 Your quest is complete after exiting the space in which you find the amulet case. (Then you should read the next section.)
+
+<!-- CONFIRM-NEXT "Only proceed if you are done with this quest, there are spoilers ahead!" -->
 
 ---
 

@@ -47,11 +47,13 @@ Once that last expansion is complete, and **all enemies are defeated**, your par
 
 ---
 
-### Proceed
+### Make it up the mountain!
 
 See the Quest Rules (previous section) for the layout specifics. You will need to survive four waves of enemies!
 
 Your quest is complete after exiting the fourth space (the final expansion).
+
+<!-- CONFIRM-NEXT "Only proceed if you are done with this quest, there are spoilers ahead!" -->
 
 ---
 

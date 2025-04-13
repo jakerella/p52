@@ -39,7 +39,7 @@ Before starting this quest, each character finds **1 healing potion** in the cav
 
 ---
 
-### Proceed
+### Make your way through the Halls
 
 You proceed through the Halls of Purlion. This is a fully interior quest, and every space begins completely dark. All spaces are predefined (see below), and **follow the pattern**: hall -> corridor -> great room. The **pattern then repeats** until you find both keys. Once you have both keys, you have one more room: the stairs (the final exit for the quest is at the end of those stairs). Both keys must be on the exit space for the stairs in order to exit (and complete the quest).
 
@@ -101,6 +101,8 @@ XX [] [] [] XX
 [] [] XX XX XX
 ^
 ```
+
+<!-- CONFIRM-NEXT "Only proceed if you are done with this quest, there are spoilers ahead!" -->
 
 ---
 
