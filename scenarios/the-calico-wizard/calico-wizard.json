@@ -823,6 +823,7 @@
         {
             "name": "Smoke Bomb",
             "requirements": null,
+            "gearTypes": [ "throwable" ],
             "equip": false,
             "consumable": true,
             "duration": "variable",
@@ -838,7 +839,7 @@
         {
             "name": "Hunting Knife",
             "requirements": null,
-            "gearTypes": [ "knife", "melee" ],
+            "gearTypes": [ "knife", "melee", "throwable" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -872,7 +873,7 @@
         },
         {
             "name": "Long Bow",
-            "requirements": [ {"ability": "Balance", "value": 2} ],
+            "requirements": [ {"ability": "Balance", "value": 2}, {"gearType": "arrow", "value": 1} ],
             "gearTypes": [ "bow", "ranged" ],
             "equip": true,
             "consumable": false,
@@ -889,6 +890,7 @@
         {
             "name": "Basic Arrows",
             "requirements": null,
+            "gearTypes": [ "ammunition", "arrow" ],
             "weight": 0.1,
             "equip": false,
             "consumable": true,
@@ -1009,6 +1011,7 @@
         {
             "name": "Sharp Arrows",
             "requirements": null,
+            "gearTypes": [ "ammunition", "arrow" ],
             "equip": false,
             "consumable": true,
             "duration": 1,
@@ -1019,11 +1022,12 @@
                 "amount": 3,
                 "attribute": "damage"
             }],
-            "description": "Ouch! That's a sharp tip. Must be used with a bow. **These arrows are recoverable and reusable.** (Be sure to mark them in your space after firing!)"
+            "description": "Ouch! That's a sharp tip. Must be used with a bow. Remove 1 from inventory for each shot."
         },
         {
             "name": "Poison Arrows",
             "requirements": [ {"ability": "Think", "value": 3} ],
+            "gearTypes": [ "ammunition", "arrow" ],
             "equip": false,
             "consumable": true,
             "duration": 3,
@@ -1034,7 +1038,7 @@
                 "amount": 2,
                 "attribute": "damage"
             }],
-            "description": "That stuff will mess you up. Must be used with a bow. If this attack hits, **regardless of the defense** and initial damage reduction, the enemy will take +2 damage this turn **and on the enemy's next two turns** (3 total turns, so +6 damage total). The poison damage bonus cannot be defended. **Warning**, a critical failure on your attack (flipping an Ace) means **you take all 6 damage from the poison**! This cannot be defended."
+            "description": "That stuff will mess you up. Must be used with a bow. If this attack hits, **regardless of the defense** and initial damage reduction, the enemy will take +2 damage this turn **and on the enemy's next two turns** (3 total turns, so +6 damage total). The poison damage bonus cannot be defended. **Warning**, a critical failure on your attack (flipping an Ace) means **you take all 6 damage from the poison**! This cannot be defended. Remove 1 from inventory for every shot."
         },
         {
             "name": "Caltrops",
@@ -1059,6 +1063,7 @@
         {
             "name": "Fire Elixir",
             "requirements": [ {"ability": "Think", "value": 2}, {"ability": "Balance", "value": 2} ],
+            "gearTypes": ["throwable"],
             "equip": false,
             "consumable": true,
             "duration": 2,
@@ -1074,6 +1079,7 @@
         {
             "name": "Ice Elixir",
             "requirements": [ {"ability": "Think", "value": 2}, {"ability": "Lift", "value": 2} ],
+            "gearTypes": ["throwable"],
             "equip": false,
             "consumable": true,
             "duration": 2,
@@ -1089,6 +1095,7 @@
         {
             "name": "Water Elixir",
             "requirements": [ {"ability": "Think", "value": 2}, {"ability": "Move", "value": 2} ],
+            "gearTypes": ["throwable"],
             "equip": false,
             "consumable": true,
             "duration": 1,
@@ -1109,7 +1116,7 @@
         {
             "name": "Stiletto Knife",
             "requirements": [ {"ability": "Balance", "value": 3} ],
-            "gearTypes": [ "knife", "melee" ],
+            "gearTypes": [ "knife", "melee", "throwable" ],
             "equip": true,
             "consumable": false,
             "weight": 1,
@@ -1158,7 +1165,7 @@
         },
         {
             "name": "Recurve Bow",
-            "requirements": [ {"ability": "Balance", "value": 3}, {"ability": "Think", "value": 2} ],
+            "requirements": [ {"ability": "Balance", "value": 3}, {"ability": "Think", "value": 2}, {"gearType": "arrow", "value": 1} ],
             "gearTypes": [ "bow", "ranged" ],
             "equip": true,
             "consumable": false,
@@ -1175,7 +1182,7 @@
                 "attribute": "target"
             }],
             "includes": [{ "name": "basic arrows", "count": 10 }],
-            "description": "A solid bow with decent accuracy. **Note**: you must have arrows to shoot! You **gain 10 basic arrows** when you receive this bow (0 damage bonus). These arrows are **single use** and weigh 0.1 each. Although this is a two-handed weapon, you may have a second, one-handed weapon equipped."
+            "description": "A solid bow with decent accuracy. **Note**: you must have arrows to shoot! You **gain 10 basic arrows** when you receive this bow (0 damage bonus). All arrows are **single use** and weigh 0.1 each. Although this is a two-handed weapon, you may have a second, one-handed weapon equipped."
         },
         {
             "name": "Magic Wand",
@@ -1291,11 +1298,12 @@
                 "amount": "+(10 x Lv)",
                 "attribute": "hp"
             }],
-            "description": "It has a slight minty flavor, not bad actually. When used to heal another player, use **their** level."
+            "description": "It has a slight minty flavor, not bad actually. When used to heal another player, use **their** level. Note that you must be on the spot with the other player (this item is NOT throwable)."
         },
         {
             "name": "Crafty Smoke Bomb",
             "requirements": null,
+            "gearTypes": ["throwable"],
             "equip": false,
             "consumable": true,
             "duration": "variable",
@@ -1321,6 +1329,7 @@
         {
             "name": "Exploding Arrows",
             "requirements": [ {"ability": "Lift", "value": 3} ],
+            "gearTypes": [ "ammunition", "arrow" ],
             "equip": false,
             "consumable": true,
             "duration": 1,
@@ -1331,7 +1340,7 @@
                 "amount": 4,
                 "attribute": "damage"
             }],
-            "description": "Make it go boom! Must be used with a bow. If this attack hits, the damage affects the target enemy **and all other enemies on the same spot**. All enemies may defend."
+            "description": "Make it go boom! Must be used with a bow. If this attack hits, the damage affects the target enemy **and all other enemies on the same spot**. All enemies may defend. Remove 1 from inventory for every shot."
         },
         {
             "name": "Iron Shield",
@@ -1456,6 +1465,7 @@
         {
             "name": "Magic Flute",
             "requirements": [ {"ability": "Think", "value": 2}, {"ability": "Lead", "value": 2} ],
+            "gearTypes": ["instrument"],
             "equip": false,
             "consumable": false,
             "weight": 0.5,
@@ -1476,7 +1486,7 @@
                 "amount": "+(20 x Lv)",
                 "attribute": "hp"
             }],
-            "description": "The chocolate coating makes it go down easier. When used to heal another player, use **their** level."
+            "description": "The chocolate coating makes it go down easier. When used to heal another player, use **their** level. Note that you must be on the spot with the other player (this item is NOT throwable)."
         },
         {
             "name": "Stretching Elixir",
@@ -1506,6 +1516,7 @@
         {
             "name": "Strong Fire Elixir",
             "requirements": [ {"ability": "Think", "value": 4}, {"ability": "Balance", "value": 2} ],
+            "gearTypes": ["throwable"],
             "equip": false,
             "consumable": true,
             "duration": "variable",
@@ -1521,6 +1532,7 @@
         {
             "name": "Strong Ice Elixir",
             "requirements": [ {"ability": "Think", "value": 4}, {"ability": "Lift", "value": 2} ],
+            "gearTypes": ["throwable"],
             "equip": false,
             "consumable": true,
             "duration": 2,
@@ -1536,6 +1548,7 @@
         {
             "name": "Strong Water Elixir",
             "requirements": [ {"ability": "Think", "value": 4}, {"ability": "Move", "value": 2} ],
+            "gearTypes": ["throwable"],
             "equip": false,
             "consumable": true,
             "duration": 1,
@@ -1670,7 +1683,7 @@
         },
         {
             "name": "Compound Bow",
-            "requirements": [ {"ability": "Balance", "value": 4}, {"ability": "Think", "value": 2} ],
+            "requirements": [ {"ability": "Balance", "value": 4}, {"ability": "Think", "value": 2}, {"gearType": "arrow", "value": 1} ],
             "gearTypes": [ "bow", "ranged" ],
             "equip": true,
             "consumable": false,
@@ -1687,7 +1700,7 @@
                 "attribute": "target"
             }],
             "includes": [{ "name": "basic arrows", "count": 10 }],
-            "description": "A very lightweight bow with intricate mechanisms to aid in firing. If your first arrow on an attack fails to deal full damage, you may immediately attack the same target again (only once). **Note**: you must have arrows to shoot! You **gain 10 Sharp Arrows** when you receive this bow (+2 damage bonus). These arrows weigh 0.1 each. Although this is a two-handed weapon, you may have a second, one-handed weapon equipped."
+            "description": "A very lightweight bow with intricate mechanisms to aid in firing. If your first arrow on an attack fails to deal full damage, you may immediately attack the same target again (only once). **Note**: you must have arrows to shoot! You **gain 10 Basic Arrows** when you receive this bow. Although this is a two-handed weapon, you may have a second, one-handed weapon equipped."
         },
         {
             "name": "Armor Fine Tuner",
@@ -1832,6 +1845,7 @@
         {
             "name": "Acid Bath",
             "requirements": [ {"ability": "Balance", "value": 4} ],
+            "gearTypes": ["throwable"],
             "equip": false,
             "consumable": true,
             "duration": 1,
