@@ -310,3 +310,9 @@ select option.disabled {
 #page-rules h2 {
     display: none;
 }
+
+
+#page-space .space-header {
+    display: flex;
+    justify-content: space-between;
+}

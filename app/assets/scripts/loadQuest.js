@@ -18,6 +18,7 @@ async function initQuestWalkthrough() {
             character: character.id,
             active: null,
             currentStep: 0,
+            spaces: [],
             completed: []
         }
         saveQuestTracker(tracker)
@@ -151,6 +152,7 @@ async function showActiveQuest(tracker, scenario) {
         }
         tracker.active = null
         tracker.currentStep = 0
+        tracker.spaces = []
         saveQuestTracker(tracker)
         alert('We\'ve saved your progress, good luck on the next quest!')
         window.location.reload()

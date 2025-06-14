@@ -7,6 +7,7 @@ import initLoadHome from './loadHome.js'
 import initLoadScenario from './loadScenario.js'
 import initQuestWalkthrough from './loadQuest.js'
 import initRulesPage from './loadRules.js'
+import initSpacePage from './loadSpaceDetails.js'
 import { indexOfItem, isDebug } from './shared.js'
 
 const PAGE_INIT = {
@@ -15,7 +16,8 @@ const PAGE_INIT = {
     'create-character': initCreateCharacter,
     'character-sheet': initCharacterSheet,
     'quest': initQuestWalkthrough,
-    'rules': initRulesPage
+    'rules': initRulesPage,
+    'space': initSpacePage
 }
 
 async function main(page) {

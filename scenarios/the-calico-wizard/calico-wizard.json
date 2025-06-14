@@ -2405,8 +2405,8 @@
         {
             "card": "Jack",
             "suit": "H",
-            "name": "Goblin",
-            "description": "Goblins are small creatures that generally fear direct contact with other species. Their diminutive stature makes them very good at hiding and climbing, preferring to find a good out of the way spot to fire arrows than directly attacking their opponents. Only found in the mountainous regions, this race of creature is highly impressionable and easily controlled. The goblins your party encounters all appear to be working under a guiding hand. A goblins maximum range with a bow is 2-6 spots. (Goblins do not attack players on adjacent spots.)",
+            "name": "Goblin Lieutenant",
+            "description": "Goblins are small creatures that generally fear direct contact with other species, but this lieutenant would be just fine slitting your throat. Goblins' diminutive stature makes them very good at hiding and climbing, preferring to find a good out of the way spot to fire arrows than directly attacking their opponents. Only found in the mountainous regions, this race of creature is highly impressionable and easily controlled. The goblins your party encounters all appear to be working under a guiding hand. A goblins maximum range with a bow is 2-6 spots. (Goblins do not attack players on adjacent spots, this lieutenant will advance instead.)",
             "hp": "avgLv x 9",
             "melee": { "name": "Grapple", "target": "12 - avgLv", "damage": "avgLv + Over" },
             "ranged": { "name": "Bow", "target": "9 - avgLv + R", "damage": "(avgLv x 2) + Over - R" },
@@ -2417,8 +2417,8 @@
         {
             "card": "Jack",
             "suit": "D",
-            "name": "Goblin",
-            "description": "Goblins are small creatures that generally fear direct contact with other species. Their diminutive stature makes them very good at hiding and climbing, preferring to find a good out of the way spot to fire arrows than directly attacking their opponents. Only found in the mountainous regions, this race of creature is highly impressionable and easily controlled. The goblins your party encounters all appear to be working under a guiding hand. A goblins maximum range with a bow is 2-6 spots. (Goblins do not attack players on adjacent spots.) This Goblin will attack a second time if their first attack fails to deal any damage. They cannot perform a melee attack, but will retreat.",
+            "name": "Goblin Archer",
+            "description": "@TODO UPDATE ALL NAMES/DESCRIPTIONS! Goblins are small creatures that generally fear direct contact with other species. Their diminutive stature makes them very good at hiding and climbing, preferring to find a good out of the way spot to fire arrows than directly attacking their opponents. Only found in the mountainous regions, this race of creature is highly impressionable and easily controlled. The goblins your party encounters all appear to be working under a guiding hand. A goblins maximum range with a bow is 2-6 spots. (Goblins do not attack players on adjacent spots.) This Goblin will attack a second time if their first attack fails to deal any damage. They cannot perform a melee attack, but will retreat.",
             "hp": "avgLv x 7",
             "melee": null,
             "ranged": { "name": "Bow x2", "target": "8 - avgLv + R", "damage": "(avgLv x 2) + Over - R" },
@@ -2546,6 +2546,18 @@
             "init": "avgLv + 11",
             "move": 3,
             "defense": { "melee": -1, "magic":2, "range": 0 }
+        },
+        {
+            "card": "Special",
+            "suit": "1",
+            "name": "Apprentice",
+            "description": "..."
+        },
+        {
+            "card": "Special",
+            "suit": "2",
+            "name": "Calico Wizard",
+            "description": "..."
         }
     ]
 }

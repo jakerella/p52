@@ -2,6 +2,8 @@
 import c from './constants.js'
 import $ from './jqes6.js'
 
+export const SUIT_TO_SYMBOL = { h: '♡', d: '♢', c: '♧', s: '♤', H: '♡', D: '♢', C: '♧', S: '♤' }
+
 export function isDebug() {
     return /(\?|&)debug($|&)/.test(window.location.search)
 }

@@ -1,0 +1,45 @@
+---
+layout: basic
+title: Space Details
+page: space
+---
+
+<section class='current-space'>
+    <header class='space-header'>
+        <h3 class='quest-title'>Quest Title</h3>
+        <aside>
+            <button class='add-space inline-button'>New Space</button>
+        </aside>
+    </header>
+    
+    <section class='enemies'>
+        <hgroup class='grid'>
+            <h2>Enemies...</h2>
+            <aside class='show-modal show-track-enemy edit-section' data-tooltip='Add an enemy to track in this space' data-placement='left' data-modal='track-enemy-modal'>✚</aside>
+        </hgroup>
+    </section>
+</section>
+
+<dialog class='track-enemy-modal'>
+    <article>
+        <header><h3>Track an Enemy</h3></header>
+        
+        <p>
+            A new enemy has appeared! Select the correct enemy from the list below.
+        </p>
+        <select class='new-enemy'>
+            <option value=''>Choose an enemy...</option>
+        </select>
+        <aside role='group'>
+            <label for='avg-lv-enemy'>Average Level:</label>
+            <input type='number' id='avg-lv-enemy' name='avg-lv-enemy' step='1' min='1' value='1' style='width:3em;'>
+            <span> ("avgLv", round down)</span>
+        </aside>
+        <section class='enemy-detail'></section>
+
+        <footer>
+            <button class='secondary close-modal' data-modal='track-enemy-modal'>Cancel</button>
+            <button class='track-enemy close-modal' data-modal='track-enemy-modal'>Track</button>
+        </footer>
+    </article>
+</dialog>
