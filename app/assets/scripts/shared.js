@@ -233,21 +233,26 @@ export function getCoreAbilitiesTableHtml(tableClass = 'core-abilities', default
 </table>`
 }
 
-export function buildAbilityDisplay(scenario, ability, charAbility = null, charItems = null, charCore = null) {
+export function buildAbilityDisplay(scenario, ability, charAbility = null, charItems = null, charCore = null, annotate = false) {
     const abStats = getAbilityTargetAndEffects(scenario, ability, charAbility, charItems)
 
     const effectText = Object.keys(abStats.effects).map((type) => {
         let text = abStats.effects[type].text.replace('{{amount}}', abStats.effects[type].amount)
         
-        if (charAbility) {
-            text = text.replace('aLv', `${charAbility.level}<span class='calc-source'>(aLv)</span>`)
-        }
-        if (charCore) {
-            text = text.replace('Lt', `${charCore.lift}<span class='calc-source'>(Lt)</span>`)
-                .replace('Th', `${charCore.think}<span class='calc-source'>(Th)</span>`)
-                .replace('Bc', `${charCore.balance}<span class='calc-source'>(Bc)</span>`)
-                .replace('Mv', `${charCore.move}<span class='calc-source'>(Mv)</span>`)
-                .replace('Ld', `${charCore.lead}<span class='calc-source'>(Ld)</span>`)
+        if (annotate) {
+            if (charAbility) {
+                text = text.replace('aLv', `${charAbility.level}<sup class='calc-source'>(aLv)</sup>`)
+            }
+            if (charCore) {
+                text = text.replace('Lt', `${charCore.lift}<sup class='calc-source'>(Lt)</sup>`)
+                    .replace('Th', `${charCore.think}<sup class='calc-source'>(Th)</sup>`)
+                    .replace('Bc', `${charCore.balance}<sup class='calc-source'>(Bc)</sup>`)
+                    .replace('Mv', `${charCore.move}<sup class='calc-source'>(Mv)</sup>`)
+                    .replace('Ld', `${charCore.lead}<sup class='calc-source'>(Ld)</sup>`)
+            }
+        } else {
+            const formula = calculateFormula(scenario, text, charCore, charAbility.name, '', charItems, { aLv: charAbility.level })
+            text = formula.result || formula.reduced || formula.formula
         }
         return text
     })
@@ -326,7 +331,7 @@ export function calculateFormula(scenario, base, coreStats, abilityName = null, 
     for (let key in params) {
         formula = formula.replaceAll(key, params[key])
     }
-    modifiers.forEach((mod) => {
+    ;(modifiers || []).forEach((mod) => {
         if (Number.isInteger(mod)) {
             const sign = (mod < 0) ? '-' : '+'
             formula = `(${formula}) ${sign} ${Math.abs(mod)}`
@@ -349,7 +354,7 @@ export function calculateFormula(scenario, base, coreStats, abilityName = null, 
 
     let result = null
     const reduced = reduceFormula(formula)
-    if (Number(reduced)) {
+    if (Number(reduced) || reduced === 0) {
         result = Number(reduced)
     }
 
@@ -357,25 +362,52 @@ export function calculateFormula(scenario, base, coreStats, abilityName = null, 
 }
 
 function reduceFormula(formula) {
-    let modified = formula
-    const matches = formula.match(/\([0-9 \-+*\/]+\)/g)
-    if (matches) {
-        matches.forEach((m) => {
-            try {
-                modified = modified.replace(m, Math.floor(eval(m)))
-            } catch(e) {
-                console.debug('unable to evaluate formula section:', m)
-            }
-        })
-        return reduceFormula(modified)
-    }  if (/^[0-9 \-+*\/]+$/) {
+    if (Number(formula.trim()) || Number(formula.trim()) === 0) {
+        return Number(formula)
+    }
+
+    // strip any plain numbers in parens
+    let processed = formula.replaceAll(/\(\s*([0-9]+)\s*\)/g, '$1')
+    
+    // If there's nothing left but numbers, math signs, and parens, try to solve it entirely
+    if (/^[0-9 \-+*\/\(\)]+$/.test(processed)) {
         try {
-            return eval(formula)
+            return eval(processed)
         } catch(e) {
-            console.debug('unable to evaluate reduced formula:', formula)
-            return formula
+            /* We should always be able to eval these, but if not, we'll return the raw formula */
+            return processed
         }
     }
+
+    // Process things in parens, in order, first...
+    const afterParens = processMath(/\(\s?[0-9]+ [\-+*\/] [0-9]+\s?\)/, processed)
+    if (afterParens.modified) {
+        return reduceFormula(afterParens.formula)
+    }
+    // ...then look for any multiplication or division...
+    const afterMultDiv = processMath(/[0-9]+ [*\/] [0-9]+/, processed)
+    if (afterMultDiv.modified) {
+        return reduceFormula(afterMultDiv.formula)
+    }
+    // ...finally check for addition or subtraction
+    const afterAddSub = processMath(/[0-9]+ [\-+] [0-9]+/, processed)
+    if (afterAddSub.modified) {
+        return reduceFormula(afterAddSub.formula)
+    }
+
+    return processed
+}
+
+function processMath(pattern, formula) {
+    const matches = formula.match(pattern)
+    if (matches) {
+        try {
+            return { modified: true, formula: formula.replace(matches[0], Math.floor(eval(matches[0]))) }
+        } catch(e) {
+            /* This match failed to reduce, but we can keep looking */
+        }
+    }
+    return { modified: false, formula }
 }
 
 export function buildItemDisplay(item, charItem = null, charCore = null) {

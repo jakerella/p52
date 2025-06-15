@@ -11,10 +11,16 @@ page: space
             <button class='add-space inline-button'>New Space</button>
         </aside>
     </header>
+
+    <aside role='group'>
+        <label for='avg-lv-space'>Average Player Level:</label>
+        <input type='number' id='avg-lv-space' name='avg-lv-space' step='1' min='1' value='1' style='width:2.5em;'>
+        <span> ("avgLv", round down)</span>
+    </aside>
     
     <section class='enemies'>
         <hgroup class='grid'>
-            <h2>Enemies...</h2>
+            <h2>Current Enemies</h2>
             <aside class='show-modal show-track-enemy edit-section' data-tooltip='Add an enemy to track in this space' data-placement='left' data-modal='track-enemy-modal'>✚</aside>
         </hgroup>
     </section>
@@ -30,11 +36,6 @@ page: space
         <select class='new-enemy'>
             <option value=''>Choose an enemy...</option>
         </select>
-        <aside role='group'>
-            <label for='avg-lv-enemy'>Average Level:</label>
-            <input type='number' id='avg-lv-enemy' name='avg-lv-enemy' step='1' min='1' value='1' style='width:3em;'>
-            <span> ("avgLv", round down)</span>
-        </aside>
         <section class='enemy-detail'></section>
 
         <footer>

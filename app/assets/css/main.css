@@ -134,6 +134,9 @@ button.wide {
     font-size: 0.9rem;
     top: 0
 }
+main details summary {
+    position: relative;
+}
 main details summary h3, main details summary h4 {
     display: inline;
 }
@@ -143,6 +146,10 @@ main details summary::after {
     color: #888;
     overflow: hidden;
     margin-right: 0.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    float: none;
 }
 .card-flips {
     display: flex;
@@ -315,4 +322,23 @@ select option.disabled {
 #page-space .space-header {
     display: flex;
     justify-content: space-between;
+}
+#page-space .enemies .short-stats {
+    font-size: 1.1rem;
+    margin: 0.3rem 0 0 0.5rem;
+    line-height: 1.5rem;
+}
+#page-space .enemies .attack-details {
+    margin-left: 0.5rem;
+    font-weight: bold;
+}
+#page-space .enemies .stat-target {
+    color: #339;
+}
+#page-space .enemies .stat-damage {
+    color: #933;
+}
+#page-space .enemies .description {
+    margin-left: 0.5rem;
+    color: #666;
 }
